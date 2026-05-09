@@ -1,0 +1,6 @@
+torch>=2.4.0
+einops>=0.7.0
+numpy>=1.26
+tqdm>=4.66
+PyYAML>=6.0
+requests>=2.31

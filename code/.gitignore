@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pt
+*.ckpt
+*.log
+out_*/
+runs/
+ckpt/
+.DS_Store

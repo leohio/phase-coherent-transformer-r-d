@@ -1,0 +1,85 @@
+# Path-X Readiness Sweep on Sakura DOK
+#
+# Goal: validate chunked complex_sigmoid attention on real H100, generate
+# mid-scale benchmark data on LRA-ListOps + long-context, while Path-X
+# dataset acquisition proceeds in parallel.
+#
+# All jobs use the new chunked attention path (attn_chunk_size triggers
+# when seq_len > chunk_size).
+#
+# Steps: 15000 (down from 50000). complex_sigmoid d128 LRA-ListOps plateaus
+# by ~8-10K steps; 15K = ~1.5× safety margin. 50K wasted ~70% of compute.
+#
+# Cost-bound: max_parallel=8 single-GPU h100-80gb @ ¥1,008/hr =
+#             ¥8,064/hr peak. With ~3-5h tasks (15K steps), total compute
+#             ≈ 100-160 H100·hr ≈ ¥100-160K, well under ¥1.5M budget cap.
+#
+# Launch (after image is pushed to complexscreen.sakuracr.jp/phase8:v2):
+#   ssh ubuntu@133.242.23.150 'cd /var/lib/phase8 && \
+#     SAKURACLOUD_ACCESS_TOKEN=... \
+#     SAKURACLOUD_ACCESS_TOKEN_SECRET=... \
+#     SAKURACLOUD_ZONE=is1a \
+#     nohup python3 code/scripts/dok_launcher.py \
+#       --queue configs/jobs_pathx_readiness_dok.yaml \
+#       --state state_pathx_readiness.json \
+#       --image-url complexscreen.sakuracr.jp/phase8:v2 \
+#       --gpu-plan h100-80gb \
+#       --registry-id 338acc49-8e5a-46ff-8856-f4f9e25f07dc \
+#       --max-parallel 8 \
+#       --budget-hard-jpy 1500000 \
+#       --time-limit-sec 21600 \
+#       --artifact-dir /var/lib/phase8/artifacts/pathx_readiness \
+#       > /var/lib/phase8/logs/pathx_readiness.log 2>&1 &'
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────
+  # LRA-ListOps mid-scale (synthetic, no external dataset; chunked attention triggers)
+  # 2 difficulties × 6 cells × 3 seeds = 36 jobs
+  # ─────────────────────────────────────────────────────────────────────────
+
+  # Difficulty A: depth=2, max_args=3, max_seq_len=2048, chunk=128
+  # (matches LRA paper's standard ListOps difficulty)
+  - {id: "lra_listops_A_real_softmax_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_softmax", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_softmax_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_softmax", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_softmax_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_softmax", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+
+  - {id: "lra_listops_A_real_sigmoid_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_sigmoid", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_sigmoid_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_sigmoid", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_sigmoid_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_sigmoid", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+
+  - {id: "lra_listops_A_real_screen_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_screen", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_screen_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_screen", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_real_screen_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "real_screen", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+
+  - {id: "lra_listops_A_complex_softmax_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_softmax", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_softmax_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_softmax", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_softmax_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_softmax", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+
+  - {id: "lra_listops_A_complex_sigmoid_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_sigmoid", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_sigmoid_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_sigmoid", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_sigmoid_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_sigmoid", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+
+  - {id: "lra_listops_A_complex_screen_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_screen", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_screen_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_screen", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_A_complex_screen_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 2, max_args: 3}, cell: "complex_screen", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+
+  # Difficulty B: depth=3, max_args=4, max_seq_len=2048, harder
+  - {id: "lra_listops_B_complex_sigmoid_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "complex_sigmoid", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_B_complex_sigmoid_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "complex_sigmoid", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+  - {id: "lra_listops_B_complex_sigmoid_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "complex_sigmoid", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, attn_chunk_size: 128, clip_grad: "1.0"}
+
+  - {id: "lra_listops_B_real_screen_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_screen", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_B_real_screen_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_screen", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_B_real_screen_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_screen", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+
+  - {id: "lra_listops_B_real_softmax_s0", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_softmax", seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_B_real_softmax_s1", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_softmax", seed: 1, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+  - {id: "lra_listops_B_real_softmax_s2", task: "lra_listops", task_params: {max_seq_len: 2048, max_depth: 3, max_args: 4}, cell: "real_softmax", seed: 2, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4, lr: "4e-4", weight_decay: "0.01", batch_size: 16, micro_batch: 4, warmup: 1500, steps: 15000, eval_every: 1000, checkpoint_every: 3000, clip_grad: "1.0"}
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # When Path-X dataset arrives, append:
+  #   - {id: "pathx_complex_sigmoid_s0", task: "pathx", cell: "complex_sigmoid",
+  #      seed: 0, dim: 128, depth: 6, heads: 4, dim_head: 32, ff_mult: 4,
+  #      lr: "4e-4", weight_decay: "0.01", batch_size: 4, micro_batch: 1,
+  #      warmup: 12000, steps: 150000, eval_every: 2000, checkpoint_every: 5000,
+  #      attn_chunk_size: 128, clip_grad: "1.0"}

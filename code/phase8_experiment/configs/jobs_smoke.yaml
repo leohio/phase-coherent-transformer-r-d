@@ -1,0 +1,32 @@
+# Phase 8 smoke test: 1 small job to validate the entire pipeline.
+# Runs Copy Memory K=10 d=200 with real_softmax for 1000 steps on H100.
+# Expected wall-clock: ~30 minutes. Cost: ~¥250.
+#
+# Pass criteria:
+#   - DOK task launches successfully
+#   - Container pulls image, starts training
+#   - Heartbeats reach mgr server (if configured)
+#   - Final model saved to SAKURA_ARTIFACT_DIR
+#   - Artifact downloadable via DOK API
+#   - metrics.jsonl shows monotonic loss decrease
+
+jobs:
+  - id: smoke-copymem-d200-real_softmax-s0
+    task: copymem
+    task_params:
+      K: 10
+      delay: 200
+    cell: real_softmax
+    seed: 0
+    steps: 1000
+    dim: 256
+    depth: 4
+    heads: 8
+    dim_head: 32
+    ff_mult: 4
+    batch_size: 32
+    lr: 0.0003
+    warmup: 100
+    checkpoint_every: 200
+    eval_every: 100
+    priority: 0
