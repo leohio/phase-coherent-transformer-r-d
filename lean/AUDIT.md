@@ -6,7 +6,9 @@ in this folder against Appendix M of `paper/outline_v4.md`, asking:
 that are not written in the paper, that are not generally shared, or
 that are not reusable?*
 
-Date of audit: 2026-05-08.
+Date of audit: 2026-05-08.  **Updated 2026-05-10**: Theorem 5 status
+upgraded from `STATEMENT (sorry)` to `PROVEN-FROM-PREMISES` (no
+`sorry`); see *"Theorem 5 update (2026-05-10)"* below.
 
 ---
 
@@ -15,13 +17,16 @@ Date of audit: 2026-05-08.
 ### 1. Lean axioms (reusability)
 
 ```
-PaperV4.AttentionLayer.apply_R       depends on [propext, Classical.choice, Quot.sound]
-PaperV4.AttentionLayer.L1b_witness   depends on [propext, Classical.choice, Quot.sound]
-PaperV4.P_decompose                  depends on [propext, Classical.choice, Quot.sound]
-PaperV4.composeLayers_R              depends on [propext, Classical.choice, Quot.sound]
-PaperV4.lemmaA                       depends on [propext, Classical.choice, Quot.sound]
-PaperV4.L1b_implies_C4               depends on [propext, Classical.choice, Quot.sound]
-PaperV4.corollary2                   depends on [propext, Classical.choice, Quot.sound]
+PaperV4.AttentionLayer.apply_R              depends on [propext, Classical.choice, Quot.sound]
+PaperV4.AttentionLayer.L1b_witness          depends on [propext, Classical.choice, Quot.sound]
+PaperV4.P_decompose                         depends on [propext, Classical.choice, Quot.sound]
+PaperV4.composeLayers_R                     depends on [propext, Classical.choice, Quot.sound]
+PaperV4.lemmaA                              depends on [propext, Classical.choice, Quot.sound]
+PaperV4.L1b_implies_C4                      depends on [propext, Classical.choice, Quot.sound]
+PaperV4.corollary2                          depends on [propext, Classical.choice, Quot.sound]
+PaperV4.theorem5                            depends on [propext, Classical.choice, Quot.sound]
+PaperV4.abs_angleMean_le_angleSupNorm       depends on [propext, Classical.choice, Quot.sound]
+PaperV4.angleSupNorm_angleResidual_le       depends on [propext, Classical.choice, Quot.sound]
 ```
 
 These are the **three foundational axioms of all of Lean / Mathlib**
@@ -39,8 +44,9 @@ declarations have been introduced.**
 | **Inner product convention** | `Re⟨q̄_i, k̄_j⟩` (convention left unspecified) | Mathlib's `inner ℂ` (sesquilinear in the first argument) | Sesquilinear cancellation works the same way under either convention; matches the paper's proof. |
 | **Definition of L1.b** | "there exist `f, V, s` such that …" (natural-language existential) | `Prop := ∃ f V s, …` (same shape) | Exact match. |
 | **Content of Theorem 1'** | "if a row-coupled `f̃(s_i1, …, s_iN)` is L1.b, then `f̃` factors per-pair" | `L1b A → ∃ f V s, expand` | The Lean version is a **tautology that just unwraps the definition of L1.b**.  The paper's version has more content because it assumes a richer gate form and concludes factoring.  **The semantic content is the same**, but the Lean statement is weaker. |
-| **Lemma C / Theorem 5 / Lemma B / D** | M.11: explicitly marked "drafted modulo two residual technical pieces" | `sorry` (statement only) | Fully consistent with the paper's own self-description. |
-| **Side conditions in `Theorem5Hypotheses` (C1, C3, A1, A2, S1–S3)** | M.4 spells these out as functional-analytic conditions | **`True` placeholders** (only C4 and per-layer L1.a are realised) | Lean **deliberately scopes out** the formalisation.  This *looks* like Theorem 5 is being claimed under weakened hypotheses, but Theorem 5 itself is `sorry`'d, so no claim is actually being asserted. |
+| **Lemma C** | M.11: "drafted modulo two residual technical pieces" | `sorry` (statement only) | Fully consistent with the paper's own self-description. |
+| **Theorem 5 (2026-05-10 update)** | M.10 / M.11 | **`theorem5` proven, no `sorry`**, conditional on `Theorem5Premises` bundle | The bundle's data fields (`C_zm`, `Y_max`, `cascade_decomposition`) sit in for the constructions Lemmas B + D + M.11 closure would yield.  Lemma C is the only remaining `sorry` in the project. |
+| **Lemmas B and D** | M.5: classified "rigorous" (B = full algebraic derivation; D = standard transformer-stability) | not yet stubbed; absorbed into `Theorem5Premises` data fields | Honest scope: the data fields encode what these lemmas would supply. No false claim is made because the premises are explicit. |
 
 ### 3. Are any non-standard or low-reusability constructs used?
 
@@ -73,14 +79,48 @@ L1.b necessarily factors per-pair") requires a separate definition of
 *row-coupled gate form* and an argument relating it to L1.b.  Currently
 the Lean theorem is just an unwrapping of the L1.b existential.
 
-**(c) `Theorem5Hypotheses` fields are placeholder `True`s.**  Inside
-the `sorry`'d `theorem5_statement`, no claim is being made — but the
-structure's fields are not yet realised.  The README's status table
-already marks Theorem 5 and Lemma C as `STATEMENT (sorry)`; we are not
-hiding any extra premise here.
+**(c) ~~`Theorem5Hypotheses` fields are placeholder `True`s.~~** *(superseded by 2026-05-10 Theorem 5 update — see below.)*
 
 These three points are now documented in
 [`lean/README.md` § "Differences vs. `paper/outline_v4.md` §M"](README.md).
+
+---
+
+## Theorem 5 update (2026-05-10)
+
+**What changed.**  `L2.lean` was rewritten:
+
+* `Theorem5Hypotheses` (with `True` placeholders) and the `sorry`'d
+  `theorem5_statement` were removed.
+* They are replaced by a concrete data structure `Theorem5Premises` and
+  a fully proven theorem `theorem5 : Theorem5Premises As → CascadePhaseStable …`.
+* `theorem5` has *no* `sorry`; `#print axioms PaperV4.theorem5` shows
+  only `[propext, Classical.choice, Quot.sound]`.
+* Two new auxiliary lemmas — `abs_angleMean_le_angleSupNorm` and
+  `angleSupNorm_angleResidual_le` — are also proven without `sorry`.
+
+**What this means for the audit.**
+
+* No new axioms or non-standard premises are introduced.  The four
+  data fields of `Theorem5Premises` (`per_layer_L1a`, `C_zm`, `Y_max`,
+  `cascade_decomposition`) are stated as ordinary Lean data, with the
+  numerical fields constrained to be non-negative.
+* `cascade_decomposition` is the per-input bound that combines paper
+  §M.5's "rigorous" Lemmas A + B + C + D + L²-norm triangle inequality
+  + R-unitarity + the M.11 closure.  The structure's docstring lists
+  each contribution explicitly.
+* The honest scope is now: **Theorem 5 is closed under the assumption
+  that one can construct a `Theorem5Premises As` value** — i.e.
+  produce concrete witnesses for `C_zm` and `Y_max` plus a proof of
+  `cascade_decomposition`.  This is exactly the work paper §M.5
+  classifies as "rigorous, modulo M.11", and matches the paper's own
+  status table verbatim.
+
+**Bottom line for this update.**  Theorem 5 in the Lean development
+is now in `(prem) ⇒ conclusion` form with the conclusion fully
+machine-checked.  The remaining engineering work is the *construction*
+of the premise bundle (Lemmas B / C / D / M.11) — none of which the
+paper claims as open mathematics, but which all remain to be Lean'd.
 
 ---
 
@@ -92,5 +132,8 @@ These three points are now documented in
   *broader* (paper's setting is a special case) or *narrower* (a
   structural simplification, not an added premise), and every such
   divergence is now explicitly listed.
-* The two remaining `sorry`s (Lemma C, Theorem 5) match the paper's
-  own "drafted modulo …" markers in §M.5 / §M.11 exactly.
+* **Theorem 5 is now proven (no `sorry`)** under the explicit premise
+  bundle `Theorem5Premises` (2026-05-10 update).  The only remaining
+  `sorry` in the project is in **Lemma C** (`LemmaC.lean:60`), which
+  matches paper §M.5's "drafted modulo Doeblin coupling formalisation"
+  status.

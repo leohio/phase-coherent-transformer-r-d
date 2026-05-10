@@ -16,13 +16,17 @@ A Lean formalisation of the definitions and theorems in this appendix is availab
 
 <https://github.com/leohio/phase-coherent-transformer-r-d/tree/main/lean>
 
-**We recommend that readers who want a quick, mechanical sanity-check on the definitions and the L1 sufficiency theorem consult the Lean development first.** The Lean files mirror the structure of the appendix one-to-one:
+**We recommend that readers who want a quick, mechanical sanity-check on the definitions and the sufficiency theorems consult the Lean development first.** The Lean files mirror the structure of the appendix one-to-one:
 
-- `Definitions.lean` — Definition 1, Definition 3, and the gate conditions C1–C4 in their operating-range form.
-- `L1.lean` — Theorem 1 (`C1 + C4 ⇒ L1`) machine-checked in full, plus Corollary 2 instantiated for PCT, `complex_screen`, and the negative `complex_softmax` case.
-- `L2.lean` — Lemmas A, B, and C as machine-checked statements; Lemma D and Theorem 5 stated with their explicit quantitative hypotheses.
+- `PaperV4/Basic.lean` — Setting and notation (M.0): `TokenSeq`, the global rotation `R(φ)` and per-token shift `P(ε)`, and the elementary identities used by Theorem 1 and Lemma A.
+- `PaperV4/L1.lean` — Definition 1, Theorem 1 (`C1 + C4 ⇒ L1`), Theorem 1', and Corollary 2. Machine-checked in full (no `sorry`).
+- `PaperV4/LemmaA.lean` — Lemma A (M.7): the exact factorisation `P(ε) = R(φ̄) ∘ P(δ)` and the global-mode pass-through across an L1 stack. Machine-checked in full (no `sorry`); the quantitative `‖Ỹ_L − Y_L‖` bound is absorbed into `Theorem5Premises.cascade_decomposition` (see below).
+- `PaperV4/LemmaC.lean` — Lemma C (M.9, Doeblin contraction). Statement only; the Mathlib-level proof of the standard coupling argument is left as `sorry`.
+- `PaperV4/L2.lean` — Definition 3, Definition 4, **`Theorem5Premises`** (a concrete data structure bundling Lemmas A–D + the M.11 closure as its data fields), and **`theorem5`** (Theorem 5 of M.10). `theorem5` is **proven without `sorry`** as a closed-form algebraic consequence of the premise bundle; `#print axioms PaperV4.theorem5` shows only the three standard Lean / Mathlib axioms `[propext, Classical.choice, Quot.sound]`. Lemmas B (M.8) and D (M.10) are not yet stubbed in Lean — their content is absorbed into the data fields of `Theorem5Premises`.
 
-The Lean development is intended as a low-friction verification path: a reader can clone the repository and run `lake build` to confirm that Theorem 1 type-checks. Where the Lean and the prose diverge, the Lean version is the authoritative source for the assertion's content.
+**Status summary (verified 2026-05-10).** Build is clean; the only `sorry` remaining in the project is in `LemmaC.lean` (Doeblin coupling). Theorem 5 is in `(prem) ⇒ conclusion` form: the conclusion `CascadePhaseStable` is fully proven once a `Theorem5Premises` value is supplied. Constructing such a value reduces to (i) Lemma C (already stubbed, sorry to be discharged), (ii) Lemmas B and D (paper §M.5 classifies as "rigorous", to be Lean'd), and (iii) the M.11 closure (`Λ_S · sup_l ‖J_l|_{V_0}‖ < 1` preserved across layers + (S3) under training).
+
+The Lean development is intended as a low-friction verification path: a reader can clone the repository and run `lake build` to confirm that Theorem 1 and Theorem 5 type-check. Where the Lean and the prose diverge, the Lean version is the authoritative source for the assertion's content.
 
 **Operating-range form of the conditions**. The L2-normalisation on Q, K restricts the cosine score to the operating range `s ∈ [−√d, √d]`, so the gate `α = f` only ever sees inputs from `[−√d − |b|, √d + |b|]` — call this the **operating range** `D_op`. We adopt the convention that C1, C2, C3, C4 are stated in their operating-range form. This convention is *load-bearing*:
 

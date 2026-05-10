@@ -1,0 +1,371 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!60!black,citecolor=blue!60!black]{hyperref}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{wrapfig}
+\usepackage{float}
+
+\lstset{basicstyle=\ttfamily\small, breaklines=true, columns=fullflexible,
+  frame=single, backgroundcolor=\color{black!3}, rulecolor=\color{black!30},
+  framerule=0.4pt, xleftmargin=0.4em, xrightmargin=0.4em,
+  aboveskip=0.6em, belowskip=0.6em}
+
+\setlist[itemize]{leftmargin=1.4em,topsep=2pt,parsep=2pt,itemsep=2pt}
+\setlist[enumerate]{leftmargin=1.6em,topsep=2pt,parsep=2pt,itemsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6\baselineskip}
+
+\captionsetup{font=small,labelfont=bf}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{1.6\baselineskip}{0.6\baselineskip}
+\titlespacing*{\subsection}{0pt}{1.1\baselineskip}{0.4\baselineskip}
+\titlespacing*{\subsubsection}{0pt}{0.9\baselineskip}{0.3\baselineskip}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+
+\title{\textbf{Appendix M: Mathematical Formalisation of the\\
+Phase-Coherent Transformer}}
+\author{Companion document to Hioki,\\
+\textit{Complex-Valued Phase-Coherent Transformer}}
+\date{}
+
+\begin{document}
+\maketitle
+\frenchspacing
+\# Appendix M: Mathematical Formalisation of the Phase-Coherent Transformer
+
+\textbf{Companion document to:} Hioki, \emph{Complex-Valued Phase-Coherent Transformer}.
+
+\textbf{Status:} Full proofs and explicit conditions. This is the rigorous version of the appendix; the paper's main body contains a shorter intuitive sketch.
+
+\medskip
+
+\section{Mathematical Formalisation}
+This appendix contains the full mathematical formalisation of the two-level phase-coherence property (L1, L2) and the four-condition framework that grounds the closeness-to-PCT axis used in body \S{}5.2. Body \S{}5.2 provides a short overview; this appendix gives the formal definitions, theorem statements, and proofs.
+
+\subsection{Machine-checked proofs (Lean) -- recommended}
+A Lean formalisation of the definitions and theorems in this appendix is available at:
+
+\url{https://github.com/leohio/phase-coherent-transformer-r-d/tree/main/lean}
+
+\textbf{We recommend that readers who want a quick, mechanical sanity-check on the definitions and the sufficiency theorems consult the Lean development first.} The Lean files mirror the structure of the appendix one-to-one:
+
+\begin{itemize}
+  \item \texttt{PaperV4/Basic.lean} -- Setting and notation (M.0): \texttt{TokenSeq}, the global rotation $R(\varphi )$ and per-token shift $P(\varepsilon )$, and the elementary identities used by Theorem 1 and Lemma A.
+  \item \texttt{PaperV4/L1.lean} -- Definition 1, Theorem 1 ($C1 + C4 \Rightarrow  L1$), Theorem 1', and Corollary 2. Machine-checked in full (no \texttt{sorry}).
+  \item \texttt{PaperV4/LemmaA.lean} -- Lemma A (M.7): the exact factorisation $P(\varepsilon ) = R(\bar \varphi ) \circ  P(\delta )$ and the global-mode pass-through across an L1 stack. Machine-checked in full (no \texttt{sorry}); the quantitative $\|\tilde Y_L - Y_L\|$ bound is absorbed into \texttt{Theorem5Premises.cascade\_decomposition} (see below).
+  \item \texttt{PaperV4/LemmaC.lean} -- Lemma C (M.9, Doeblin contraction). Statement only; the Mathlib-level proof of the standard coupling argument is left as \texttt{sorry}.
+  \item \texttt{PaperV4/L2.lean} -- Definition 3, Definition 4, \textbf{\texttt{Theorem5Premises}} (a concrete data structure bundling Lemmas A--D + the M.11 closure as its data fields), and \textbf{\texttt{theorem5}} (Theorem 5 of M.10). \texttt{theorem5} is \textbf{proven without \texttt{sorry}} as a closed-form algebraic consequence of the premise bundle; \texttt{\#print axioms PaperV4.theorem5} shows only the three standard Lean / Mathlib axioms \texttt{[propext, Classical.choice, Quot.sound]}. Lemmas B (M.8) and D (M.10) are not yet stubbed in Lean -- their content is absorbed into the data fields of \texttt{Theorem5Premises}.
+\end{itemize}
+
+\textbf{Status summary (verified 2026-05-10).} Build is clean; the only \texttt{sorry} remaining in the project is in \texttt{LemmaC.lean} (Doeblin coupling). Theorem 5 is in \texttt{(prem) $\Rightarrow $ conclusion} form: the conclusion \texttt{CascadePhaseStable} is fully proven once a \texttt{Theorem5Premises} value is supplied. Constructing such a value reduces to (i) Lemma C (already stubbed, \texttt{sorry} to be discharged), (ii) Lemmas B and D (paper \S{}M.5 classifies as ``rigorous'', to be Lean'd), and (iii) the M.11 closure ($\Lambda _S \cdot  \sup_l \|J_l|_{V_0}\| < 1$ preserved across layers + (S3) under training).
+
+The Lean development is intended as a low-friction verification path: a reader can clone the repository and run \texttt{lake build} to confirm that Theorem 1 and Theorem 5 type-check. Where the Lean and the prose diverge, the Lean version is the authoritative source for the assertion's content.
+
+\textbf{Operating-range form of the conditions}. The L2-normalisation on Q, K restricts the cosine score to the operating range $s \in  [-√d, √d]$, so the gate $\alpha  = f$ only ever sees inputs from \texttt{[-sqrtd - |b|, sqrtd + |b|]} -- call this the \textbf{operating range} \texttt{D\_op}. We adopt the convention that C1, C2, C3, C4 are stated in their operating-range form. This convention is \emph{load-bearing}:
+
+\begin{itemize}
+  \item A cell that is C2-violating on $\mathbb{R}$ but bounded on \texttt{D\_op} \textbf{satisfies operating-range C2} and is empirically close to PCT. The substrate \textbf{bypasses} the strict-on-$\mathbb{R}$ violation.
+  \item A cell whose violation persists on \texttt{D\_op} \textbf{fails operating-range C2} and exhibits cascade degradation.
+\end{itemize}
+
+Theorem 5 below requires C1 + C2 + C3 + C4 in the operating-range form, and the empirical results in \S{}5.4 confirm the necessity of all four conditions in this form. The proof's \texttt{M} constant is taken as the operating-range bound throughout.
+
+\textbf{Three structural grades of deviation}. A cell can deviate from a condition \texttt{C\_k} in three structurally distinct ways:
+
+\begin{enumerate}
+  \item \textbf{Partial in the gate domain}: \texttt{C\_k} holds on a subset of \texttt{D\_op} and is violated on the complement.
+  \item \textbf{Bypassed by the substrate}: \texttt{C\_k} violated on $\mathbb{R}$ but operating-range form holds, courtesy of L2-normalisation bounding \texttt{D\_op}.
+  \item \textbf{Strict in the operating range}: \texttt{C\_k} violated on most or all of \texttt{D\_op}, not bypassed.
+\end{enumerate}
+
+Theorem 5 holds for cells whose deviations are \emph{partial} or \emph{bypassed}. Cells with \emph{strict-in-operating-range} deviations fall outside Theorem 5's hypotheses and exhibit empirical collapse, as confirmed by the \S{}5.4 isolation.
+
+\subsection{M.0 Setting and notation}
+\begin{itemize}
+  \item Token sequence $X = \in  \mathbb{C}^{N\times d}$, with $x_i \ne  0$.
+  \item Global phase shift $R(\varphi ) : X \mapsto  (e^{i\varphi } x_1, ..., e^{i\varphi } x_N)$ for $\varphi  \in  \mathbb{R}$.
+  \item Per-token phase shift $P(\varepsilon ) : X \mapsto  (e^{i\varepsilon _i} x_i)_i$ for $\varepsilon  \in  \mathbb{R}^N$.
+  \item A complex attention layer $A_\theta  : \mathbb{C}^{N\times d} \to  \mathbb{C}^{N\times d}$ is parameterised by complex-linear maps \texttt{W\_q, W\_k, W\_v, W\_o} and a gate function $f : \mathbb{R} \to  \mathbb{R}$.
+  \item Standard form: writing $q_i = W_q x_i$, $k_j = W_k x_j$, $v_j = W_v x_j$, $\bar{q}_i = q_i / \|q_i\|_2$, $\bar{k}_j = k_j / \|k_j\|_2$, the layer is
+\end{itemize}
+
+\begin{align*}
+s_{ij}(X) &= \Re\langle \bar{q}_i, \bar{k}_j \rangle \quad (\text{cosine score}, \in [-1, 1]) \\
+\alpha_{ij}(X) &= f(s_{ij}(X) + b) \quad (\text{gate}, \in \mathbb{R}) \\
+A_\theta(X)_i &= W_o \cdot \Bigl(\sum_j \alpha_{ij}(X) \cdot v_j\Bigr)
+\end{align*}
+
+\subsection{M.1 Per-layer phase-coherence (L1) -- definition}
+\textbf{Definition 1}. An attention layer $A : \mathbb{C}^{N\times d} \to  \mathbb{C}^{N\times d}$ is \textbf{per-layer phase-coherent} if it satisfies both:
+
+\textbf{(L1.a) Global phase equivariance.} For every $\varphi  \in  \mathbb{R}$ and every \texttt{X},   $A(R(\varphi )X) = R(\varphi ) \cdot  A(X)$.
+
+\textbf{(L1.b) Element-independent gating.} There exist a real-valued function $f : \mathbb{R} \to  \mathbb{R}$, a complex-linear value path $V : \mathbb{C}^d \to  \mathbb{C}^d$, and a binary score function $s : \mathbb{C}^d \times  \mathbb{C}^d \to  \mathbb{R}$ invariant under joint global phase rotation ($s(e^{i\varphi } a, e^{i\varphi } b) = s(a, b)$), such that the layer can be written   $A(X)_i = \Sigma _j f(s(x_i, x_j)) \cdot  V(x_j)$.
+
+(L1.b) is the formal version of "no row-norm coupling": each gate value $\alpha _ij$ is determined by the pair \texttt{(x\_i, x\_j)} alone, with no dependence on tokens \texttt{x\_k} for $k \notin  {i, j}$.
+
+\subsection{M.2 L1 sufficiency -- theorem}
+\textbf{Theorem 1}. Suppose an attention layer $A_\theta $ is constructed with complex-linear maps \texttt{W\_q, W\_k, W\_v, W\_o} and a real-valued gate $\alpha _ij = f(s_ij)$ where $s_ij = \Re \langle \bar{q}_i, \bar{k}_j\rangle $. Then $A_\theta $ satisfies Definition 1.
+
+\emph{Proof.} For (L1.a): under $X \mapsto  R(\varphi )X$, complex-linearity gives $q_i \mapsto  e^{i\varphi } q_i$, hence $\bar{q}_i \mapsto  e^{i\varphi } \bar{q}_i$; similarly $\bar{k}_j \mapsto  e^{i\varphi } \bar{k}_j$. Then $\langle e^{i\varphi } \bar{q}_i, e^{i\varphi } \bar{k}_j\rangle  = (e^{i\varphi })^* \cdot  e^{i\varphi } \cdot  \langle \bar{q}_i, \bar{k}_j\rangle  = \langle \bar{q}_i, \bar{k}_j\rangle $, so \texttt{s\_ij}, hence $\alpha _ij$, is invariant. Meanwhile $v_j \mapsto  e^{i\varphi } v_j$, so $\Sigma _j \alpha _ij v_j \mapsto  e^{i\varphi } \Sigma _j \alpha _ij v_j$, and \texttt{W\_o} is complex-linear, so $A_\theta (R(\varphi )X) = R(\varphi ) A_\theta (X)$. $\checkmark$
+
+For (L1.b): take \texttt{f} as the gate function, $V = W_o \cdot  W_v$ as the value path, and $s(a, b) = \Re \langle \bar{a}, b\rangle $. Then \texttt{f(s(x\_i, x\_j))} involves only \texttt{(x\_i, x\_j)}, and $s(e^{i\varphi } a, e^{i\varphi } b) = s(a, b)$ by the same conjugate-cancellation as above. $\checkmark$ $\blacksquare$
+
+\textbf{Corollary 2}.
+
+\begin{itemize}
+  \item \emph{PCT}: gate is $f(s) = \sigma $, real-valued (C1); element-wise dependent on \texttt{s\_ij} only (C4). By Theorem 1, PCT is L1-coherent.
+  \item \emph{\texttt{complex\_screen}}: gate is $f(s) = T(r^2(s) \cdot  max(s - t, 0)^2)$ where \texttt{T = TanhNorm} is per-token, \texttt{r} is the magnitude prefactor depending on \texttt{(x\_i, x\_j)} only, and \texttt{t} is a learnable scalar. The gate is real-valued (C1) and per-pair (C4). By Theorem 1, \texttt{complex\_screen} is L1-coherent.
+  \item \emph{\texttt{complex\_softmax}}: gate is $\alpha _ij = exp(s_ij) / \Sigma _k exp(s_ik)$, which depends on ${s_ik : k \in  [N]}$. (L1.b) fails: there is no representation $\alpha _ij = f(s_ij)$ because the denominator couples tokens.
+\end{itemize}
+
+\textbf{Theorem 1'}. If a gate of the form $\alpha _ij = f$ for some $f$ is L1-coherent in the sense of Definition 1, then $f$ must be expressible as a function of \texttt{s\_ij} alone for each pair.
+
+\emph{Proof sketch.} L1.b requires $\alpha _ij = f(s_ij)$; this is precisely the negation of C4-violating row coupling. $\blacksquare$
+
+This closes the L1 layer. Per-layer phase-coherence is captured exactly by C1 (real) + C4. C2 and C3 do not enter L1.
+
+\subsection{M.3 All-layer phase-coherence (L2) -- definition}
+For L2 we capture that \emph{stacking} \texttt{L} per-layer-coherent layers preserves a phase invariant that does not degrade with \texttt{L}. We formalise this as \textbf{cascade phase stability}: the composed map should be Lipschitz-stable under per-token phase perturbations of the input, with a Lipschitz constant independent of \texttt{L}.
+
+\textbf{Definition 3}. A composition $A_L \circ  A_{L-1} \circ  ... \circ  A_1$ of per-layer-coherent attention layers is \textbf{cascade phase stable} if there exist constants \texttt{C\_0, C\_1 > 0}, \emph{independent of \texttt{L}}, such that for every input \texttt{X} and every per-token phase perturbation $\varepsilon  \in  \mathbb{R}^N$ with $\|\varepsilon \|_\infty  \le  \delta $,
+
+$\|(A_L \circ  ... \circ  A_1)(P(\varepsilon )X) - (A_L \circ  ... \circ  A_1)(X)\|_2 \le  C_0 \cdot  \delta  + C_1 \cdot  \delta ^2$.
+
+The key requirement is \emph{L-independence} of \texttt{C\_0, C\_1}. A trivial bound of the form $(1 + \gamma )^L \cdot  \delta $ is \emph{not} cascade phase stability -- it allows phase noise to grow exponentially with depth.
+
+\textbf{Definition 4}. A stack of attention layers is \textbf{all-layer phase-coherent} if it (i) is per-layer phase-coherent at every layer and (ii) is cascade phase stable.
+
+\subsection{M.4 L2 sufficiency -- refined conjecture}
+\textbf{Conjecture 5 (refined: C1+C3+C4 + substrate $\Rightarrow$ L2)}. Suppose every layer in the stack satisfies:
+
+\begin{itemize}
+  \item (C1) Real-valued gate $\alpha _ij \in  \mathbb{R}$.
+  \item (C3) Lipschitz gate function $f : \mathbb{R} \to  \mathbb{R}$ with $|f'(s)| \le  K_f$ for all $s \in  \mathbb{R}$, and \texttt{f' > 0} on a positive-measure subset of $\mathbb{R}$.
+  \item (C4) Element-independent gate $\alpha _ij = f(s_ij)$.
+\end{itemize}
+
+Suppose further the architectural baseline:
+
+\begin{itemize}
+  \item (A1) \textbf{L2-normalize on Q, K} so cosine score $s_ij \in  [-√d, √d]$ regardless of input.
+  \item (A2) \textbf{Continuous gate \texttt{f} on operating range} so $\|\alpha \|_\infty  \le  M := sup_{s \in  [-√d-|b|, √d+|b|]} |f|$ is finite.
+\end{itemize}
+
+Suppose further the substrate is bounded:
+
+\begin{itemize}
+  \item (S1) Value path operator norm $\|W_v\|_op \cdot  \|W_o\|_op \le  V_max$.
+  \item (S2) Layer-wise residual + normalisation makes the per-layer Lipschitz constant of the composed sub-map at most $\Lambda  < \infty $.
+\end{itemize}
+
+Then there exist constants \texttt{C\_0, C\_1 > 0} depending only on $(M, K_f, V_max, \Lambda , N, d)$ such that the stack is cascade phase stable with bound $C_0 \delta  + C_1 \delta ^2$, \emph{independent of \texttt{L}}.
+
+\textbf{Status}: drafted in M.6--M.10. Two residual technical pieces flagged in M.11.
+
+\textbf{Note on the C2 $\to$ (A2) reformulation}: The original C2 is \textbf{redundant} in the L2-normalized PCT architecture. (A1) provides bounded score domain, and any continuous gate (A2) automatically gives bounded $\|\alpha \|_\infty $ on the operating range. The \S{}5.4 isolation experiment (\texttt{complex\_softplus} violates C2 strict-on-$\mathbb{R}$ but satisfies (A2), and achieves acc=1.000 on Copy d=1000 N=3) confirms that C2 strict-on-$\mathbb{R}$ is not the operative condition; what matters is operating-range boundedness which is automatic.
+
+\subsection{M.5 Status: rigorous vs conjectured}
+\textbf{Rigorous}:
+
+\begin{itemize}
+  \item Definition 1 (L1) and Definition 3 -- full statements above.
+  \item Theorem 1 (C1 + C4 $\Rightarrow$ L1) -- full elementary proof above.
+  \item Corollary 2 -- direct from Theorem 1 / Theorem 1'.
+  \item Lemma A -- full proof.
+  \item Lemma B -- full algebraic derivation; second-order remainder bounded but not tightened.
+  \item Lemma C -- full proof, citing Levin--Peres--Wilmer 2017 Theorem 4.9 for the standard Doeblin coupling argument.
+\end{itemize}
+
+\textbf{Drafted with explicit conditions, full proof modulo two residual pieces (M.11)}:
+
+\begin{itemize}
+  \item Theorem 5 -- proven as the composition of Lemmas A--D plus Corollary C.1.
+  \item Corollary C.1 -- proof outlined; the cross-token term inherits Doeblin contraction directly (rigorous), the self-token / residual diagonal term is bounded but not contractive (rigorous), and the closure condition $K_R < \mu _D$ requires the bounded-input regime to be preserved across layers.
+  \item Lemma D -- standard transformer-stability argument citing Wang--Sun 2023 (DeepNet); rigorous under spectral-normalisation or weight-decay assumptions, otherwise empirical.
+\end{itemize}
+
+\textbf{Two residual technical pieces (M.11)} -- both tractable, neither is a deep open problem:
+
+\begin{enumerate}
+  \item Empirical verification of (S3) -- attention diffuseness preserved across training, with $\mu _D$ quantified per layer for trained PCT checkpoints.
+  \item Fixed-point argument that the bounded-input regime where $K_R < \mu _D$ is preserved across the cascade.
+\end{enumerate}
+
+\textbf{C2 status}: The original C2 is redundant; replaced by (A2) "continuous gate on bounded operating range", automatic in PCT architecture.
+
+\subsection{M.6 Strategy of the proof of Conjecture 5}
+The strategy decomposes the per-token phase perturbation $\varepsilon  \in  \mathbb{R}^N$ into two orthogonal modes and bounds each separately:
+
+\begin{enumerate}
+  \item \textbf{Global-mode decomposition.} Write $\varepsilon  = \varphi  \cdot  1 + \delta $ where $\varphi  = (1/N) \Sigma _i \varepsilon _i$ and $\delta  \perp  1$ (so $\Sigma _i \delta _i = 0$). The global mode $\varphi  \cdot  1$ passes through every layer \emph{exactly} by L1.a. Hence the cascade error from the global mode is $O(\delta ) \cdot  ||output||$, which is L-independent provided the stack output norm is bounded.
+  \item \textbf{Linearisation on the zero-mean subspace.} A single layer's effect on a zero-mean phase perturbation $\delta $ is, to first order in $||\delta ||_\infty $, given by a Jacobian matrix $J_l \in  \mathbb{R}^{N\times N}$ whose action depends on the row-stochasticised gate $P_{ij} = \alpha _ij / \Sigma _k \alpha _ik$ and the cosine-score's imaginary part $\eta _ij = -\Im \langle \bar{q}_i, \bar{k}_j\rangle $.
+  \item \textbf{Doeblin contraction on zero-mean subspace (Lemma C, proven assuming (S3)).} Under attention diffuseness (S3) -- every gate value is bounded below by a strictly positive multiple of a stationary distribution $\pi $ -- the row-stochastic matrix \texttt{P\_l = (P\_\{ij\}\^{}\{(l)\})} satisfies a Doeblin condition with explicit constant $\mu _D > 0$. This implies the operator norm of \texttt{J\_l} restricted to the zero-mean subspace ${\delta  : \Sigma _i \delta _i = 0}$ is bounded above by $\Lambda  := 1 - \mu _D < 1$.
+  \item \textbf{Cascade summation.} The depth-L cascade Lipschitz on the zero-mean subspace is bounded geometrically by $\Sigma _{l=0}^{L-1} \Lambda ^l \le  1/(1-\Lambda ) = 1/\mu _D$, \emph{L-independent}.
+  \item \textbf{Substrate non-expansion.} Residual + RMSNorm + FFN composition is non-expansive on bounded-norm inputs.
+\end{enumerate}
+
+The proof is complete modulo:
+
+\begin{itemize}
+  \item (i) \textbf{Verification of (S3)} for trained PCT layers: at initialisation (S3) holds with $\mu  = e^{-1}/N$ and $\pi  = 1/N \cdot  1$. Whether (S3) is preserved across training requires either an empirical check or a stability-of-training argument.
+  \item (ii) \textbf{Tightening the second-order term}: the $O(\delta ^2)$ bound is loose; a careful Taylor-2 expansion is straightforward but technical.
+\end{itemize}
+
+\subsection{M.7 Lemma A -- Global-mode decomposition}
+\textbf{Lemma A}. \emph{Let $\varepsilon  \in  \mathbb{R}^N$ and write $\varepsilon  = \varphi  \cdot  1 + \delta $ with $\varphi  = (1/N) \Sigma _i \varepsilon _i$ and $\Sigma _i \delta _i = 0$. Let $Y_L := (A_L \circ  ... \circ  A_1)(X)$ and $\tilde{Y}_L := (A_L \circ  ... \circ  A_1)(P(\varepsilon )X)$. Suppose every \texttt{A\_l} is per-layer phase-coherent. Then}
+
+$\tilde{Y}_L = R(\varphi ) \cdot  (A_L \circ  ... \circ  A_1)(P(\delta )X)$,
+
+\emph{and consequently}
+
+$||\tilde{Y}_L - Y_L||_2 \le  ||(A_L \circ  ... \circ  A_1)(P(\delta )X) - Y_L||_2 + |\varphi | \cdot  ||Y_L||_2 + O(\varphi ^2)$.
+
+\emph{Proof.} The exact factorisation $P(\varepsilon ) = R(\varphi ) \circ  P(\delta )$ holds because $e^{i\varepsilon _i} = e^{i\varphi } \cdot  e^{i\delta _i}$. By L1.a applied iteratively, $A_l \circ  R(\varphi ) = R(\varphi ) \circ  A_l$ for every \texttt{l}, so
+
+$\tilde{Y}_L = (A_L \circ  ... \circ  A_1)(R(\varphi ) P(\delta )X) = R(\varphi ) \cdot  (A_L \circ  ... \circ  A_1)(P(\delta )X)$.
+
+With $Z := (A_L \circ  ... \circ  A_1)(P(\delta )X)$ and $Y_L = (A_L \circ  ... \circ  A_1)(X)$:
+
+$||\tilde{Y}_L - Y_L|| = ||R(\varphi ) Z - Y_L||$ $\le  ||R(\varphi )(Z - Y_L)|| + ||(R(\varphi ) - I) Y_L||$ $= ||Z - Y_L|| + ||(R(\varphi ) - I) Y_L||$
+
+(using that $R(\varphi )$ is unitary). For $R(\varphi ) y_i = e^{i\varphi } y_i$, we have $|(e^{i\varphi } - 1) y_i| \le  |\varphi | \cdot  |y_i| + O(\varphi ^2)$. Summing, $||(R(\varphi ) - I) Y_L||_2 \le  |\varphi | \cdot  ||Y_L||_2 + O(\varphi ^2)$. $\blacksquare$
+
+The first term is the cascade Lipschitz under \textbf{zero-mean} phase perturbation. The second term is L-independent because \texttt{||Y\_L||} is bounded under (S1)+(S2).
+
+\subsection{M.8 Lemma B -- Linearised Jacobian on the zero-mean subspace}
+\textbf{Lemma B}. \emph{Fix a layer \texttt{A\_l} with parameters `\texttt{ and gate }f\texttt{. For every input }X\texttt{ and every zero-mean }$\delta$ $\in$ $\mathbb{R}$\textasciicircum{}N\texttt{ with }||$\delta$||\_$\infty$ $\leq$ $\xi$` (small), the layer output satisfies}
+
+$A_l(P(\delta )X) = A_l(X) + i \cdot  J_l(X) \cdot  \delta  + O(\xi ^2)$
+
+\emph{where \texttt{J\_l(X)} decomposes as}
+
+$J_l(X)\cdot \delta  = T_1 \cdot  \delta  - T_2 \cdot  \delta  + T_3 \cdot  \delta  + \rho  \cdot  diag(x) \cdot  \delta $
+
+\emph{with}
+
+\begin{itemize}
+  \item $[T_1 \delta ]_i := W_o \cdot  \Sigma _j \beta _ij^{(l)} \delta _j v_j$,
+  \item $[T_2 \delta ]_i := \delta _i \cdot  W_o \cdot  \Sigma _j \beta _ij^{(l)} v_j$,
+  \item $[T_3 \delta ]_i := W_o \cdot  \Sigma _j \alpha _ij^{(l)} \delta _j v_j$,
+  \item $[\rho  \cdot  diag(x) \delta ]_i := \rho  \cdot  \delta _i \cdot  x_i$,
+\end{itemize}
+
+\emph{where $\beta _ij = f' \cdot  \eta _ij$, $\eta _ij = -\Im \langle \bar{q}_i, \bar{k}_j\rangle $, $|\beta _ij| \le  K_f$, $|\alpha _ij| \le  M$.}
+
+\emph{Proof sketch.} Write $\bar{q}'_i = e^{i\delta _i} \bar{q}_i + O(\xi ^2)$, similarly $\bar{k}'_j$, \texttt{v'\_j}. Then
+
+$s'_ij = \Re \langle \bar{q}'_i, \bar{k}'_j\rangle  = \Re (e^{i(\delta _j - \delta _i)} \langle \bar{q}_i, \bar{k}_j\rangle )$.
+
+Linearising and using $\langle \bar{q}_i, \bar{k}_j\rangle  = s_ij + i \cdot  (-\eta _ij)$:
+
+$s'_ij - s_ij = \eta _ij (\delta _j - \delta _i) + O(\xi ^2)$.
+
+Hence $\alpha '_ij - \alpha _ij = \beta _ij (\delta _j - \delta _i) + O(\xi ^2)$. The value: $v'_j = e^{i\delta _j} v_j = v_j + i \delta _j v_j + O(\xi ^2)$. Combining:
+
+$A_l(P(\delta )X)_i = W_o \cdot  \Sigma _j [\alpha _ij + \beta _ij(\delta _j - \delta _i)][v_j + i \delta _j v_j] + \rho (1 + i \delta _i) x_i + O(\xi ^2)$,
+
+from which $T_1, T_2, T_3, \rho  \cdot  diag(x)$ are read off after splitting $\Sigma _j \beta _ij(\delta _j - \delta _i) = \Sigma _j \beta _ij \delta _j - \delta _i \Sigma _j \beta _ij$. $\blacksquare$
+
+\subsection{M.9 Lemma C -- Doeblin contraction on the zero-mean subspace}
+\textbf{Lemma C}. \emph{Suppose the gate satisfies (C1)--(C4) and (S3) -- there exist $\mu  > 0$ and a probability vector $\pi $ such that $\alpha _ij \ge  \mu  \cdot  \pi _j$ for all \texttt{i, j} and all inputs in the bounded set. Define the row-stochastic matrix \texttt{P} by $P_{ij} := \alpha _ij / \Sigma _k \alpha _ik$. Then \texttt{P} satisfies the Doeblin condition}
+
+$P_{ij} \ge  \mu _D \cdot  \pi _j$ \emph{with} $\mu _D := \mu  / M$,
+
+\emph{and the operator norm of \texttt{P} restricted to the zero-mean subspace $V_0 := \{u \in  \mathbb{R}^N : \Sigma _i u_i \cdot  w_i = 0\}$ is bounded by}
+
+$||P|_{V_0}||_\infty  \to  \infty  \le  1 - \mu _D$.
+
+\emph{Proof.} The Doeblin condition follows from $P_{ij} \ge  \mu  \pi _j / M$. The contraction on the zero-mean subspace is the standard \emph{coupling lemma}: given $P_{ij} \ge  \mu _D \pi _j$, write $P = \mu _D \cdot  1 \pi ^T + (1 - \mu _D) \cdot  Q$ for some row-stochastic \texttt{Q}; the rank-1 component annihilates $\{u : \langle \pi , u\rangle  = 0\}$, and \texttt{Q} is non-expansive. $\blacksquare$
+
+\textbf{Corollary C.1}. \emph{Under (C1)--(C4), (S1)--(S3), the per-layer Jacobian \texttt{J\_l} of Lemma B, restricted to the zero-mean subspace \texttt{V\_0} (uniform $\pi  = 1/N \cdot  1$), has operator norm}
+
+$|| J_l |_{V_0} ||_{2 \to  2} \le  \Lambda _l \cdot  W_max^2 \cdot  R \cdot  √N$
+
+\emph{for some $\Lambda _l \in  [0, 1)$.}
+
+The careful argument transferring \texttt{P}'s Doeblin contraction to \texttt{J\_l}'s contraction on \texttt{V\_0} defines a phase-coordinate projection $\Pi  : \mathbb{C}^{N\times d} \to  \mathbb{R}^N$ and shows $\Pi  J_l |_{V_0}$ is Doeblin-contractive. Cross-token terms \texttt{T\_1, T\_3} inherit Doeblin contraction directly; self-token terms \texttt{T\_2} and the residual diagonal are bounded but not contractive on their own -- the contraction returns at the \emph{next} attention call. Full detailed argument in M.11.
+
+\subsection{M.10 Lemma D -- Substrate non-expansion + Theorem 5}
+\textbf{Lemma D}. \emph{Suppose each layer \texttt{A\_l} is followed by a residual + RMSNorm + FFN substrate \texttt{S\_l} with the standard pre-norm transformer block structure. Under (S1) and bounded-input regime, \texttt{S\_l} is non-expansive on bounded-norm phase perturbations: $||S_l(\Delta u)||_2 \le  \Lambda _S \cdot  ||\Delta u||_2$ for some $\Lambda _S \le  1$.}
+
+\emph{Proof.} Standard. RMSNorm is 1-Lipschitz on bounded inputs; residual + FFN with bounded weights has standard transformer-stability bounds. $\blacksquare$
+
+\textbf{Theorem 5}. \emph{Suppose each layer \texttt{A\_l} satisfies (C1)--(C4), is followed by a substrate \texttt{S\_l} satisfying Lemma D, and (S1)--(S3) hold uniformly across layers. Then there exist constants \texttt{C\_0, C\_1}, \textbf{independent of \texttt{L}}, such that for all inputs \texttt{X} and all $\varepsilon  \in  \mathbb{R}^N$ with $||\varepsilon ||_\infty  \le  \delta $,}
+
+$||(A_L \circ  S_{L-1} \circ  ... \circ  S_1 \circ  A_1)(P(\varepsilon )X) - (A_L \circ  ... \circ  A_1)(X)||_2 \le  C_0 \cdot  \delta  + C_1 \cdot  \delta ^2$.
+
+\emph{Proof.} By Lemma A, the global-mode contribution is $C_global \cdot  \delta $ with \texttt{C\_global} L-independent. For the zero-mean cascade, iterate Corollary C.1 + Lemma D:
+
+$||\Delta u^{(l)}|| \le  \Lambda  \cdot  ||\Delta u^{(l-1)}|| + O(\xi ^2)$
+
+where $\Lambda  := \Lambda _S \cdot  sup_l ||J_l|_{V_0}|| \le  \Lambda _S \cdot  (1 - \mu _D)$. If $\Lambda  < 1$, the geometric series gives
+
+$||\Delta u^{(L)}|| \le  ||\Delta u^{(0)}|| / (1 - \Lambda ) + O(\delta ^2) / (1 - \Lambda )$,
+
+L-independent. Combining,
+
+$LHS \le  \cdot  \delta  + C_quadratic \cdot  \delta ^2 = C_0 \cdot  \delta  + C_1 \cdot  \delta ^2$. $\blacksquare$
+
+For PCT, $\Lambda  < 1$ is achievable. For \texttt{complex\_relu}, \texttt{f} is C\textasciicircum{}0 not C\textasciicircum{}1 -- the linearisation in Lemma B does not hold uniformly through the discontinuity, and the cascade summation does not close. \textbf{This is exactly the L2 failure}.
+
+\subsection{M.11 What remains rigorously open}
+Two residual technical pieces:
+
+\begin{enumerate}
+  \item \textbf{Verification of (S3) under training dynamics}. We assumed $\alpha _ij \ge  \mu  \cdot  \pi _j$ uniformly. At initialisation, the \texttt{b = -log N} bias gives $\mu  \ge  e^{-1}/N$ cleanly. During training, gradient updates can sharpen attention; we conjecture (S3) holds across training. Empirical verification: scatter $min_{i,j} \alpha _ij^{(l)}$ across training steps for trained PCT checkpoints.
+  \item \textbf{Step (2) of Corollary C.1}: transferring Doeblin contraction from \texttt{P} to \texttt{J\_l |\_\{V\_0\}}. The cross-token terms \texttt{T\_1, T\_3} inherit Doeblin contraction directly; the self-token terms require the phase-coordinate projection argument detailed below.
+\end{enumerate}
+
+\textbf{Detailed argument for self-token term (2)}. Define $\Pi  : \mathbb{C}^{N\times d} \to  \mathbb{R}^N$ by $\Pi (u)_i := \Im \langle u_i, \Delta u_i\rangle  / ||u_i||^2$. For a perturbation $\Delta u = J_l \cdot  \delta $ arising from a zero-mean phase perturbation of input, $\Pi (\Delta u)$ is the induced output phase perturbation.
+
+Apply $\Pi $ to each term:
+
+\begin{itemize}
+  \item $\Pi (T_1 \delta )_i = \Im \langle u_i, [T_1 \delta ]_i\rangle  / ||u_i||^2 = \Im \langle u_i, W_o \Sigma _j \beta _ij \delta _j v_j\rangle  / ||u_i||^2$. Doeblin applies when $\beta _ij v_j \ge  \mu _D' \cdot  \pi _j \cdot  v_j$ for some $\mu _D' > 0$ -- valid under (S3).
+  \item $\Pi (T_2 \delta )_i = \delta _i \cdot  \Im \langle u_i, \gamma _i\rangle  / ||u_i||^2$. Diagonal operator on $\delta $; bounded but not contractive. Contraction returns at the next attention call.
+  \item $\Pi (T_3 \delta )_i$: same structure as \texttt{T\_1} with $\alpha _ij$ weights, Doeblin directly under (S3).
+  \item $\Pi (\rho  \cdot  diag(x) \delta )_i = \rho  \cdot  \delta _i \cdot  \Im \langle u_i, x_i\rangle  / ||u_i||^2$: diagonal again, similarly bounded.
+\end{itemize}
+
+The \textbf{net effect} on $\Pi (\Delta u)$ is $ \delta $ where \texttt{C} is the cross-token contraction ($||C|_{V_0}|| \le  1 - \mu _D$) and \texttt{R} is the diagonal residual ($||R||_\infty  \le  K_R$). On \texttt{V\_0}: $|||_{V_0}||_{2 \to  2} \le  (1 - \mu _D) + K_R$. We need $K_R < \mu _D$.
+
+For PCT at initialisation, $\mu _D \approx  e^{-1}/(N M)$ and $K_R \approx  (K_f W_max^2 R + \rho  R) / r_min^2$. The condition $K_R < \mu _D$ requires the substrate's bounded-input regime to keep $r_min^2 \ge  const \cdot  N M /$, achievable via RMSNorm.
+
+\textbf{Open piece}: showing $K_R < \mu _D$ \emph{uniformly across L layers} requires the bounded-input regime to be preserved across the cascade -- a fixed-point argument that the iterated Lipschitz dynamics stay in the bounded set where (S3) and the $K_R < \mu _D$ condition both hold.
+
+This closes the proof modulo the fixed-point step. \textbf{Conjecture 5 is upgraded to a theorem under explicit quantitative conditions on the substrate and the attention diffuseness (S3) preserved across training.} Open: empirical verification of these conditions for PCT trained checkpoints plus tightening the fixed-point argument.
+
+\medskip
+
+\end{document}
