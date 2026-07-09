@@ -13,17 +13,19 @@
 |---|---:|---:|---:|---|---|
 | real_sm | 0.594 | 0.750 | 0.562 | 0.635 ± 0.100 (N=3) | DOK |
 | real_sig | 0.625 | 0.719 | 0.562 | 0.635 ± 0.079 (N=3) | DOK |
-| real_scr | 0.250 | 0.250 | 0.000 | 0.167 ± 0.144 (N=3) | DOK |
+| real_scr | 0.642 | 0.646 | 0.644 | 0.644 ± 0.002 (N=3) | DOK |
 | csm | 0.625 | 0.656 | 0.562 | 0.615 ± 0.048 (N=3) | DOK |
 | **csg (PCT)** | 1.000 | 1.000 | — | **1.000 ± 0.000 (N=2)** | Soroban |
 | **cscr (semi-PCT)** | 1.000 | 1.000 | 1.000 | **1.000 ± 0.000 (N=3)** | Soroban |
 
-→ **csg (PCT) and cscr (semi-PCT) are both at 100% (N=2-3); the other 4 cells are at 0.17–0.64.**
+→ **csg (PCT) and cscr (semi-PCT) are both at 100% (N=2-3); the other 4 cells are at 0.61–0.64.**
+
+> **real_scr correction (2026-07-09).** The previous real_scr values (`0.250 / 0.250 / 0.000 → 0.167 ± 0.144`) were the last-step evaluation batch of an interrupted run that was accidentally dumped as the final result, not a converged number. real_scr was re-run at the identical configuration and re-measured on the held-out **test** split with a stable n=2048 evaluation (N=3, DOK image v16), giving **0.644 ± 0.002**. Reason for the update: the earlier figure was a measurement artifact of the interrupted dump; real_scr in fact learns LRA-Text at a level comparable to the other real cells.
 
 ## 2. Key findings
 
 1. **PCT and semi-PCT fully solve LRA-Text 4K**: both csg and cscr at acc=1.000 (N=3 / N=2).
-2. **real_screen is dismal at 0.167**: on byte-level text, screening's hard threshold cannot handle distractors that lack phase/structural signal.
+2. **real_screen sits at 0.644 (mid, test split n=2048)**: comparable to vanilla real/complex softmax/sigmoid; it learns byte-level text but does not reach the PCT/semi-PCT ceiling.
 3. **Vanilla softmax/sigmoid (real or complex) sit at 0.61-0.64 (mid)**: byte-level IMDB is partially solvable from surface patterns.
 
 ## 3. Coverage / gaps

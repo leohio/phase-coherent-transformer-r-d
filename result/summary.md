@@ -39,7 +39,7 @@ The headline finding for each task, with the best-performing cell shown. "PCT-fa
 | **NIAH `L=2048` (mid)** | dim=256/L6, chunked attention, **`complex_sigmoid` N=3** (s=0 confirmed, s=1/s=2 in flight); other cells retracted (bugs/truncations) | `complex_sigmoid` (PCT) | **1.000** (eval_loss ~ 1e-4, deep) | [02_niah_L2048](02_niah_L2048/) |
 | **LRA-ListOps medium (small)** | dim=64, N=1 | `complex_sigmoid` | 0.7188 (semi-PCT 0.7148) | [03_lra_listops](03_lra_listops/) |
 | **LRA-ListOps `L=1024` (PCT-fair)** | dim=128, N=3 | `complex_sigmoid` | 0.854 (semi-PCT 0.833, real_screen 0.698) | [03_lra_listops](03_lra_listops/) |
-| **LRA-Text 4K** | dim=128, N=2-3, PCT-fair | `complex_sigmoid` + `complex_screen` (dual) | 1.000 / 1.000 (others ≤ 0.64) | [04_lra_text_4k](04_lra_text_4k/) |
+| **LRA-Text 4K** | dim=128, N=2-3, PCT-fair | `complex_sigmoid` + `complex_screen` (dual) | 1.000 / 1.000 (others ≤ 0.65) | [04_lra_text_4k](04_lra_text_4k/) |
 | **LRA-Image CIFAR** | dim=128, N=6, PCT-fair | `complex_sigmoid` | 0.458 (semi-PCT 0.406, real_screen 0.318) | [05_lra_image_cifar](05_lra_image_cifar/) |
 | **FFT-MNIST t=16** | dim=128, N=3, PCT-fair | `complex_screen` + `complex_sigmoid` (dual) | 0.938 / 0.927 | [06_fft_mnist](06_fft_mnist/) |
 | **Phase Memory** | dim=64, N=3, baseline | `real_screen` + `complex_sigmoid` + `complex_tanh+1` (tied) | 1.000 / 0.995 / 1.000 | [07_phase_memory](07_phase_memory/) |
@@ -135,7 +135,7 @@ Tree-structured ListOps formulas (nested MAX/MIN/MED/SM operators) at sequence l
 
 ### 5.4 LRA-Text 4K (byte-level IMDB classification)
 
-`complex_sigmoid` and `complex_screen` both reach acc=1.000 at param-fair. `real_screen` performs poorly (0.167) — screening's hard threshold doesn't pick up on byte-level structural signal. Vanilla softmax/sigmoid (real or complex) end up at 0.61-0.64 (some surface pattern, no deep learning).
+`complex_sigmoid` and `complex_screen` both reach acc=1.000 at param-fair. `real_screen` sits at 0.644 (test split n=2048, N=3) — comparable to the vanilla cells, below the PCT/semi-PCT ceiling. Vanilla softmax/sigmoid (real or complex) end up at 0.61-0.64 (some surface pattern, no deep learning). (The earlier `real_screen` figure of 0.167 was the last-step batch of an interrupted run accidentally dumped as the result; corrected 2026-07-09 — see [04_lra_text_4k](04_lra_text_4k/).)
 
 ### 5.5 LRA-Image (CIFAR pixel sequences, 32×32 grayscale → seq=1024)
 
