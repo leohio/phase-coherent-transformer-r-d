@@ -64,11 +64,11 @@ component the PCT framework assigns to input-independent phase rotation.
 
 ### 2.1 The recurrence
 
-Each of the 6 blocks applies, per state channel $n \in \{1,\dots,N\}$
+Each of the 6 blocks applies, per state channel $n \in \lbrace 1,\dots,N\rbrace $
 ($N=256$ per direction, bidirectional):
 
-$$h_t \;=\; \lambda \odot h_{t-1} \;+\; \gamma \odot (B x_t), \qquad
-y_t \;=\; \mathrm{Re}\!\left[C\, h_t\right] + D \odot x_t$$
+$$h_t  =  \lambda \odot h_{t-1}  +  \gamma \odot (B x_t), \qquad
+y_t  =  \mathrm{Re}\left[C  h_t\right] + D \odot x_t$$
 
 with $\lambda, \gamma \in \mathbb{C}^N$ diagonal, $B \in \mathbb{C}^{d\times N}$,
 $C \in \mathbb{C}^{N\times d}$ (stored as $(\mathrm{re},\mathrm{im})$ pairs).
@@ -77,8 +77,8 @@ diagonal system, so the entire sequence can be computed as a convolution.
 
 ### 2.2 Stable exponential parameterisation
 
-$$\lambda \;=\; \exp\!\big({-\exp(\nu) + i\theta}\big),\qquad
-|\lambda| = e^{-e^{\nu}} < 1 \;\text{ for all } \nu \in \mathbb{R}.$$
+$$\lambda  =  \exp\big({-\exp(\nu) + i\theta}\big),\qquad
+|\lambda| = e^{-e^{\nu}} < 1  \text{ for all } \nu \in \mathbb{R}.$$
 
 Learning $\nu$ (log–log magnitude) and $\log\theta$ decouples the decay rate
 from the rotation frequency and keeps the system unconditionally stable —
@@ -96,7 +96,7 @@ A near-unit-circle eigenvalue integrates a long window; without compensation
 the state variance blows up as $\sum_{k\ge0}|\lambda|^{2k} = (1-|\lambda|^2)^{-1}$.
 Setting
 
-$$\gamma \;=\; \sqrt{1-|\lambda|^2}$$
+$$\gamma  =  \sqrt{1-|\lambda|^2}$$
 
 gives every channel unit response energy
 ($\gamma^2 \sum_k |\lambda|^{2k} = 1$), so channels with wildly different
@@ -106,7 +106,7 @@ timescales coexist at one learning rate.
 
 Because the system is LTI, unrolling gives a causal convolution with kernel
 
-$$k_t \;=\; \gamma\,\lambda^{t}\quad (t = 0,\dots,L-1), \qquad
+$$k_t  =  \gamma \lambda^{t}\quad (t = 0,\dots,L-1), \qquad
 h = k * (Bx),$$
 
 computed exactly in $O(L\log L)$ by zero-padded FFT of length $2L$ (linear —
@@ -114,13 +114,13 @@ not circular — convolution). The backward direction uses independent
 parameters on the reversed sequence; summing the two directions'
 $C$-projections is algebraically identical to concatenation followed by a
 single linear map, since
-$[C_f\; C_b]\,[h_f; h_b] = C_f h_f + C_b h_b$.
+$[C_f  C_b] [h_f; h_b] = C_f h_f + C_b h_b$.
 
 ### 2.5 Why the *phase* is the position mechanism
 
 After $\Delta$ steps a unit of input is multiplied by
 
-$$\lambda^{\Delta} \;=\; |\lambda|^{\Delta}\, e^{\,i\theta\Delta}.$$
+$$\lambda^{\Delta}  =  |\lambda|^{\Delta}  e^{ i\theta\Delta}.$$
 
 The phase advances **linearly in the offset** $\Delta$, uniformly for every
 token — an input-independent rotary code, the continuous-time analogue of
@@ -161,21 +161,20 @@ recurrence carries information *between* chunks):
    $(\mathrm{re},\mathrm{im})$ pairs).
 2. **Phase-aligned score.** With $\bar q = q/\lVert q\rVert$,
    $\bar k = k/\lVert k\rVert$ ($\mathbb{C}$-norms):
-   $$s_{ij} \;=\; \mathrm{Re}\,\langle \bar q_i, \bar k_j\rangle \;\in\; [-1, 1].$$
+   $s_{ij} = \mathrm{Re} \langle \bar q_i, \bar k_j \rangle \in [-1, 1]$.
    The score is maximal when the two tokens' phase patterns align — matching
    by constructive interference.
 3. **Trim-and-square gate — no softmax, no row normalisation:**
-   $$\alpha_{ij} \;=\; r^2\,\mathrm{ReLU}(s_{ij} - t)^2,\qquad
-   r = e^{s_r}+1,\;\; t = 1 - 1/r,$$
-   with one learnable width $s_r$ per head. Each pair $(i,j)$ is admitted or
+   $\alpha_{ij} = r^2 \mathrm{ReLU}(s_{ij} - t)^2$, with $r = e^{s_r}+1$ and
+   $t = 1 - 1/r$, one learnable width $s_r$ per head. Each pair $(i,j)$ is admitted or
    rejected **on its own absolute relevance**: tokens do not compete for a
    probability budget (C1), the gate is real-valued and smooth (C2), never
    flips sign (C3), and is element-independent (C4).
 4. **Aggregation and magnitude control.** $u_i = \sum_j \alpha_{ij} v_j$
    (complex, un-normalised), then TanhNorm
-   $u \mapsto \tanh(\lVert u\rVert)\,u/\lVert u\rVert$ — a *radial* squash that
+   $u \mapsto \tanh(\lVert u\rVert) u/\lVert u\rVert$ — a *radial* squash that
    bounds magnitude while leaving phase untouched.
-5. **modReLU output gate.** $g \mapsto \mathrm{ReLU}(|g|+b)\,\tfrac{g}{|g|}$,
+5. **modReLU output gate.** $g \mapsto \mathrm{ReLU}(|g|+b) \tfrac{g}{|g|}$,
    then the complex Hadamard product $u \odot g$ — again gating magnitude
    only, preserving phase geometry.
 
