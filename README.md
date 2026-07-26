@@ -15,3 +15,4 @@
 - [`code/`](code/) — bench reproduction code (model, data loaders, multi-task trainer, Docker recipe)
 - [`result/`](result/) — per-task curated benchmark summaries
 - [`lean/`](lean/) — Lean 4 formalisation of Appendix M
+- [`pathx/`](pathx/) — **Path-X solved** (92.71 ± 0.89, first genuinely complex-valued NN): model weights, code, and mathematical documentation (paper §6)

@@ -1,0 +1,40 @@
+{
+  "architecture": "PCRClassifier (phase-coherent linear recurrence + non-competing complex screening attention hybrid)",
+  "task": "pathx",
+  "seq_len": 16384,
+  "vocab_size": 256,
+  "n_params": 2011660,
+  "training_steps": 250000,
+  "pcr_config": {
+    "d_model": 128,
+    "n_layers": 6,
+    "d_state": 256,
+    "norm": "batch",
+    "block": "s5",
+    "encoder": "linear",
+    "dropout": 0.0,
+    "r_min": 0.999,
+    "r_max": 0.9999,
+    "max_phase": 0.31416,
+    "lr_rec_factor": 0.3333,
+    "lr_bc_factor": 0.3333,
+    "screen_layers": [
+      2,
+      4
+    ],
+    "screen_heads": 4,
+    "screen_dim_head": 32,
+    "screen_chunk": 1024
+  },
+  "optimizer": {
+    "lr": 0.00045,
+    "weight_decay": 0.05,
+    "warmup": 2500,
+    "lr_scheduler": "hold_then_linear",
+    "lr_decay_start": 200000,
+    "lr_final_ratio": 0.1,
+    "clip_grad": 1.0,
+    "batch_size": 32
+  },
+  "seed": 0
+}
