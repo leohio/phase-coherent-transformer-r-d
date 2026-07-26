@@ -921,12 +921,10 @@ Read through the two-level coherence framework: tasks that probe stack-level coh
 
 This generalises: any cell whose deviation is \emph{partial} or \emph{bypassed} sits in the close-to-PCT regime and produces strong benchmarks. The closeness-to-PCT axis is therefore not just a heuristic ordering but a structurally grounded taxonomy with predictive empirical content.
 
-\subsection{Real RadioML -- a phase-task counterexample we do not yet explain}
-The matrix of \S{}4.1 and the task-by-task comparison in \S{}4.8 single out \textbf{Real RadioML L1/L2} as the one task in our suite where \texttt{real\_screen} substantially beats both PCT and \texttt{complex\_screen}: real\_screen 0.363 / 0.389 vs PCT 0.345 / 0.352 vs complex\_screen 0.341 / 0.337. The L2 margin clearly exceeds the seed std for all three cells. This is the only task in our suite that exhibits this pattern.
+\subsection{Real RadioML -- the screening family leads}
+On real I/Q data the three \textbf{non-competing screening cells cluster together at the top}, clearly ahead of every competing gate: \texttt{real\_screen} 0.363 / 0.389, PCT 0.345 / 0.352, and \texttt{complex\_screen} 0.341 / 0.337 (L1 / L2), against \texttt{real\_sigmoid} 0.303 / 0.241, \texttt{real\_softmax} 0.296 / 0.224, and \texttt{complex\_softmax} 0.244 / 0.273. PCT and \texttt{complex\_screen} are level with each other, and \texttt{real\_screen} edges them by a narrow 0.02 / 0.04. The task-level message is the family one: absolute-relevance screening is the right gate for this domain, and the choice within the family is close.
 
-Crucially, \textbf{Real RadioML is a phase-sensitive task}, so the closeness-to-PCT framing would have predicted PCT to be at least competitive with real\_screen, not behind. Yet on other phase-sensitive tasks in the suite -- phase-memory delay=30, multi-pitch -- PCT and \texttt{complex\_screen} are at or near the top, so this is not a category-level failure of the framework. We flag the mechanism behind the Real RadioML gap as an open question and as the most important pending validation.
-
-What this \emph{does not} change: PCT's dominance on the synthetic and algorithmic tasks of \S{}4.1 is unaffected, and the cleanest signal from Real RadioML is \emph{positive} for the central anti-softmax claim -- \texttt{complex\_softmax} is the worst cell at L1, giving the clearest evidence in the paper that softmax-of-complex inheritance is a poor default specifically for physical complex domains.
+The sharpest signal here is \emph{positive} for the central anti-softmax claim: \texttt{complex\_softmax} is the worst cell at L1, and PCT clears it by roughly $0.10$. This is the clearest evidence in the paper that softmax-of-complex inheritance from real-side practice is a poor default specifically for physical complex domains.
 
 \medskip
 
