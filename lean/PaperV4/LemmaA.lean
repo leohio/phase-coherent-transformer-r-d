@@ -4,11 +4,10 @@ PaperV4.LemmaA — Appendix M.7 (Lemma A: global-mode decomposition).
   [PROVEN]      The exact factorisation `P(ε) = R(φ̄) ∘ P(δ)` for
                 `φ̄ = (1/N) Σ ε_i`, `δ = ε - φ̄ · 1`.
   [PROVEN]      Whole-stack pass-through under `L1a` of every layer.
-  [STATEMENT]   The full quantitative bound
-                  `‖Ỹ_L − Y_L‖ ≤ … + |φ̄|·‖Y_L‖ + O(φ̄²)`
-                from body §M.7 last paragraph requires Taylor analysis
-                on `R(φ̄) − I` and a unitary triangle inequality; left
-                here as a stub.
+  [PROVEN]      The full quantitative bound (body §M.7 last paragraph)
+                is `lemmaA_bound` in `L2.lean` (where the `ℓ²` norm is
+                defined): the global estimate `|e^{iφ̄} − 1| ≤ |φ̄|`
+                makes it exact, with no `O(φ̄²)` remainder.
 
 Mirrors:
 
@@ -89,16 +88,14 @@ theorem lemmaA
   rw [P_decompose ε X]
   exact composeLayers_R As hL1a (angleMean ε) (P (angleResidual ε) X)
 
-/-! ### Quantitative bound (sketched, see body §M.7)
+/-! ### Quantitative bound (body §M.7)
 
 The body's quantitative bound
 
-  `‖Ỹ_L − Y_L‖₂ ≤ ‖(stack)(P(δ)X) − Y_L‖₂ + |φ̄|·‖Y_L‖₂ + O(φ̄²)`
+  `‖Ỹ_L − Y_L‖₂ ≤ ‖(stack)(P(δ)X) − Y_L‖₂ + |φ̄|·‖(stack)(P(δ)X)‖₂`
 
-follows from `lemmaA` plus a unitary triangle inequality and a Taylor
-bound on `R(φ̄) − I`.  The Taylor part is a routine `ε ↦ e^{iε} − 1` bound
-and is not yet formalised; we record only the qualitative factorisation
-above. -/
-theorem lemmaA_bound_TODO : True := trivial
+is proven as `lemmaA_bound` in `L2.lean` (which defines the `ℓ²` norm
+`tokenSeqNorm`).  No Taylor remainder is needed: the global estimate
+`|e^{iφ̄} − 1| ≤ |φ̄|` (`norm_cisR_sub_one_le`) is exact for all `φ̄`. -/
 
 end PaperV4

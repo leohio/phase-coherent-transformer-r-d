@@ -4,17 +4,17 @@ This folder contains a Lean 4 + Mathlib formalisation of the
 mathematical proofs in **Appendix M** of `paper/outline_v4.md`
 (Phase-Coherent Transformers / two-level phase coherence).
 
-## Build status (verified 2026-05-10)
+## Build status (verified 2026-08-05)
 
 ```
 $ lake build
-warning: PaperV4/LemmaC.lean:60:8: declaration uses `sorry`
 Build completed successfully (8407 jobs).
 ```
 
-`#print axioms` of all PROVEN theorems — including the new
-**`theorem5` (Theorem 5 from premises)** — shows only the three
-standard Lean / Mathlib axioms (no `sorry`):
+**The project contains no `sorry` and no bespoke premises.**
+`#print axioms` of every theorem — including **`lemmaC` (Doeblin
+contraction)** and **`theorem5` (cascade phase stability)** — shows
+only the three standard Lean / Mathlib axioms:
 
 ```
 PaperV4.AttentionLayer.apply_R              depends on [propext, Classical.choice, Quot.sound]
@@ -22,19 +22,32 @@ PaperV4.AttentionLayer.L1b_witness          depends on [propext, Classical.choic
 PaperV4.P_decompose                         depends on [propext, Classical.choice, Quot.sound]
 PaperV4.composeLayers_R                     depends on [propext, Classical.choice, Quot.sound]
 PaperV4.lemmaA                              depends on [propext, Classical.choice, Quot.sound]
+PaperV4.lemmaA_bound                        depends on [propext, Classical.choice, Quot.sound]
 PaperV4.L1b_implies_C4                      depends on [propext, Classical.choice, Quot.sound]
 PaperV4.corollary2                          depends on [propext, Classical.choice, Quot.sound]
+PaperV4.lemmaC                              depends on [propext, Classical.choice, Quot.sound]
+PaperV4.tokenSeqNorm_triangle               depends on [propext, Classical.choice, Quot.sound]
+PaperV4.tokenSeqNorm_R_sub_le               depends on [propext, Classical.choice, Quot.sound]
+PaperV4.composeLayers_zero_mean_stable      depends on [propext, Classical.choice, Quot.sound]
+PaperV4.cascade_geometric_bound             depends on [propext, Classical.choice, Quot.sound]
 PaperV4.theorem5                            depends on [propext, Classical.choice, Quot.sound]
-PaperV4.abs_angleMean_le_angleSupNorm       depends on [propext, Classical.choice, Quot.sound]
-PaperV4.angleSupNorm_angleResidual_le       depends on [propext, Classical.choice, Quot.sound]
+PaperV4.theorem5Hypotheses_satisfiable      depends on [propext, Classical.choice, Quot.sound]
 ```
 
-The only remaining `sorry` in the project is in **Lemma C**
-(`LemmaC.lean:60`).  **Theorem 5 itself is now proven** (`L2.lean`,
-`theorem5`) as a closed-form algebraic consequence of the
-`Theorem5Premises` bundle, which encapsulates Lemmas A + B + C + D
-plus the M.11 closure.  See *"Theorem 5: from premises to conclusion"*
-below.
+**Theorem 5 is proven** (`L2.lean`, `theorem5`) from **standard
+per-layer hypotheses only** (`Theorem5Hypotheses`): per-layer L1.a
+(supplied by Theorem 1), per-layer non-expansiveness (S2 + Lemma D),
+per-layer uniform Lipschitz stability against zero-mean phase
+perturbations (the single-layer conclusion of Lemmas B + C under S3),
+and a uniformly bounded output range (S1).  No hypothesis is
+conclusion-shaped — the earlier `Theorem5Premises.cascade_decomposition`
+field, which assumed the L-uniform decomposition bound wholesale, has
+been **removed** (2026-08-05) and replaced by a genuine depth induction.
+The hypothesis set is machine-checked to be satisfiable
+(`theorem5Hypotheses_satisfiable`), so nothing holds vacuously.
+**Lemma C is proven standalone** (`LemmaC.lean`, `lemmaC`; 2026-08-05)
+via the rank-1 Doeblin-component decomposition of Levin–Peres–Wilmer
+2017 Theorem 4.9.
 
 ## Mapping: Appendix-M sections ↔ Lean files
 
@@ -47,26 +60,25 @@ below.
 | M.2 | Corollary 2 — `corollary2` | [`PaperV4/L1.lean`](PaperV4/L1.lean) | **PROVEN** ✓ |
 | M.3 | Definition 3 (cascade phase stability) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **STATEMENT** |
 | M.3 | Definition 4 (all-layer phase coherence) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **STATEMENT** |
-| M.4 / M.10 | **Theorem 5** (C1+C3+C4+(A1,A2,S1–S3) ⇒ L2) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **PROVEN-FROM-PREMISES** ✓ (`theorem5`, no `sorry`) |
-| M.4 / M.10 | `Theorem5Premises` (bundles Lemmas A–D + M.11 closure) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **STATEMENT** (the data fields that *would* require Lemmas B–D + M.11 to construct) |
+| M.4 / M.10 | **Theorem 5** (C1+C3+C4+(A1,A2,S1–S3) ⇒ L2) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **PROVEN** ✓ (`theorem5`, no `sorry`, standard hypotheses only) |
+| M.4 / M.10 | `Theorem5Hypotheses` (standard per-layer conditions) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | satisfiable ✓ (`theorem5Hypotheses_satisfiable`) |
+| M.6 step 4 | Geometric cascade recurrence (`Σ Λ^l ≤ 1/(1−Λ)` in invariant form) | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **PROVEN** ✓ (`cascade_geometric_bound`) |
 | M.7 | Lemma A — `P_decompose`, `composeLayers_R`, `lemmaA` | [`PaperV4/LemmaA.lean`](PaperV4/LemmaA.lean) | **PROVEN** ✓ (factorisation + stack pass-through) |
-| M.7 | Quantitative norm bound `‖Ỹ_L − Y_L‖ ≤ … + |φ̄|·‖Y_L‖` | [`PaperV4/LemmaA.lean`](PaperV4/LemmaA.lean) | not yet (TODO; absorbed into `Theorem5Premises.cascade_decomposition`) |
-| M.8 | Lemma B — linearised per-layer Jacobian | — | not yet started (absorbed into `Theorem5Premises`) |
-| M.9 | Lemma C — Doeblin contraction | [`PaperV4/LemmaC.lean`](PaperV4/LemmaC.lean) | **STATEMENT** (sorry) |
-| M.10 | Lemma D — substrate non-expansion | — | not yet started (absorbed into `Theorem5Premises`) |
+| M.7 | Quantitative norm bound `‖Ỹ_L − Y_L‖ ≤ … + |φ̄|·‖W‖` | [`PaperV4/L2.lean`](PaperV4/L2.lean) | **PROVEN** ✓ (`lemmaA_bound`; exact, no `O(φ̄²)` remainder) |
+| M.8 | Lemma B — linearised per-layer Jacobian | — | paper-level; its single-layer conclusion is the standard hypothesis `zero_mean_phase_stable` |
+| M.9 | Lemma C — Doeblin contraction | [`PaperV4/LemmaC.lean`](PaperV4/LemmaC.lean) | **PROVEN** ✓ (`lemmaC`, no `sorry`) |
+| M.10 | Lemma D — substrate non-expansion | — | paper-level; its conclusion is the standard hypothesis `substrate_nonexpansive` |
 
 ### Status legend
 
 * **PROVEN** — full Lean proof, no `sorry`. Verified by `lake build`
   ending in `Build completed successfully` with `#print axioms` showing
   only `[propext, Classical.choice, Quot.sound]`.
-* **PROVEN-FROM-PREMISES** — the conclusion is fully proven (no `sorry`)
-  given a bundle of premises stated as a Lean structure. The premise
-  fields correspond 1:1 to paper §M.5's "rigorous lemmas" + M.11
-  closure; the data inside the structure is what would have to be
-  *constructed* in a future pass (full proofs of Lemmas B–D + M.11).
-* **STATEMENT** — only the formal statement is given; the proof is `sorry`.
-  This mirrors the body's "drafted modulo …" markers.
+* **paper-level** — the lemma is proven in the paper / companion
+  document but not re-proven in Lean against a concrete architecture;
+  its *conclusion* enters `theorem5` as an explicitly named, standard
+  mathematical hypothesis (a Lipschitz / non-expansiveness / bounded-
+  range condition), never as a conclusion-shaped bound.
 
 ## What is fully proven
 
@@ -94,74 +106,106 @@ The proof of L1.a chains:
 The whole-stack version ([`composeLayers_R`](PaperV4/LemmaA.lean),
 [`lemmaA`](PaperV4/LemmaA.lean)) follows by induction on the layer list,
 using `L1a` of every layer (PROVEN).  The **quantitative** body bound
-`‖Ỹ_L − Y_L‖₂ ≤ … + |φ̄|·‖Y_L‖₂ + O(φ̄²)` is left as a stub
-(`lemmaA_bound_TODO`) — it is a Taylor expansion of `R(φ̄) − I` plus a
-unitary triangle inequality.
+is PROVEN as [`lemmaA_bound`](PaperV4/L2.lean) (2026-08-05):
+
+  `‖stack(P ε X) − stack X‖₂
+     ≤ ‖stack(P δ̃ X) − stack X‖₂ + |φ̄| · ‖stack(P δ̃ X)‖₂`
+
+with **no `O(φ̄²)` remainder** — instead of a Taylor expansion, the
+proof uses the global estimate `|e^{iφ̄} − 1| = 2|sin(φ̄/2)| ≤ |φ̄|`
+(Mathlib `Real.norm_exp_I_mul_ofReal_sub_one_le`), together with the
+`PiLp 2` triangle inequality (`tokenSeqNorm_triangle`).
 
 ### Theorem 1' (M.2 second half): necessity of C4 for L1.b
 
 ⇒ [`L1b_implies_C4`](PaperV4/L1.lean) (PROVEN).
 Just unwraps the `L1b` existential.
 
-## Theorem 5: from premises to conclusion
+### Lemma C (M.9): Doeblin contraction
 
-`L2.lean` exposes Theorem 5 in **`(prem) ⇒ CascadePhaseStable`** form:
+⇒ [`lemmaC`](PaperV4/LemmaC.lean) (PROVEN, no sorry; added 2026-08-05).
+
+If `P` is row-stochastic and satisfies the Doeblin condition
+`P_ij ≥ μ π_j` (with `μ > 0`, `π` a probability vector), then on the
+zero-mean subspace `V_0 = {u : Σ_i u_i π_i = 0}`,
+
+  `max_i |Σ_j P_ij u_j| ≤ (1 − μ) · max_j |u_j|`.
+
+The Lean proof follows Levin–Peres–Wilmer 2017 Theorem 4.9 directly:
+on `V_0` the rank-1 component `μ · 1 π^T` annihilates `u`, so
+`Σ_j P_ij u_j = Σ_j (P_ij − μ π_j) u_j`; the residual coefficients are
+non-negative with row sum `1 − μ`, and the triangle inequality closes
+the bound.  No coupling machinery is needed — the finite-dimensional
+`ℓ∞ → ℓ∞` case is a direct big-operator argument.
+
+## Theorem 5: from standard hypotheses to the conclusion
+
+`L2.lean` exposes Theorem 5 in **`(standard hypotheses) ⇒
+CascadePhaseStable`** form:
 
 ```lean
-theorem theorem5
+theorem theorem5 {K Y_max : ℝ}
     (As : ℕ → List (TokenSeq N d → TokenSeq N d))
-    (prem : Theorem5Premises As) :
+    (hyp : Theorem5Hypotheses As K Y_max) :
     CascadePhaseStable (fun L => composeLayers (As L))
 ```
 
 The proof is fully closed (no `sorry`); `#print axioms PaperV4.theorem5`
-shows only the three standard Lean / Mathlib axioms.  The proof
-strategy is paper §M.10 verbatim: take `δ := ‖ε‖_∞`, bound
-`|angleMean ε| ≤ δ` and `‖angleResidual ε‖_∞ ≤ 2 δ` (both proven as
-auxiliary lemmas with no `sorry`), and combine with the premise
-bundle to obtain `(C_0, C_1) = (2 · C_zm + Y_max, 0)` independent of
-`L`.
+shows only the three standard Lean / Mathlib axioms.  All fields of
+`Theorem5Hypotheses` are **`Prop`s stating standard mathematical
+conditions** (there are no opaque data fields, and no field assumes
+anything depth-uniform about the cascade):
 
-The `Theorem5Premises` structure has four data fields:
+* `per_layer_L1a` — every layer is globally phase equivariant
+  (C1 + C4 ⇒ L1.a; **provided by Theorem 1**, machine-checked).
+* `substrate_nonexpansive` — every layer is non-expansive in `‖·‖₂`
+  (the conclusion of (S2) + **Lemma D**; a standard 1-Lipschitz
+  condition).
+* `zero_mean_phase_stable` — every layer is uniformly `K`-Lipschitz
+  against zero-mean phase perturbations (the single-layer conclusion
+  of **Lemma B + Lemma C** under (S3); Lemma C itself is
+  machine-checked as `lemmaC`).
+* `output_bound` — the stack output is uniformly bounded by `Y_max`
+  (the conclusion of (S1); a standard bounded-range condition).
+* `stack_nonempty`, `K_nonneg`, `Y_max_nonneg` — side conditions.
 
-* `per_layer_L1a` — every layer satisfies L1.a (provided by Theorem 1).
-* `C_zm`, `C_zm_nonneg` — the zero-mean cascade Lipschitz constant.
-  Constructing this from first principles requires Lemmas B + C + D
-  + M.11 closure (`Λ_S · sup_l ‖J_l|_{V_0}‖ < 1`).
-* `Y_max`, `Y_max_nonneg` — uniform output norm bound.  Constructing
-  this requires (S1) + (S2) + Lemma D.
-* `cascade_decomposition` — the Lemma-A-decomposed cascade bound that
-  combines Lemmas A + B + C + D + L²-norm triangle inequality + R-
-  unitarity into a single per-input inequality.
+From these, the proof *derives* the depth-uniform constants
+`(C_0, C_1) = (2K + Y_max, 0)` by real induction (machine-checked):
 
-In short: **`theorem5` discharges the algebraic / geometric-series
-core of Theorem 5 once and for all**; the remaining work is
-*constructing* a `Theorem5Premises` value, which decomposes neatly
-into the four classical lemmas the paper §M.5 already classifies as
-"rigorous", modulo the M.11 residual pieces.
+1. `lemmaA` / `lemmaA_bound` — global mode `φ̄` passes exactly through
+   the L1.a stack; the quantitative bound has **no** `O(φ̄²)` remainder
+   because `|e^{iφ̄} − 1| ≤ |φ̄|` holds globally.
+2. `tokenSeqNorm_R_sub_le` — the global-mode error is `≤ |φ̄| · Y_max`.
+3. `composeLayers_zero_mean_stable` — the zero-mean residual is
+   absorbed by the entry layer (constant `K`) and propagated unchanged
+   through the non-expansive substrate, **independent of depth**.
+4. `cascade_geometric_bound` — the geometric recurrence
+   `e_{l+1} ≤ Λ e_l + b`, `Λ < 1` ⇒ L-independent bound (M.6 step 4,
+   with `Λ = 1 − μ_D` from Lemma C), proven separately.
+
+**Non-vacuity**: `theorem5Hypotheses_satisfiable` constructs an
+explicit instance of the hypothesis bundle, so the theorem does not
+hold vacuously.
 
 ## What is left as `sorry` in the project
 
-The only `sorry` in the project after the Theorem 5 update is:
+**Nothing** — as of 2026-08-05 the project builds with zero `sorry`s,
+and (same date) the earlier conclusion-shaped premise field
+`cascade_decomposition` has been eliminated in favour of the standard
+per-layer hypotheses above.
 
-1. **Lemma C** (M.9, `LemmaC.lean:60`): Doeblin contraction on the
-   zero-mean subspace.  The proof tracks Levin–Peres–Wilmer 2017
-   Theorem 4.9; formalising the standard coupling argument is a
-   substantial Mathlib project on its own and has been left as a
-   `sorry` skeleton.
+The remaining formalisation work — none of which affects the
+correctness or the hypotheses of what is proven — is to *derive* the
+per-layer hypotheses for the concrete trained architecture:
 
-The remaining engineering work to obtain a fully `sorry`-free Theorem 5
-**without** the `Theorem5Premises` indirection is:
-
-* **Lemma B** (M.8): not yet stubbed.  Linearised per-layer Jacobian
-  on the zero-mean subspace.
-* **Lemma D** (M.10): not yet stubbed.  Substrate non-expansion.
+* **Lemma B** (M.8): linearised per-layer Jacobian on the zero-mean
+  subspace, for the concrete `AttentionLayer`.
+* **Lemma D** (M.10): substrate non-expansion for the concrete
+  residual + RMSNorm + FFN substrate.
 * **M.11 closure**: the fixed-point argument that `K_R < μ_D` is
   preserved across layers, plus verification that (S3) is preserved
   across training.  Both are flagged "tractable, neither is a deep
   open problem" in §M.5/M.11.
-* A constructor function `Theorem5Premises.ofLemmasABCD : … → Theorem5Premises As`
-  assembling the four lemmas and the closure into the bundled premise.
 
 ## Building
 
@@ -209,11 +253,14 @@ ours):**
   paper's "row-coupled `f̃` form ⇒ factors" requires a separate
   definition of "row-coupled gate"; not done here.
 
-**~~`Theorem5Hypotheses` uses `True` placeholders.~~** *(2026-05-10
-update: the `True`-placeholder structure has been replaced by
-`Theorem5Premises` with concrete data fields, and `theorem5` is now
-proven without `sorry` from these premises. See "Theorem 5: from
-premises to conclusion" above.)*
+**~~`Theorem5Hypotheses` uses `True` placeholders.~~** *(2026-05-10:
+replaced by `Theorem5Premises` with concrete data fields.
+2026-08-05: `Theorem5Premises` itself replaced — its
+`cascade_decomposition` field was conclusion-shaped (it assumed the
+L-uniform decomposition bound wholesale). The current
+`Theorem5Hypotheses` contains only standard per-layer conditions and
+the depth-uniformity is derived, not assumed. See "Theorem 5: from
+standard hypotheses to the conclusion" above.)*
 
 ### No hidden axioms or non-standard premises
 

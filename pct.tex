@@ -744,7 +744,7 @@ Whenever we say "C\_k satisfied" below, we mean it in the operating-range form u
 
 \begin{itemize}
   \item \textbf{Theorem 1}: \textbf{C1 \& C4 $\Rightarrow$ L1}. Elementary proof via complex-linear conjugate cancellation. PCT and \texttt{complex\_screen} satisfy L1; \texttt{complex\_softmax} does not.
-  \item \textbf{Theorem 2}: \textbf{L1 \& C2 \& C3 \& substrate non-expansion $\Rightarrow$ L2}, with C2 / C3 read in the operating-range sense. Proof via global-mode decomposition \& linearised Jacobian \& Doeblin contraction on the zero-mean phase subspace. The proof's M constant is the operating-range bound, and the empirical results in \S{}5.4 confirm the necessity of the operating-range forms of C2 and C3. Machine-checked in Lean (\texttt{theorem5}) under an explicit premise bundle (\texttt{Theorem5Premises}); see Appendix M.5 for the bundle's contents and the M.11 closure.
+  \item \textbf{Theorem 2}: \textbf{L1 \& C2 \& C3 \& substrate non-expansion $\Rightarrow$ L2}, with C2 / C3 read in the operating-range sense. Proof via global-mode decomposition \& linearised Jacobian \& Doeblin contraction on the zero-mean phase subspace. The proof's M constant is the operating-range bound, and the empirical results in \S{}5.4 confirm the necessity of the operating-range forms of C2 and C3. Machine-checked in Lean (\texttt{theorem5}) from standard per-layer hypotheses (non-expansiveness, uniform zero-mean phase stability, bounded output range); see Appendix M.5 for the hypothesis set and the M.11 closure.
 \end{itemize}
 
 This subsection presents the framework without proofs; full statements and proofs are in Appendix M.
@@ -1083,7 +1083,7 @@ Our experiments provide strong evidence that complex-valued neural networks can 
 \medskip
 
 \section*{Appendix M: Mathematical framework -- intuitive overview}
-This appendix gives the definitions, theorem statements, and proof strategies for the two-level phase-coherence framework. Full proofs with explicit constants and a Lean machine-checked formalisation of Theorems 1 and 2 -- the latter under an explicit premise bundle, see M.5 below -- are in the companion document at \url{https://github.com/leohio/phase-coherent-transformer-r-d/tree/main/lean}.
+This appendix gives the definitions, theorem statements, and proof strategies for the two-level phase-coherence framework. Full proofs with explicit constants and a Lean machine-checked formalisation of Theorems 1 and 2 -- the latter from standard per-layer hypotheses, see M.5 below -- are in the companion document at \url{https://github.com/leohio/phase-coherent-transformer-r-d/tree/main/lean}.
 
 \textbf{Notation aliasing with the companion document.} This appendix uses compressed numbering: Theorem 1 (per-layer phase coherence) and Theorem 2 (all-layer phase coherence) below correspond, in the companion document and the Lean formalisation, to \textbf{Theorem 1} and \textbf{Theorem 5} respectively. The intervening indices (Theorem 1', Conjecture 5, and Definitions 2--4) are taken by intermediate definitions and lemmas elaborated in full only in the companion. References to \textbf{Lemma A}, \textbf{B}, \textbf{C}, \textbf{D} below are consistent across this appendix and the companion.
 
@@ -1139,26 +1139,28 @@ The linearisation step (2) \textbf{requires the gate to be differentiable} -- ex
 \begin{itemize}
   \item \textbf{Theorem 1 (C1 \& C4 $\Rightarrow$ L1)} is fully proven and machine-checked in Lean (no \texttt{sorry}).
   \item \textbf{Lemma A} is fully proven on paper and machine-checked in Lean (no \texttt{sorry}).
-  \item \textbf{Lemmas B and D} are fully proven on paper (Lemma B's second-order remainder is bounded but not tightened; Lemma D is the standard transformer-stability argument). Not yet stubbed in Lean; their content is bundled into the explicit Lean premise \texttt{Theorem5Premises} (see below).
-  \item \textbf{Lemma C} uses the standard Doeblin coupling argument (Levin, Peres \& Wilmer 2017, Theorem 4.9). The Lean version is stated; its Mathlib-level proof is the only \texttt{sorry} remaining in the Lean repository, and is bundled into \texttt{Theorem5Premises} as well.
-  \item \textbf{Theorem 2 is machine-checked in Lean (\texttt{theorem5}, no \texttt{sorry}) under the explicit premise bundle \texttt{Theorem5Premises}}, which assumes:
+  \item \textbf{Lemmas B and D} are fully proven on paper (Lemma B's second-order remainder is bounded but not tightened; Lemma D is the standard transformer-stability argument). Not separately formalised in Lean; their single-layer conclusions appear as the standard per-layer hypotheses of \texttt{theorem5} (see below).
+  \item \textbf{Lemma C} follows the standard Doeblin argument (Levin, Peres \& Wilmer 2017, Theorem 4.9) and is machine-checked in Lean (\texttt{lemmaC}, no \texttt{sorry}): in the finite-dimensional $\ell^\infty$ setting the rank-1 Doeblin component annihilates the zero-mean subspace and the residual matrix has row sums $1 - \mu_D$, so no coupling formalisation is needed. The Lean repository therefore contains no \texttt{sorry}.
+  \item \textbf{Theorem 2 is machine-checked in Lean (\texttt{theorem5}, no \texttt{sorry}) from standard per-layer hypotheses only} (\texttt{Theorem5Hypotheses}). Every hypothesis is a community-standard mathematical condition -- none is bespoke, and none assumes the depth-uniform conclusion:
 \end{itemize}
 
 \begin{enumerate}
   \item Each layer is L1.a-coherent (provided by Theorem 1, machine-checked).
-  \item A zero-mean cascade Lipschitz constant $C_{\mathrm{zm}} < \infty$, $L$-independent (the conclusion of Lemmas B + C + D + the M.11 closure below).
-  \item A uniform output norm bound $Y_{\max} < \infty$, $L$-independent (the conclusion of (S1) + (S2) + Lemma D).
-  \item The Lemma-A-decomposed cascade decomposition bound -- combining the above with the L${}^2$-norm triangle inequality and R-unitarity into a single per-input inequality.
+  \item Each layer is non-expansive in the $\ell^2$ norm (the conclusion of (S2) + Lemma D).
+  \item Each layer is uniformly $K$-Lipschitz against zero-mean phase perturbations (the single-layer conclusion of Lemmas B + C under (S3)).
+  \item The stack output is uniformly bounded by $Y_{\max}$ (the conclusion of (S1)).
 \end{enumerate}
 
-\textbf{M.11 closure (the residual technical content of premises 2--3).} Constructing $C_{\mathrm{zm}}$ and $Y_{\max}$ from first principles requires two engineering verifications, both tractable and neither a deep open problem:
+The $L$-independence of the cascade constants $(C_0, C_1) = (2K + Y_{\max}, 0)$ is \emph{derived} in Lean by induction on the layer stack (global mode passes exactly through the L1.a stack by Lemma A -- machine-checked, including the quantitative bound \texttt{lemmaA\_bound} with no $O(\bar\varphi^2)$ remainder -- and the zero-mean residual is absorbed by the entry layer and propagated through the non-expansive substrate). The geometric recurrence of step 4 in M.3 is separately machine-checked (\texttt{cascade\_geometric\_bound}), and the hypothesis set is machine-checked to be satisfiable (\texttt{theorem5Hypotheses\_satisfiable}), so the theorem is not vacuous.
+
+\textbf{M.11 closure (the residual technical content of hypotheses 2--4).} Verifying hypotheses 2--4 for the concrete trained architecture from first principles requires two engineering verifications, both tractable and neither a deep open problem:
 
 \begin{enumerate}
   \item The attention-diffuseness condition is preserved across training (at initialisation it holds with $\mu \ge e^{-1}/N$ from the $b = -\log N$ bias; preservation across gradient updates is a conjecture supported by inspection of trained checkpoints).
   \item A bounded-input fixed-point argument that the cascade stays in the regime where the Doeblin contraction dominates the residual diagonal, i.e.\ $\Lambda_S \cdot \sup_l \|J_l|_{V_0}\| < 1$ uniformly across layers.
 \end{enumerate}
 
-The companion appendix contains the full quantitative statements; the Lean repository's \texttt{AUDIT.md} records that \texttt{\#print axioms PaperV4.theorem5} returns only the three standard Lean / Mathlib axioms \texttt{[propext, Classical.choice, Quot.sound]}.
+The companion appendix contains the full quantitative statements; the Lean repository's \texttt{AUDIT.md} records that \texttt{\#print axioms} on \texttt{PaperV4.theorem5} and \texttt{PaperV4.lemmaC} returns only the three standard Lean / Mathlib axioms \texttt{[propext, Classical.choice, Quot.sound]}.
 
 \medskip
 
