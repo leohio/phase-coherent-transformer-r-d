@@ -14,7 +14,7 @@
 | Steps | 30000 (config A) / 60000 (config B) |
 | Seeds | s=0, s=1, s=2 (**N=3**) |
 | Source (s=0) | `bench_phase14_5_results.md` §3.5 |
-| Source (s=1, s=2) | re-runs in flight at write time, both expected to converge to acc=1.000 (s=0 reaches 1.0 at step 3000 / 45 min, well within budget) |
+| Source (s=1, s=2) | DOK re-runs completed 2026-05-09 (task ids `013e26e1`, `130fad10`); both independently reproduce acc=1.000 |
 
 ## 2. Result
 
@@ -22,12 +22,14 @@
 |---|---:|---:|---:|---|
 | s=0 (config A, 30K) | step 3000 (45 min) | **1.000** | 3.67e-4 | ✅ confirmed |
 | s=0 (config B, 60K) | step 9000 (67 min) | **1.000** | 2.87e-5 | ✅ confirmed (same seed, longer-run cross-check) |
-| s=1 | (in flight, expected step ≈ 3000) | **1.000** (expected) | < 1e-3 (expected) | ⏳ pending verification |
-| s=2 | (in flight, expected step ≈ 3000) | **1.000** (expected) | < 1e-3 (expected) | ⏳ pending verification |
+| s=1 | step 3000 (45 min) | **1.000** | 3.33e-4 | ✅ confirmed (DOK `013e26e1`, 2026-05-09) |
+| s=2 | step 6000 (89 min) ¹ | **1.000** | 6.92e-4 | ✅ confirmed (DOK `130fad10`, 2026-05-09) |
 
-**Mean (anticipated, N=3)**: `needle_acc = 1.000 ± 0.000`
+¹ s=2 read acc=0.8125 at step 3000, dipped transiently to 0.5625–0.6875 over steps 3500–4500, then reached stable 1.0 at step 6000 — slower convergence than s=0/s=1 but the same plateau.
 
-The first valid s=0 run reaches `needle_acc=1.0` by step 3000 and maintains it until kill (6h timeout), with `eval_loss` decaying from chance (~4.16) to 1e-4 — i.e., the cell **deeply solves** NIAH L=2048 (not borderline). Two additional seeds are in flight; based on the fast and consistent solve at s=0, both are expected to land at 1.000.
+**Mean (confirmed, N=3)**: `needle_acc = 1.000 ± 0.000`
+
+All three config-A seeds reach `needle_acc=1.0` (s=0/s=1 by step 3000, s=2 by step 6000) and maintain it until kill, with `eval_loss` decaying from chance (~4.16) to the 1e-4 order — i.e., the cell **deeply solves** NIAH L=2048 (not borderline). Caveat: none of the three runs completed the full 30K-step schedule; all were killed by the 6h wall-clock timeout at step 24000/30000 (80%), with acc=1.0 held continuously from first solve to kill.
 
 ## 3. Status of other cells (retracted)
 
@@ -35,7 +37,7 @@ The 6-cell sweep at this configuration ran on unreliable instances and **the cor
 
 | Cell | Sweep | Status |
 |---|---|---|
-| `complex_sigmoid` | this file | ✅ N=1 confirmed + N=3 in flight |
+| `complex_sigmoid` | this file | ✅ N=3 confirmed (2026-05-09) |
 | `complex_screen` | `bench_phase14_5_results.md §3.5.1` | ❌ retracted (mid-run truncation) |
 | `real_screen` | `bench_phase14_5_results.md §3.5.1` | ❌ retracted (mid-run truncation) |
 | `real_softmax` | `bench_phase14_5_results.md §3.5.1` | ❌ retracted (mid-run truncation) |
