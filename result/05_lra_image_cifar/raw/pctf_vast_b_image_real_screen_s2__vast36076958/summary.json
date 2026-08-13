@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_vast_b_image_real_screen_s2",
+  "task": "lra_image",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {},
+  "n_params": 1864008,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.934616208076477,
+    "eval_loss": 1.9226922988891602,
+    "image_acc": 0.28125,
+    "lr": 4e-05,
+    "elapsed_s": 1994.1680188179016
+  },
+  "total_elapsed_s": 1994.209891319275,
+  "completed": true
+}

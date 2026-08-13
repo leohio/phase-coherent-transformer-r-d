@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_b_mp_real_sigmoid_s0",
+  "task": "multi_pitch",
+  "cell": "real_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "n_samples": 128,
+    "n_pitches": 16,
+    "n_active": 3
+  },
+  "n_params": 1633756,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.4320667088031769,
+    "eval_loss": 0.44823795557022095,
+    "multi_pitch_acc": 0.810546875,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 420.0066041946411
+  },
+  "total_elapsed_s": 420.09295105934143,
+  "completed": true
+}

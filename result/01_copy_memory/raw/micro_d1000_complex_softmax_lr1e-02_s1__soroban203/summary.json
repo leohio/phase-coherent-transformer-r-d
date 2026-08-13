@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_d1000_complex_softmax_lr1e-02_s1",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 26222,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 2.3030905723571777,
+    "eval_loss": 2.304399013519287,
+    "copy_acc": 0.10000000149011612,
+    "lr": 0.001,
+    "elapsed_s": 78.5657787322998
+  },
+  "total_elapsed_s": 78.58668184280396,
+  "completed": true
+}

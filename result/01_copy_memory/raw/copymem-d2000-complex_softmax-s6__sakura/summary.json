@@ -1,0 +1,21 @@
+{
+  "job_id": "copymem-d2000-complex_softmax-s6",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 6,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 4738834,
+  "final_metric": {
+    "step": 30000,
+    "train_loss": 2.302856922149658,
+    "eval_loss": 2.3031976222991943,
+    "copy_acc": 0.0625,
+    "lr": 2.9999999999999997e-05,
+    "elapsed_s": 5132.234044313431
+  },
+  "total_elapsed_s": 5132.551994085312,
+  "completed": true
+}

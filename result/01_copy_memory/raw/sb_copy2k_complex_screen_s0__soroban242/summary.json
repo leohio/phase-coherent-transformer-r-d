@@ -1,0 +1,21 @@
+{
+  "job_id": "sb_copy2k_complex_screen_s0",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 862884,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 9.416147076990455e-05,
+    "eval_loss": 9.332560148322955e-05,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 6923.747697591782
+  },
+  "total_elapsed_s": 6923.787794828415,
+  "completed": true
+}

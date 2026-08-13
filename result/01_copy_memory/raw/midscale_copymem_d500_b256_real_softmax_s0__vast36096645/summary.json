@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d500_b256_real_softmax_s0",
+  "task": "copymem",
+  "cell": "real_softmax",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 500
+  },
+  "n_params": 4735756,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 2.301201343536377,
+    "eval_loss": 2.3026700019836426,
+    "copy_acc": 0.07500000298023224,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 55.02392101287842
+  },
+  "total_elapsed_s": 55.07702612876892,
+  "completed": true
+}

@@ -1,0 +1,54 @@
+device: cpu  out_dir: /Users/plasma/repos/complexscreening-00/.claude/worktrees/bridge-cse_011GzoPM6wXvkzzb2wjM5GL7/complex_nn_experiment/runs/bench_real
+arch: dim=64 depth=3 heads=4 dim_head=16
+steps=1000  batch=64  cells=['real_softmax', 'real_sigmoid', 'real_screen', 'complex_softmax', 'complex_sigmoid', 'complex_screen']  seeds=[0, 1]
+tasks=['musicnet']  levels=['L1', 'L2']
+
+=== task: musicnet  level: L1  config: {'name': 'L1', 'window': 256, 'min_midi': 60, 'max_midi': 80} ===
+  done musicnet_L1_real_softmax_s0: params=150357 elapsed=157.1s final={'eval_loss': 1.1204, 'f1': 0.2125, 'ham_acc': 0.7408, 'exact_match': 0.0}
+  done musicnet_L1_real_softmax_s1: params=150357 elapsed=150.0s final={'eval_loss': 1.1116, 'f1': 0.1892, 'ham_acc': 0.7354, 'exact_match': 0.0}
+  done musicnet_L1_real_sigmoid_s0: params=150360 elapsed=162.4s final={'eval_loss': 1.1204, 'f1': 0.2125, 'ham_acc': 0.7408, 'exact_match': 0.0}
+  done musicnet_L1_real_sigmoid_s1: params=150360 elapsed=166.7s final={'eval_loss': 1.1116, 'f1': 0.1892, 'ham_acc': 0.7354, 'exact_match': 0.0}
+  done musicnet_L1_real_screen_s0: params=163620 elapsed=230.2s final={'eval_loss': 1.1022, 'f1': 0.2205, 'ham_acc': 0.7265, 'exact_match': 0.0}
+  done musicnet_L1_real_screen_s1: params=163620 elapsed=232.4s final={'eval_loss': 1.0959, 'f1': 0.2065, 'ham_acc': 0.7219, 'exact_match': 0.0039}
+  done musicnet_L1_complex_softmax_s0: params=151640 elapsed=498.6s final={'eval_loss': 1.1204, 'f1': 0.2146, 'ham_acc': 0.7386, 'exact_match': 0.0}
+  done musicnet_L1_complex_softmax_s1: params=151640 elapsed=496.9s final={'eval_loss': 1.1118, 'f1': 0.1864, 'ham_acc': 0.7346, 'exact_match': 0.0}
+  done musicnet_L1_complex_sigmoid_s0: params=151643 elapsed=713.6s final={'eval_loss': 1.1176, 'f1': 0.216, 'ham_acc': 0.7482, 'exact_match': 0.0}
+  done musicnet_L1_complex_sigmoid_s1: params=151643 elapsed=710.9s final={'eval_loss': 1.1101, 'f1': 0.1892, 'ham_acc': 0.7354, 'exact_match': 0.0}
+  done musicnet_L1_complex_screen_s0: params=164906 elapsed=878.0s final={'eval_loss': 1.101, 'f1': 0.2285, 'ham_acc': 0.7261, 'exact_match': 0.0}
+  done musicnet_L1_complex_screen_s1: params=164906 elapsed=866.7s final={'eval_loss': 1.0964, 'f1': 0.2084, 'ham_acc': 0.759, 'exact_match': 0.0}
+
+=== task: musicnet  level: L2  config: {'name': 'L2', 'window': 256, 'min_midi': 21, 'max_midi': 108} ===
+  done musicnet_L2_real_softmax_s0: params=154712 elapsed=182.4s final={'eval_loss': 0.7933, 'f1': 0.1434, 'ham_acc': 0.7303, 'exact_match': 0.0}
+  done musicnet_L2_real_softmax_s1: params=154712 elapsed=161.9s final={'eval_loss': 0.8056, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+  done musicnet_L2_real_sigmoid_s0: params=154715 elapsed=168.6s final={'eval_loss': 0.7933, 'f1': 0.1434, 'ham_acc': 0.7303, 'exact_match': 0.0}
+  done musicnet_L2_real_sigmoid_s1: params=154715 elapsed=170.7s final={'eval_loss': 0.8056, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+  done musicnet_L2_real_screen_s0: params=167975 elapsed=250.5s final={'eval_loss': 0.7932, 'f1': 0.1428, 'ham_acc': 0.7243, 'exact_match': 0.0}
+  done musicnet_L2_real_screen_s1: params=167975 elapsed=246.1s final={'eval_loss': 0.8058, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+  done musicnet_L2_complex_softmax_s0: params=160283 elapsed=504.5s final={'eval_loss': 0.7808, 'f1': 0.1434, 'ham_acc': 0.7303, 'exact_match': 0.0}
+  done musicnet_L2_complex_softmax_s1: params=160283 elapsed=510.6s final={'eval_loss': 0.7934, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+  done musicnet_L2_complex_sigmoid_s0: params=160286 elapsed=726.4s final={'eval_loss': 0.7806, 'f1': 0.1434, 'ham_acc': 0.7303, 'exact_match': 0.0}
+  done musicnet_L2_complex_sigmoid_s1: params=160286 elapsed=727.4s final={'eval_loss': 0.7936, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+  done musicnet_L2_complex_screen_s0: params=173549 elapsed=891.5s final={'eval_loss': 0.7808, 'f1': 0.1434, 'ham_acc': 0.7303, 'exact_match': 0.0}
+  done musicnet_L2_complex_screen_s1: params=173549 elapsed=750.5s final={'eval_loss': 0.7934, 'f1': 0.1422, 'ham_acc': 0.72, 'exact_match': 0.0}
+
+
+========= AGGREGATE =========
+
+--- musicnet L1 ---
+cell                   params             f1        ham_acc    exact_match      eval_loss  elapsed_s
+real_softmax           150357  0.2009±0.012  0.7381±0.003  0.0000±0.000  1.1160±0.004      153.6
+real_sigmoid           150360  0.2009±0.012  0.7381±0.003  0.0000±0.000  1.1160±0.004      164.5
+real_screen            163620  0.2135±0.007  0.7242±0.002  0.0020±0.002  1.0990±0.003      231.3
+complex_softmax        151640  0.2005±0.014  0.7366±0.002  0.0000±0.000  1.1161±0.004      497.8
+complex_sigmoid        151643  0.2026±0.013  0.7418±0.006  0.0000±0.000  1.1139±0.004      712.3
+complex_screen         164906  0.2184±0.010  0.7426±0.016  0.0000±0.000  1.0987±0.002      872.4
+
+--- musicnet L2 ---
+cell                   params             f1        ham_acc    exact_match      eval_loss  elapsed_s
+real_softmax           154712  0.1428±0.001  0.7251±0.005  0.0000±0.000  0.7995±0.006      172.1
+real_sigmoid           154715  0.1428±0.001  0.7251±0.005  0.0000±0.000  0.7995±0.006      169.6
+real_screen            167975  0.1425±0.000  0.7222±0.002  0.0000±0.000  0.7995±0.006      248.3
+complex_softmax        160283  0.1428±0.001  0.7251±0.005  0.0000±0.000  0.7871±0.006      507.6
+complex_sigmoid        160286  0.1428±0.001  0.7251±0.005  0.0000±0.000  0.7871±0.007      726.9
+complex_screen         173549  0.1428±0.001  0.7251±0.005  0.0000±0.000  0.7871±0.006      821.0
+

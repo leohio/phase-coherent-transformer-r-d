@@ -1,0 +1,25 @@
+[
+  {
+    "cell": "real_softmax",
+    "seed": 0,
+    "best_acc": 0.21875,
+    "final_acc": 0.09375,
+    "elapsed_s": 1824.3860130310059,
+    "n_params": 1781970,
+    "seq_len": 1024,
+    "vocab_size": 18,
+    "max_depth": 5,
+    "max_args": 5,
+    "lr": 0.0004,
+    "warmup_steps": 500,
+    "batch": 16,
+    "steps": 8000,
+    "chunk_size": 256,
+    "device": "mps",
+    "dim": 192,
+    "depth": 4,
+    "heads": 8,
+    "dim_head": 24,
+    "ff_mult": 4
+  }
+]

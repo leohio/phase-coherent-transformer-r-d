@@ -1,0 +1,20 @@
+{
+  "job_id": "pctf_dok_b_fft16_real_softmax_s2",
+  "task": "fftmnist",
+  "cell": "real_softmax",
+  "seed": 2,
+  "task_params": {
+    "t": 16
+  },
+  "n_params": 1632642,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 1.2598767280578613,
+    "eval_loss": 1.0772087574005127,
+    "test_acc": 0.53125,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 402.9033420085907
+  },
+  "total_elapsed_s": 402.99089527130127,
+  "completed": true
+}

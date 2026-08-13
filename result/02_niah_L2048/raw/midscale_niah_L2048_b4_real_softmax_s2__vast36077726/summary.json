@@ -1,0 +1,22 @@
+{
+  "job_id": "midscale_niah_L2048_b4_real_softmax_s2",
+  "task": "niah",
+  "cell": "real_softmax",
+  "seed": 2,
+  "task_params": {
+    "depth_ratio": 0.5,
+    "seq_len": 2048,
+    "vocab_size": 64
+  },
+  "n_params": 4762432,
+  "final_metric": {
+    "step": 6000,
+    "train_loss": 4.115838050842285,
+    "eval_loss": 4.1334662437438965,
+    "needle_acc": 0.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 636.0137283802032
+  },
+  "total_elapsed_s": 636.1193563938141,
+  "completed": true
+}

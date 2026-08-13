@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_image_complex_screen_s1",
+  "task": "lra_image",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {},
+  "n_params": 956824,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.7424176931381226,
+    "eval_loss": 1.5888463258743286,
+    "image_acc": 0.375,
+    "lr": 4e-05,
+    "elapsed_s": 1671.103001832962
+  },
+  "total_elapsed_s": 1671.1998708248138,
+  "completed": true
+}

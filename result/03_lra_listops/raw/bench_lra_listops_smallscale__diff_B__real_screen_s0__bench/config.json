@@ -1,0 +1,21 @@
+{
+  "cell": "real_screen",
+  "difficulty": "B",
+  "seed": 0,
+  "seq_len": 128,
+  "vocab_size": 18,
+  "n_params": 110426,
+  "max_depth": 2,
+  "max_args": 3,
+  "max_seq_len": 128,
+  "chunk_size": 32,
+  "steps": 3000,
+  "eval_every": 150,
+  "dim": 64,
+  "depth": 2,
+  "heads": 4,
+  "dim_head": 16,
+  "ff_mult": 4,
+  "lr": 0.003,
+  "batch": 32
+}

@@ -1,0 +1,22 @@
+{
+  "job_id": "p13full_niah_L1024_real_sigmoid_b256_s0",
+  "task": "niah",
+  "cell": "real_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "depth_ratio": 0.5,
+    "seq_len": 1024,
+    "vocab_size": 64
+  },
+  "n_params": 107522,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 4.126745223999023,
+    "eval_loss": 4.1270222663879395,
+    "needle_acc": 0.015625,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 580.5440080165863
+  },
+  "total_elapsed_s": 580.5501081943512,
+  "completed": true
+}

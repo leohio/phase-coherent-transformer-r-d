@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_listops_m_real_softmax_s1",
+  "task": "lra_listops",
+  "cell": "real_softmax",
+  "seed": 1,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 2452186,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.305511474609375,
+    "eval_loss": 2.3119683265686035,
+    "listops_acc": 0.0625,
+    "lr": 4e-05,
+    "elapsed_s": 911.8759717941284
+  },
+  "total_elapsed_s": 911.9484536647797,
+  "completed": true
+}

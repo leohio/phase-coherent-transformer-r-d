@@ -1,0 +1,21 @@
+{
+  "cell": "real_softmax",
+  "difficulty": "A",
+  "seed": 0,
+  "seq_len": 64,
+  "vocab_size": 18,
+  "n_params": 101586,
+  "max_depth": 1,
+  "max_args": 2,
+  "max_seq_len": 64,
+  "chunk_size": 16,
+  "steps": 2000,
+  "eval_every": 100,
+  "dim": 64,
+  "depth": 2,
+  "heads": 4,
+  "dim_head": 16,
+  "ff_mult": 4,
+  "lr": 0.003,
+  "batch": 32
+}

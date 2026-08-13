@@ -1,0 +1,22 @@
+{
+  "job_id": "midscale_niahv2_L2048_b32_complex_sigmoid_s1",
+  "task": "niah",
+  "cell": "complex_sigmoid",
+  "seed": 1,
+  "task_params": {
+    "depth_ratio": 0.5,
+    "seq_len": 2048,
+    "vocab_size": 64
+  },
+  "n_params": 1076936,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 3.6145851612091064,
+    "eval_loss": 3.981971263885498,
+    "needle_acc": 0.0,
+    "lr": 0.0001,
+    "elapsed_s": 14453.97040963173
+  },
+  "total_elapsed_s": 14453.98044013977,
+  "completed": true
+}

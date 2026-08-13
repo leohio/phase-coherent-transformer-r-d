@@ -1,0 +1,20 @@
+{
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "seq_len": 1024,
+  "vocab_size": 18,
+  "n_params": 797082,
+  "max_depth": 5,
+  "max_args": 5,
+  "lr": 0.0005,
+  "warmup_steps": 500,
+  "batch": 16,
+  "steps": 4000,
+  "chunk_size": 256,
+  "device": "mps",
+  "dim": 128,
+  "depth": 4,
+  "heads": 8,
+  "dim_head": 16,
+  "ff_mult": 4
+}

@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_image_complex_sigmoid_s1",
+  "task": "lra_image",
+  "cell": "complex_sigmoid",
+  "seed": 1,
+  "task_params": {},
+  "n_params": 888712,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.4696030616760254,
+    "eval_loss": 1.731213927268982,
+    "image_acc": 0.375,
+    "lr": 4e-05,
+    "elapsed_s": 1350.5614593029022
+  },
+  "total_elapsed_s": 1350.6767179965973,
+  "completed": true
+}

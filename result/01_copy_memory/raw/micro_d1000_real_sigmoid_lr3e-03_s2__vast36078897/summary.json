@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_d1000_real_sigmoid_lr3e-03_s2",
+  "task": "copymem",
+  "cell": "real_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 25838,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 0.041703008115291595,
+    "eval_loss": 0.04131650552153587,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 437.6439950466156
+  },
+  "total_elapsed_s": 437.6488733291626,
+  "completed": true
+}

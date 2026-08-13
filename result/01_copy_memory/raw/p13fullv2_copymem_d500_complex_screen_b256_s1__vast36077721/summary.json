@@ -1,0 +1,21 @@
+{
+  "job_id": "p13fullv2_copymem_d500_complex_screen_b256_s1",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 500
+  },
+  "n_params": 110424,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.005770660936832428,
+    "eval_loss": 0.0057769520208239555,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 572.4197561740875
+  },
+  "total_elapsed_s": 572.4287161827087,
+  "completed": true
+}

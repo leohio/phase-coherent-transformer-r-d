@@ -1,0 +1,21 @@
+{
+  "job_id": "pctf_dok_copy1k_real_screen_s0",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 1773976,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 2.302947998046875,
+    "eval_loss": 2.304050922393799,
+    "copy_acc": 0.08749999850988388,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 728.6046121120453
+  },
+  "total_elapsed_s": 728.6618976593018,
+  "completed": true
+}

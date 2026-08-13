@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_b_mp_complex_sigmoid_s0",
+  "task": "multi_pitch",
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "n_samples": 128,
+    "n_pitches": 16,
+    "n_active": 3
+  },
+  "n_params": 794392,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.009293055161833763,
+    "eval_loss": 0.005487155169248581,
+    "multi_pitch_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 570.8550436496735
+  },
+  "total_elapsed_s": 570.9438617229462,
+  "completed": true
+}

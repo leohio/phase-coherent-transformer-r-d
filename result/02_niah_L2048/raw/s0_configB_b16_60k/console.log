@@ -1,0 +1,131 @@
+[entrypoint] starting at 2026-05-05T18:29:19Z
+================================================================
+ Phase 8 DOK worker starting
+ JOB_ID=niah_L2048_cs_d256L6_b16_s60k_s0  TASK=niah  CELL=complex_sigmoid  SEED=0
+ TASK_PARAMS={"seq_len": 2048, "depth_ratio": 0.5, "vocab_size": 64}
+ ARTIFACT_DIR=/opt/artifact
+ GPU: NVIDIA H100 80GB HBM3
+================================================================
+job=niah_L2048_cs_d256L6_b16_s60k_s0  task=niah  cell=complex_sigmoid  seed=0  params=4778828  seq_len=2048
+[fresh] no checkpoint, starting from step 0
+[step      1] loss=4.1618 eval=4.1575 needle_acc=0.0000
+[step    500] loss=4.1630 eval=4.1587 needle_acc=0.0000
+[step   1000] loss=4.1433 eval=4.1398 needle_acc=0.0000
+[step   1500] loss=4.1403 eval=4.1364 needle_acc=0.0000
+[step   2000] loss=4.1343 eval=4.1367 needle_acc=0.0000
+[checkpoint] saved step_2000.pt
+[step   2500] loss=4.0649 eval=4.0842 needle_acc=0.2500
+[step   3000] loss=3.9510 eval=3.9467 needle_acc=0.3125
+[step   3500] loss=3.7272 eval=3.8073 needle_acc=0.5000
+[step   4000] loss=3.5594 eval=3.6697 needle_acc=0.3125
+[checkpoint] saved step_4000.pt
+[step   4500] loss=3.3056 eval=3.1940 needle_acc=0.6250
+[step   5000] loss=3.1108 eval=2.7745 needle_acc=0.8750
+[step   5500] loss=2.5378 eval=2.4679 needle_acc=0.9375
+[step   6000] loss=2.1951 eval=2.3086 needle_acc=0.7500
+[checkpoint] saved step_6000.pt
+[step   6500] loss=2.1510 eval=1.9314 needle_acc=0.9375
+[step   7000] loss=1.9726 eval=1.8817 needle_acc=0.7500
+[step   7500] loss=1.7130 eval=1.3527 needle_acc=0.9375
+[step   8000] loss=1.1488 eval=1.3232 needle_acc=0.8750
+[checkpoint] saved step_8000.pt
+[step   8500] loss=0.5399 eval=0.8845 needle_acc=0.9375
+[step   9000] loss=0.8935 eval=0.8849 needle_acc=1.0000
+[step   9500] loss=0.6757 eval=0.9326 needle_acc=1.0000
+[step  10000] loss=0.6108 eval=0.5210 needle_acc=1.0000
+[checkpoint] saved step_10000.pt
+[step  10500] loss=0.5375 eval=0.3603 needle_acc=1.0000
+[step  11000] loss=0.3380 eval=0.5940 needle_acc=1.0000
+[step  11500] loss=0.1923 eval=0.4098 needle_acc=1.0000
+[step  12000] loss=0.1919 eval=0.1763 needle_acc=1.0000
+[checkpoint] saved step_12000.pt
+[step  12500] loss=0.1197 eval=0.1476 needle_acc=1.0000
+[step  13000] loss=0.1707 eval=0.0833 needle_acc=1.0000
+[step  13500] loss=0.0721 eval=0.0522 needle_acc=1.0000
+[step  14000] loss=0.0862 eval=0.0661 needle_acc=1.0000
+[checkpoint] saved step_14000.pt
+[step  14500] loss=0.0341 eval=0.0461 needle_acc=1.0000
+[step  15000] loss=0.0223 eval=0.0396 needle_acc=1.0000
+[step  15500] loss=0.0284 eval=0.0220 needle_acc=1.0000
+[step  16000] loss=0.0289 eval=0.0305 needle_acc=1.0000
+[checkpoint] saved step_16000.pt
+[step  16500] loss=0.0166 eval=0.2674 needle_acc=0.9375
+[step  17000] loss=0.0118 eval=0.0120 needle_acc=1.0000
+[step  17500] loss=0.0074 eval=0.0129 needle_acc=1.0000
+[step  18000] loss=0.0127 eval=0.0119 needle_acc=1.0000
+[checkpoint] saved step_18000.pt
+[step  18500] loss=0.0066 eval=0.0079 needle_acc=1.0000
+[step  19000] loss=0.0079 eval=0.0042 needle_acc=1.0000
+[step  19500] loss=0.0040 eval=0.0043 needle_acc=1.0000
+[step  20000] loss=0.0022 eval=0.0027 needle_acc=1.0000
+[checkpoint] saved step_20000.pt
+[step  20500] loss=0.0024 eval=0.0028 needle_acc=1.0000
+[step  21000] loss=0.0025 eval=0.0026 needle_acc=1.0000
+[step  21500] loss=0.0030 eval=0.0027 needle_acc=1.0000
+[step  22000] loss=0.0018 eval=0.0012 needle_acc=1.0000
+[checkpoint] saved step_22000.pt
+[step  22500] loss=0.0015 eval=0.0012 needle_acc=1.0000
+[step  23000] loss=0.0019 eval=0.6436 needle_acc=0.9375
+[step  23500] loss=0.0009 eval=0.0009 needle_acc=1.0000
+[step  24000] loss=0.0007 eval=0.0006 needle_acc=1.0000
+[checkpoint] saved step_24000.pt
+[step  24500] loss=0.0008 eval=0.0072 needle_acc=1.0000
+[step  25000] loss=0.0003 eval=0.0005 needle_acc=1.0000
+[step  25500] loss=0.0005 eval=0.0004 needle_acc=1.0000
+[step  26000] loss=0.0004 eval=0.0006 needle_acc=1.0000
+[checkpoint] saved step_26000.pt
+[step  26500] loss=0.0004 eval=0.0003 needle_acc=1.0000
+[step  27000] loss=0.0003 eval=0.0003 needle_acc=1.0000
+[step  27500] loss=0.0003 eval=0.0002 needle_acc=1.0000
+[step  28000] loss=0.0002 eval=0.0002 needle_acc=1.0000
+[checkpoint] saved step_28000.pt
+[step  28500] loss=0.0002 eval=0.0003 needle_acc=1.0000
+[step  29000] loss=0.0002 eval=0.0002 needle_acc=1.0000
+[step  29500] loss=0.0002 eval=0.0002 needle_acc=1.0000
+[step  30000] loss=0.0002 eval=0.0002 needle_acc=1.0000
+[checkpoint] saved step_30000.pt
+[step  30500] loss=0.0002 eval=0.0002 needle_acc=1.0000
+[step  31000] loss=0.0006 eval=0.0002 needle_acc=1.0000
+[step  31500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  32000] loss=0.0001 eval=0.0002 needle_acc=1.0000
+[checkpoint] saved step_32000.pt
+[step  32500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  33000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  33500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  34000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_34000.pt
+[step  34500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  35000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  35500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  36000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_36000.pt
+[step  36500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  37000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  37500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  38000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_38000.pt
+[step  38500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  39000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  39500] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[step  40000] loss=0.0001 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_40000.pt
+[step  40500] loss=0.0000 eval=0.0001 needle_acc=1.0000
+[step  41000] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  41500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  42000] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[checkpoint] saved step_42000.pt
+[step  42500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  43000] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  43500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  44000] loss=0.0000 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_44000.pt
+[step  44500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  45000] loss=0.0000 eval=0.0001 needle_acc=1.0000
+[step  45500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  46000] loss=0.0000 eval=0.0001 needle_acc=1.0000
+[checkpoint] saved step_46000.pt
+[step  46500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  47000] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  47500] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[step  48000] loss=0.0000 eval=0.0000 needle_acc=1.0000
+[checkpoint] saved step_48000.pt

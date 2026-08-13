@@ -1,0 +1,88 @@
+[entrypoint] starting at 2026-05-07T16:31:24Z
+================================================================
+ Phase 8 DOK worker starting
+ JOB_ID=lra_listops_cs_d128L20_b32_lr1e3_s30k_s0  TASK=lra_listops  CELL=complex_sigmoid  SEED=0
+ TASK_PARAMS={"max_seq_len": 1024}
+ ARTIFACT_DIR=/opt/artifact
+ GPU: NVIDIA H100 80GB HBM3
+================================================================
+job=lra_listops_cs_d128L20_b32_lr1e3_s30k_s0  task=lra_listops  cell=complex_sigmoid  seed=0  params=3957178  seq_len=1024
+[fresh] no checkpoint, starting from step 0
+[step      1] loss=2.9097 eval=2.8904 listops_acc=0.0000
+[step    500] loss=2.5470 eval=2.5267 listops_acc=0.2188
+[step   1000] loss=2.1305 eval=2.0510 listops_acc=0.5625
+[step   1500] loss=1.6560 eval=1.7121 listops_acc=0.2812
+[step   2000] loss=1.4964 eval=1.5088 listops_acc=0.4062
+[checkpoint] saved step_2000.pt
+[step   2500] loss=1.6672 eval=1.4335 listops_acc=0.5312
+[step   3000] loss=1.2667 eval=1.4306 listops_acc=0.4375
+[step   3500] loss=1.5674 eval=1.4649 listops_acc=0.4375
+[step   4000] loss=1.2485 eval=1.3950 listops_acc=0.4375
+[checkpoint] saved step_4000.pt
+[step   4500] loss=1.1797 eval=1.5732 listops_acc=0.3750
+[step   5000] loss=1.3360 eval=1.1773 listops_acc=0.5625
+[step   5500] loss=1.4513 eval=1.2924 listops_acc=0.5000
+[step   6000] loss=1.2789 eval=1.5911 listops_acc=0.4688
+[checkpoint] saved step_6000.pt
+[step   6500] loss=0.9087 eval=1.0348 listops_acc=0.5625
+[step   7000] loss=1.4506 eval=1.4269 listops_acc=0.4375
+[step   7500] loss=1.1967 eval=1.1671 listops_acc=0.5625
+[step   8000] loss=1.3674 eval=1.4098 listops_acc=0.4375
+[checkpoint] saved step_8000.pt
+[step   8500] loss=1.3406 eval=1.0535 listops_acc=0.6250
+[step   9000] loss=0.9527 eval=1.0857 listops_acc=0.5938
+[step   9500] loss=0.9069 eval=1.0743 listops_acc=0.6562
+[step  10000] loss=1.1792 eval=1.1099 listops_acc=0.6250
+[checkpoint] saved step_10000.pt
+[step  10500] loss=1.0439 eval=0.9559 listops_acc=0.7500
+[step  11000] loss=1.2152 eval=1.2165 listops_acc=0.5938
+[step  11500] loss=1.2201 eval=1.3398 listops_acc=0.4688
+[step  12000] loss=1.2037 eval=1.0058 listops_acc=0.5938
+[checkpoint] saved step_12000.pt
+[step  12500] loss=1.1526 eval=1.1487 listops_acc=0.5938
+[step  13000] loss=1.1395 eval=1.1814 listops_acc=0.5312
+[step  13500] loss=1.0865 eval=1.1536 listops_acc=0.6250
+[step  14000] loss=1.3186 eval=0.8943 listops_acc=0.6250
+[checkpoint] saved step_14000.pt
+[step  14500] loss=1.0474 eval=0.9066 listops_acc=0.6250
+[step  15000] loss=0.7782 eval=0.9734 listops_acc=0.6562
+[step  15500] loss=0.8569 eval=1.1149 listops_acc=0.5000
+[step  16000] loss=1.1615 eval=1.2354 listops_acc=0.5312
+[checkpoint] saved step_16000.pt
+[step  16500] loss=0.8720 eval=0.8222 listops_acc=0.7812
+[step  17000] loss=1.0166 eval=0.7349 listops_acc=0.7500
+[step  17500] loss=0.9265 eval=0.9969 listops_acc=0.6562
+[step  18000] loss=1.0748 eval=1.1497 listops_acc=0.5312
+[checkpoint] saved step_18000.pt
+[step  18500] loss=0.8970 eval=1.0497 listops_acc=0.6250
+[step  19000] loss=1.0536 eval=0.7845 listops_acc=0.7500
+[step  19500] loss=0.8234 eval=1.0810 listops_acc=0.6250
+[step  20000] loss=0.7032 eval=1.2419 listops_acc=0.5000
+[checkpoint] saved step_20000.pt
+[step  20500] loss=0.9232 eval=1.3526 listops_acc=0.4688
+[step  21000] loss=1.0292 eval=0.9864 listops_acc=0.5938
+[step  21500] loss=0.7653 eval=1.3926 listops_acc=0.5938
+[step  22000] loss=0.8495 eval=1.2771 listops_acc=0.5000
+[checkpoint] saved step_22000.pt
+[step  22500] loss=1.0938 eval=1.2398 listops_acc=0.6250
+[step  23000] loss=1.1997 eval=1.2287 listops_acc=0.5312
+[step  23500] loss=1.3121 eval=1.3723 listops_acc=0.5000
+[step  24000] loss=1.3622 eval=1.2828 listops_acc=0.4688
+[checkpoint] saved step_24000.pt
+[step  24500] loss=0.9306 eval=1.1840 listops_acc=0.5312
+[step  25000] loss=1.0331 eval=1.1893 listops_acc=0.5938
+[step  25500] loss=0.7644 eval=1.3482 listops_acc=0.5625
+[step  26000] loss=0.8399 eval=1.1654 listops_acc=0.5938
+[checkpoint] saved step_26000.pt
+[step  26500] loss=0.8448 eval=0.8065 listops_acc=0.6562
+[step  27000] loss=0.9456 eval=1.0565 listops_acc=0.5625
+[step  27500] loss=0.9868 eval=1.2126 listops_acc=0.6250
+[step  28000] loss=1.2351 eval=0.5397 listops_acc=0.7812
+[checkpoint] saved step_28000.pt
+[step  28500] loss=1.0030 eval=1.0347 listops_acc=0.6562
+[step  29000] loss=0.8325 eval=1.0070 listops_acc=0.5625
+[step  29500] loss=1.3609 eval=1.0632 listops_acc=0.6250
+[step  30000] loss=1.0524 eval=1.0416 listops_acc=0.5938
+[checkpoint] saved step_30000.pt
+
+[done] final_model=/opt/artifact/output/final_model.pt  elapsed=15012.0s

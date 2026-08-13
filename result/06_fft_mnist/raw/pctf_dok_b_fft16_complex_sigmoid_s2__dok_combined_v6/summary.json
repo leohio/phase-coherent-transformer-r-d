@@ -1,0 +1,20 @@
+{
+  "job_id": "pctf_dok_b_fft16_complex_sigmoid_s2",
+  "task": "fftmnist",
+  "cell": "complex_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "t": 16
+  },
+  "n_params": 792850,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.33510151505470276,
+    "eval_loss": 0.09037916362285614,
+    "test_acc": 0.96875,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 541.9134001731873
+  },
+  "total_elapsed_s": 542.0030345916748,
+  "completed": true
+}

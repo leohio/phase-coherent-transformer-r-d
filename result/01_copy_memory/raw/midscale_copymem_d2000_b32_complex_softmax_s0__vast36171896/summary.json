@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d2000_b32_complex_softmax_s0",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 4738834,
+  "final_metric": {
+    "step": 6000,
+    "train_loss": 2.3034393787384033,
+    "eval_loss": 2.3016881942749023,
+    "copy_acc": 0.10000000149011612,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 12828.982740879059
+  },
+  "total_elapsed_s": 12829.165768384933,
+  "completed": true
+}

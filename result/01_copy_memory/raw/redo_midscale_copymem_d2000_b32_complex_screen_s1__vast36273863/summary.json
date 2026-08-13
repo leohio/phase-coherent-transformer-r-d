@@ -1,0 +1,21 @@
+{
+  "job_id": "redo_midscale_copymem_d2000_b32_complex_screen_s1",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 5139784,
+  "final_metric": {
+    "step": 6000,
+    "train_loss": 0.0004940218368574278,
+    "eval_loss": 0.0004791765531990677,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 8145.076547622681
+  },
+  "total_elapsed_s": 8145.154772281647,
+  "completed": true
+}

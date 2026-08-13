@@ -1,0 +1,32 @@
+[
+  {
+    "task": "musicnet",
+    "level": "L1",
+    "cell": "complex_screen",
+    "seed": 1,
+    "n_params": 218929,
+    "seq_len": 129,
+    "num_classes": 21,
+    "elapsed_s": 4278.678337574005,
+    "train_loss": 1.029839277267456,
+    "eval_loss": 1.1207318305969238,
+    "f1": 0.19794483482837677,
+    "ham_acc": 0.7241443395614624,
+    "exact_match": 0.0
+  },
+  {
+    "task": "musicnet",
+    "level": "L2",
+    "cell": "complex_screen",
+    "seed": 1,
+    "n_params": 227572,
+    "seq_len": 129,
+    "num_classes": 88,
+    "elapsed_s": 3479.0796508789062,
+    "train_loss": 0.6089324355125427,
+    "eval_loss": 0.786399245262146,
+    "f1": 0.15339066088199615,
+    "ham_acc": 0.7334428429603577,
+    "exact_match": 0.0
+  }
+]

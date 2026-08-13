@@ -1,0 +1,4 @@
+{"step": 1, "train_loss": 2.4819798469543457, "eval_loss": 2.4782378673553467, "copy_acc": 0.09726562350988388, "elapsed_s": 2.579315185546875}
+{"step": 100, "train_loss": 2.3627402782440186, "eval_loss": 2.3631858825683594, "copy_acc": 0.09296874701976776, "elapsed_s": 168.4345452785492}
+{"step": 200, "train_loss": 0.0, "eval_loss": 0.0, "copy_acc": 0.0, "elapsed_s": 841.7492589950562}
+{"step": 300, "train_loss": 0.0, "eval_loss": 0.0, "copy_acc": 0.0, "elapsed_s": 843.2725400924683}

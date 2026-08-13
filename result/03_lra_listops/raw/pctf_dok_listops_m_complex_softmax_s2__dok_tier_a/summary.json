@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_listops_m_complex_softmax_s2",
+  "task": "lra_listops",
+  "cell": "complex_softmax",
+  "seed": 2,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 1192088,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.2955851554870605,
+    "eval_loss": 2.283970832824707,
+    "listops_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 1651.8867816925049
+  },
+  "total_elapsed_s": 1651.960432767868,
+  "completed": true
+}

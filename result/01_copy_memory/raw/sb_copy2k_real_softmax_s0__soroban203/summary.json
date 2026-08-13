@@ -1,0 +1,21 @@
+{
+  "job_id": "sb_copy2k_real_softmax_s0",
+  "task": "copymem",
+  "cell": "real_softmax",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 1634852,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 1.743221640586853,
+    "eval_loss": 1.7065107822418213,
+    "copy_acc": 0.21562500298023224,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 3382.07492685318
+  },
+  "total_elapsed_s": 3382.1099236011505,
+  "completed": true
+}

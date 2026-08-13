@@ -1,0 +1,21 @@
+{
+  "job_id": "pctf_dok_copy1k_complex_sigmoid_s1",
+  "task": "copymem",
+  "cell": "complex_sigmoid",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 794772,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.00010174552153330296,
+    "eval_loss": 0.00010185314022237435,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 1087.9260983467102
+  },
+  "total_elapsed_s": 1087.9764449596405,
+  "completed": true
+}

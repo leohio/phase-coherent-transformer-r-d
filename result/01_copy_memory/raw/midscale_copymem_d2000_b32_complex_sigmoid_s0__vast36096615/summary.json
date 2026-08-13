@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d2000_b32_complex_sigmoid_s0",
+  "task": "copymem",
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 4738840,
+  "final_metric": {
+    "step": 6000,
+    "train_loss": 0.0009959900053218007,
+    "eval_loss": 0.0010935657192021608,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 1269.3601567745209
+  },
+  "total_elapsed_s": 1269.4422297477722,
+  "completed": true
+}

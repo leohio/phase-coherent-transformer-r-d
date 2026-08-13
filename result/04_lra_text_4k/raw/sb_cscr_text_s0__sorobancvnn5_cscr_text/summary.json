@@ -1,0 +1,20 @@
+{
+  "job_id": "sb_cscr_text_s0",
+  "task": "lra_text",
+  "task_params": {},
+  "cell": "complex_screen",
+  "seed": 0,
+  "n_params": 957209,
+  "final_metric": {
+    "step": 5000,
+    "train_loss": 0.6449532955884933,
+    "eval_loss": 0.47996166348457336,
+    "text_acc": 1.0,
+    "lr": 0.0003435234948163721,
+    "elapsed_s": 10479.094156265259
+  },
+  "total_elapsed_s": 10479.094,
+  "completed": true,
+  "early_stopped": true,
+  "early_stop_reason": "user-truncated at step 5000 (acc=1.0)"
+}

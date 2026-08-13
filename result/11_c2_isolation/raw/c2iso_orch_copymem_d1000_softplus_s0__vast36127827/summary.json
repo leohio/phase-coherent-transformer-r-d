@@ -1,0 +1,21 @@
+{
+  "job_id": "c2iso_orch_copymem_d1000_softplus_s0",
+  "task": "copymem",
+  "cell": "complex_softplus",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 794772,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.006506784353405237,
+    "eval_loss": 0.007211209740489721,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 529.016909122467
+  },
+  "total_elapsed_s": 529.0769321918488,
+  "completed": true
+}

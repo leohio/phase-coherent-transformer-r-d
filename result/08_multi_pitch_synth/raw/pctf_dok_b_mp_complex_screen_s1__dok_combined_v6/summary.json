@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_b_mp_complex_screen_s1",
+  "task": "multi_pitch",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {
+    "n_samples": 128,
+    "n_pitches": 16,
+    "n_active": 3
+  },
+  "n_params": 862504,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.0005559009732678533,
+    "eval_loss": 0.0012256179470568895,
+    "multi_pitch_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 673.906411409378
+  },
+  "total_elapsed_s": 673.999032497406,
+  "completed": true
+}

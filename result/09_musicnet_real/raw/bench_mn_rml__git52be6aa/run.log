@@ -1,0 +1,53 @@
+device: cpu  out_dir: /Users/plasma/repos/complexscreening-00/.claude/worktrees/bridge-cse_011GzoPM6wXvkzzb2wjM5GL7/complex_nn_experiment/runs/bench_mn_rml
+arch: dim=64 depth=3 heads=4 dim_head=16
+steps=1500  batch=64  cells=['real_softmax', 'real_sigmoid', 'real_screen', 'complex_softmax', 'complex_sigmoid', 'complex_screen']  seeds=[0, 1]
+
+=== task: multi_pitch ===
+  done multi_pitch_real_softmax_s0: params=149512 elapsed=78.4s final={'eval_loss': 0.7295, 'f1': 0.5846, 'ham_acc': 0.6836, 'exact_match': 0.002}
+  done multi_pitch_real_softmax_s1: params=149512 elapsed=80.2s final={'eval_loss': 0.723, 'f1': 0.5919, 'ham_acc': 0.689, 'exact_match': 0.0}
+  done multi_pitch_real_sigmoid_s0: params=149515 elapsed=81.0s final={'eval_loss': 0.7345, 'f1': 0.5909, 'ham_acc': 0.6731, 'exact_match': 0.0}
+  done multi_pitch_real_sigmoid_s1: params=149515 elapsed=87.2s final={'eval_loss': 0.7208, 'f1': 0.5969, 'ham_acc': 0.6858, 'exact_match': 0.0}
+  done multi_pitch_real_screen_s0: params=162775 elapsed=131.6s final={'eval_loss': 0.6557, 'f1': 0.6173, 'ham_acc': 0.7122, 'exact_match': 0.0}
+  done multi_pitch_real_screen_s1: params=162775 elapsed=138.0s final={'eval_loss': 0.5805, 'f1': 0.704, 'ham_acc': 0.7417, 'exact_match': 0.0156}
+  done multi_pitch_complex_softmax_s0: params=149963 elapsed=326.2s final={'eval_loss': 0.6399, 'f1': 0.6268, 'ham_acc': 0.7351, 'exact_match': 0.0078}
+  done multi_pitch_complex_softmax_s1: params=149963 elapsed=364.8s final={'eval_loss': 0.6263, 'f1': 0.6413, 'ham_acc': 0.7307, 'exact_match': 0.0098}
+  done multi_pitch_complex_sigmoid_s0: params=149966 elapsed=631.8s final={'eval_loss': 0.5761, 'f1': 0.6903, 'ham_acc': 0.7227, 'exact_match': 0.0117}
+  done multi_pitch_complex_sigmoid_s1: params=149966 elapsed=638.3s final={'eval_loss': 0.6145, 'f1': 0.6595, 'ham_acc': 0.7144, 'exact_match': 0.0}
+  done multi_pitch_complex_screen_s0: params=163229 elapsed=767.3s final={'eval_loss': 0.532, 'f1': 0.7099, 'ham_acc': 0.7256, 'exact_match': 0.0176}
+  done multi_pitch_complex_screen_s1: params=163229 elapsed=766.3s final={'eval_loss': 0.536, 'f1': 0.7103, 'ham_acc': 0.7231, 'exact_match': 0.0156}
+
+=== task: radioml ===
+  done radioml_real_softmax_s0: params=149512 elapsed=255.4s final={'eval_loss': 1.4588, 'acc': 0.3457}
+  done radioml_real_softmax_s1: params=149512 elapsed=259.7s final={'eval_loss': 1.3635, 'acc': 0.3691}
+  done radioml_real_sigmoid_s0: params=149515 elapsed=269.5s final={'eval_loss': 1.3788, 'acc': 0.3652}
+  done radioml_real_sigmoid_s1: params=149515 elapsed=295.6s final={'eval_loss': 1.3527, 'acc': 0.3574}
+  done radioml_real_screen_s0: params=162775 elapsed=374.5s final={'eval_loss': 1.3492, 'acc': 0.3809}
+  done radioml_real_screen_s1: params=162775 elapsed=388.5s final={'eval_loss': 0.9213, 'acc': 0.7285}
+  done radioml_complex_softmax_s0: params=149963 elapsed=787.8s final={'eval_loss': 1.5178, 'acc': 0.3828}
+  done radioml_complex_softmax_s1: params=149963 elapsed=817.5s final={'eval_loss': 1.2747, 'acc': 0.4844}
+  done radioml_complex_sigmoid_s0: params=149966 elapsed=1220.8s final={'eval_loss': 0.8694, 'acc': 0.5469}
+  done radioml_complex_sigmoid_s1: params=149966 elapsed=1249.4s final={'eval_loss': 0.7776, 'acc': 0.6484}
+  done radioml_complex_screen_s0: params=163229 elapsed=1441.9s final={'eval_loss': 1.0739, 'acc': 0.5488}
+  done radioml_complex_screen_s1: params=163229 elapsed=1464.5s final={'eval_loss': 1.4382, 'acc': 0.3047}
+
+
+========= AGGREGATE =========
+
+--- multi_pitch ---
+cell                   params           f1      ham_acc  exact_match    eval_loss  elapsed_s
+real_softmax           149512 0.5883±0.004 0.6863±0.003 0.0010±0.001 0.7262±0.003       79.3
+real_sigmoid           149515 0.5939±0.003 0.6794±0.006 0.0000±0.000 0.7277±0.007       84.1
+real_screen            162775 0.6607±0.043 0.7269±0.015 0.0078±0.008 0.6181±0.038      134.8
+complex_softmax        149963 0.6340±0.007 0.7329±0.002 0.0088±0.001 0.6331±0.007      345.5
+complex_sigmoid        149966 0.6749±0.015 0.7185±0.004 0.0059±0.006 0.5953±0.019      635.0
+complex_screen         163229 0.7101±0.000 0.7244±0.001 0.0166±0.001 0.5340±0.002      766.8
+
+--- radioml ---
+cell                   params          acc    eval_loss  elapsed_s
+real_softmax           149512 0.3574±0.012 1.4111±0.048      257.5
+real_sigmoid           149515 0.3613±0.004 1.3657±0.013      282.5
+real_screen            162775 0.5547±0.174 1.1352±0.214      381.5
+complex_softmax        149963 0.4336±0.051 1.3963±0.122      802.6
+complex_sigmoid        149966 0.5977±0.051 0.8235±0.046     1235.1
+complex_screen         163229 0.4268±0.122 1.2560±0.182     1453.2
+

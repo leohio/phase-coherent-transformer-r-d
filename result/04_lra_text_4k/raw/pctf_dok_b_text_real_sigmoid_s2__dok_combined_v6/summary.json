@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_text_real_sigmoid_s2",
+  "task": "lra_text",
+  "cell": "real_sigmoid",
+  "seed": 2,
+  "task_params": {},
+  "n_params": 1725261,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 0.628172755241394,
+    "eval_loss": 0.6722263097763062,
+    "text_acc": 0.5625,
+    "lr": 4e-05,
+    "elapsed_s": 5515.50367808342
+  },
+  "total_elapsed_s": 5515.5758497715,
+  "completed": true
+}

@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_listops_m_real_sigmoid_s0",
+  "task": "lra_listops",
+  "cell": "real_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 2452192,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.2327892780303955,
+    "eval_loss": 2.073674440383911,
+    "listops_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 921.5635924339294
+  },
+  "total_elapsed_s": 921.6390447616577,
+  "completed": true
+}

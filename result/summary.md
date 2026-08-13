@@ -2,6 +2,8 @@
 
 This document summarizes a comprehensive benchmark of six attention "cells" across multiple sequence-modeling tasks. Each subfolder under `result/` contains the per-test detail; this top-level document gives the cross-task comparison and headline conclusions in self-contained form (no project-internal jargon).
 
+**Raw data (added 2026-08-13)**: each family now carries a `raw/` subdirectory with per-run artifacts — per-step `metrics.jsonl`, `summary.json`, `config.json` and logs where retained — for 1,387 distinct runs (1,872 copies including cross-provider duplicates, which are deliberately kept with `__provider` suffixes for transparency). See [`../RAW_DATA_MANIFEST.md`](../RAW_DATA_MANIFEST.md) for per-family counts, duplicate-divergence flags, and known gaps. Recovered compute-provider artifacts with full provenance (task ids) are documented in `02_niah_L2048/raw/README.md` and `03_lra_listops/raw_depth_scaling_s0/README.md`; the latter includes the six trained `final_model.pt` endpoints of the depth sweep.
+
 ---
 
 ## 1. What is being compared — the six cells
@@ -49,7 +51,7 @@ The headline finding for each task, with the best-performing cell shown. "PCT-fa
 | **RadioML real L1 / L2** ⚠️ *counterexample* | dim=64, N=2 | `real_screen` (both levels, **beats PCT and complex_screen by margins exceeding seed std**) | 0.363 / 0.389 (vs PCT 0.345 / 0.352, complex_screen 0.341 / 0.337) | [10_radioml](10_radioml/) |
 | **C2 isolation (softplus vs ReLU)** | dim=128, N=3 | `complex_softplus` (1.000) vs `complex_relu` (0.107) | gap 0.893 | [11_c2_isolation](11_c2_isolation/) |
 | **Depth scaling** (LRA-ListOps L=1024) | dim=128, batch=32, N=1, d ∈ {2, 4, 6, 10, 14, 20} | `complex_sigmoid` trains at all depths | **no depth-related accuracy collapse** (best_acc 0.78–0.81 flat, scaling-law claim NOT supported) | [03_lra_listops](03_lra_listops/) |
-| **Path-X (LRA 16K)** | not yet run | (target: > 50% with `complex_sigmoid` solo) | TBD | [12_pathx](12_pathx/) |
+| **Path-X (LRA 16K)** | complex screening + PCR hybrid (paper §6), N=3, held-out n=20,000 | screen + phase-coherent recurrence | **92.71 ± 0.89** (best seed 93.50; weights on HF) | [12_pathx](12_pathx/) |
 
 ---
 
@@ -191,9 +193,9 @@ What this **does not** change: PCT's dominance on the 7 synthetic + algorithmic 
 
 A clean A-vs-B test of one specific framework condition (anti-correlation preservation) across cells that are otherwise identical. `complex_softplus` (gradient nonzero everywhere) reaches 1.000 ± 0.000 on Copy d=1000 with N=3 seeds; `complex_relu` (gradient zero on the negative half) reaches 0.107 ± 0.027 — a **0.893 absolute gap** entirely attributable to whether the gate kills anti-phase information. A follow-up 2 × 2 isolation (`complex_cubic` C2 ✗ M≈252 → 0.200; `complex_clamped_relu` C2 ✓ M=1 / C3 ✗ → 0.103, both N=3) completes the design space and confirms **all four conditions are independently necessary in operating-range form** (anti-correlation preservation = C3 is the dominant axis; bounded gate = C2 also matters but only when M is large enough to break cascade contraction).
 
-### 5.12 Path-X (LRA 16K, not yet run)
+### 5.12 Path-X (LRA 16K) — solved by the screening + PCR hybrid
 
-A pre-experiment plan exists for running `complex_sigmoid` solo on Path-X (sequence length 16384, binary classification) and comparing to literature baselines. Pre-registered success thresholds: > 50% = "solves what vanilla attention cannot", ≥ 87% = "Mamba class", ≥ 95% = "S5/Mega class". Implementation is done; data conversion pending.
+Historical note: the original pre-experiment plan targeted `complex_sigmoid` solo (pre-registered thresholds: > 50% = "solves what vanilla attention cannot", ≥ 87% = "Mamba class", ≥ 95% = "S5/Mega class"). The final result (paper §6) uses a complex-screening + phase-coherent-recurrence (PCR) hybrid: **92.71 ± 0.89** over 3 seeds on the held-out split (n=20,000), best seed 93.50. Model code and the best-seed checkpoint are published (`pathx/`).
 
 ### 5.13 Depth scaling (LRA-ListOps L=1024, d ∈ {2, 4, 6, 10, 14, 20})
 

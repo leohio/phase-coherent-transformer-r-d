@@ -1,0 +1,37 @@
+device: cpu  out_dir: /Users/plasma/repos/complexscreening-00/.claude/worktrees/bridge-cse_011GzoPM6wXvkzzb2wjM5GL7/complex_nn_experiment/runs/bench_real
+arch: dim=64 depth=3 heads=4 dim_head=16
+steps=1000  batch=64  cells=['real_softmax', 'real_sigmoid', 'real_screen', 'complex_softmax', 'complex_sigmoid', 'complex_screen']  seeds=[0, 1]
+tasks=['radioml', 'musicnet']  levels=['L1', 'L2']
+
+=== task: radioml  level: L1  config: {'name': 'L1', 'seq_len': 128} ===
+  done radioml_L1_real_softmax_s0: params=149707 elapsed=157.6s final={'eval_loss': 1.8444, 'acc': 0.2891}
+  done radioml_L1_real_softmax_s1: params=149707 elapsed=158.5s final={'eval_loss': 1.7887, 'acc': 0.3027}
+  done radioml_L1_real_sigmoid_s0: params=149710 elapsed=165.6s final={'eval_loss': 1.8185, 'acc': 0.3008}
+  done radioml_L1_real_sigmoid_s1: params=149710 elapsed=169.6s final={'eval_loss': 1.7912, 'acc': 0.3047}
+  done radioml_L1_real_screen_s0: params=162970 elapsed=237.7s final={'eval_loss': 1.6322, 'acc': 0.3477}
+  done radioml_L1_real_screen_s1: params=162970 elapsed=238.7s final={'eval_loss': 1.5165, 'acc': 0.377}
+  done radioml_L1_complex_softmax_s0: params=150350 elapsed=483.5s final={'eval_loss': 1.9185, 'acc': 0.2715}
+  done radioml_L1_complex_softmax_s1: params=150350 elapsed=488.5s final={'eval_loss': 1.9629, 'acc': 0.2148}
+  done radioml_L1_complex_sigmoid_s0: params=150353 elapsed=793.2s final={'eval_loss': 1.4917, 'acc': 0.3379}
+  done radioml_L1_complex_sigmoid_s1: params=150353 elapsed=796.8s final={'eval_loss': 1.4467, 'acc': 0.3516}
+  done radioml_L1_complex_screen_s0: params=163616 elapsed=1002.7s final={'eval_loss': 1.6627, 'acc': 0.3301}
+  done radioml_L1_complex_screen_s1: params=163616 elapsed=977.9s final={'eval_loss': 1.5382, 'acc': 0.3516}
+
+=== task: radioml  level: L2  config: {'name': 'L2', 'seq_len': 64} ===
+  done radioml_L2_real_softmax_s0: params=149707 elapsed=115.2s final={'eval_loss': 2.0287, 'acc': 0.2324}
+  done radioml_L2_real_softmax_s1: params=149707 elapsed=113.9s final={'eval_loss': 1.9573, 'acc': 0.2148}
+  done radioml_L2_real_sigmoid_s0: params=149710 elapsed=95.3s final={'eval_loss': 2.0283, 'acc': 0.248}
+  done radioml_L2_real_sigmoid_s1: params=149710 elapsed=100.4s final={'eval_loss': 1.9544, 'acc': 0.2344}
+  done radioml_L2_real_screen_s0: params=162970 elapsed=137.8s final={'eval_loss': 1.5283, 'acc': 0.373}
+  done radioml_L2_real_screen_s1: params=162970 elapsed=143.1s final={'eval_loss': 1.517, 'acc': 0.4043}
+  done radioml_L2_complex_softmax_s0: params=150350 elapsed=389.0s final={'eval_loss': 1.958, 'acc': 0.2656}
+  done radioml_L2_complex_softmax_s1: params=150350 elapsed=406.9s final={'eval_loss': 1.8352, 'acc': 0.2812}
+  done radioml_L2_complex_sigmoid_s0: params=150353 elapsed=352.4s final={'eval_loss': 1.5909, 'acc': 0.3398}
+  done radioml_L2_complex_sigmoid_s1: params=150353 elapsed=289.6s final={'eval_loss': 1.5898, 'acc': 0.3633}
+  done radioml_L2_complex_screen_s0: params=163616 elapsed=354.3s final={'eval_loss': 1.6202, 'acc': 0.3516}
+  done radioml_L2_complex_screen_s1: params=163616 elapsed=339.2s final={'eval_loss': 1.6613, 'acc': 0.3223}
+
+=== task: musicnet  level: L1  config: {'name': 'L1', 'window': 256, 'min_midi': 60, 'max_midi': 80} ===
+  done musicnet_L1_real_softmax_s0: params=150357 elapsed=107.8s final={'eval_loss': 0.8445, 'f1': 0.0, 'ham_acc': 0.9089, 'exact_match': 0.0}
+  done musicnet_L1_real_softmax_s1: params=150357 elapsed=111.1s final={'eval_loss': 0.8363, 'f1': 0.0, 'ham_acc': 0.9117, 'exact_match': 0.0}
+  done musicnet_L1_real_sigmoid_s0: params=150360 elapsed=114.7s final={'eval_loss': 0.8445, 'f1': 0.0, 'ham_acc': 0.9089, 'exact_match': 0.0}

@@ -1,0 +1,19 @@
+{
+  "job_id": "sb_cscr_text_s2",
+  "task": "lra_text",
+  "task_params": {},
+  "cell": "complex_screen",
+  "seed": 2,
+  "final_metric": {
+    "step": 9000,
+    "train_loss": 0.6438331678509712,
+    "eval_loss": 0.6199309825897217,
+    "text_acc": 1.0,
+    "lr": 0.00018874332801995257,
+    "elapsed_s": 18855.439750671387
+  },
+  "total_elapsed_s": 18855.439750671387,
+  "completed": true,
+  "early_stopped": true,
+  "early_stop_reason": "text_acc=1.0 reached at step 9000 (auto-watcher)"
+}

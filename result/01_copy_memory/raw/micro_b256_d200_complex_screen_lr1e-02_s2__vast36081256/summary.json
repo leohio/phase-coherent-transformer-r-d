@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_b256_d200_complex_screen_lr1e-02_s2",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 28598,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 2.303051471710205,
+    "eval_loss": 2.3027663230895996,
+    "copy_acc": 0.09023437649011612,
+    "lr": 0.001,
+    "elapsed_s": 85.7515230178833
+  },
+  "total_elapsed_s": 85.76151204109192,
+  "completed": true
+}

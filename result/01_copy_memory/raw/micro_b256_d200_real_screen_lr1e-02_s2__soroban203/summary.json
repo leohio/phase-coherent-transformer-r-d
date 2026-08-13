@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_b256_d200_real_screen_lr1e-02_s2",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 28210,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 2.2999651432037354,
+    "eval_loss": 2.3016810417175293,
+    "copy_acc": 0.13124999403953552,
+    "lr": 0.001,
+    "elapsed_s": 53.74587273597717
+  },
+  "total_elapsed_s": 53.76483201980591,
+  "completed": true
+}

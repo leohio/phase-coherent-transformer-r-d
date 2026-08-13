@@ -1,0 +1,22 @@
+{
+  "job_id": "midscale_niah_L2048_b32_real_screen_s0",
+  "task": "niah",
+  "cell": "real_screen",
+  "seed": 0,
+  "task_params": {
+    "depth_ratio": 0.5,
+    "seq_len": 2048,
+    "vocab_size": 64
+  },
+  "n_params": 5163376,
+  "final_metric": {
+    "step": 6000,
+    "train_loss": 4.1272947788238525,
+    "eval_loss": 4.1353864669799805,
+    "needle_acc": 0.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 7859.411730766296
+  },
+  "total_elapsed_s": 7859.449839115143,
+  "completed": true
+}

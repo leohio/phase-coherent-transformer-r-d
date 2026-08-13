@@ -1,0 +1,20 @@
+{
+  "job_id": "sb_csg_text_s0",
+  "task": "lra_text",
+  "task_params": {},
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "n_params": 889097,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 0.8427996560931206,
+    "eval_loss": 0.7352277636528015,
+    "text_acc": 1.0,
+    "lr": 0.0003891446717414635,
+    "elapsed_s": 11397.007447719574
+  },
+  "total_elapsed_s": 11397.007,
+  "completed": true,
+  "early_stopped": true,
+  "early_stop_reason": "user-truncated at step 3000 (acc=1.0)"
+}

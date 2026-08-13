@@ -1,0 +1,19 @@
+{
+  "job_id": "sb_csg_text_s1",
+  "task": "lra_text",
+  "task_params": {},
+  "cell": "complex_sigmoid",
+  "seed": 1,
+  "final_metric": {
+    "step": 5000,
+    "train_loss": 0.720404714345932,
+    "eval_loss": 0.5915501713752747,
+    "text_acc": 1.0,
+    "lr": 0.0003435234948163721,
+    "elapsed_s": 18994.359478712082
+  },
+  "total_elapsed_s": 18994.359478712082,
+  "completed": true,
+  "early_stopped": true,
+  "early_stop_reason": "text_acc=1.0 reached at step 5000 (auto-watcher)"
+}

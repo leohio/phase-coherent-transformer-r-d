@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_vast_b_image_complex_sigmoid_s2",
+  "task": "lra_image",
+  "cell": "complex_sigmoid",
+  "seed": 2,
+  "task_params": {},
+  "n_params": 888712,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.68905508518219,
+    "eval_loss": 1.4476150274276733,
+    "image_acc": 0.46875,
+    "lr": 4e-05,
+    "elapsed_s": 2710.446298122406
+  },
+  "total_elapsed_s": 2710.487227678299,
+  "completed": true
+}

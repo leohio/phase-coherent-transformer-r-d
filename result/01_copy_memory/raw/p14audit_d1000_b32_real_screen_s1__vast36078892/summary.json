@@ -1,0 +1,21 @@
+{
+  "job_id": "p14audit_d1000_b32_real_screen_s1",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 5136700,
+  "final_metric": {
+    "step": 5000,
+    "train_loss": 0.0019880044274032116,
+    "eval_loss": 0.0017760263290256262,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 241.10810112953186
+  },
+  "total_elapsed_s": 241.22689771652222,
+  "completed": true
+}

@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_vast_b_image_real_softmax_s0",
+  "task": "lra_image",
+  "cell": "real_softmax",
+  "seed": 0,
+  "task_params": {},
+  "n_params": 1724888,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.1992034912109375,
+    "eval_loss": 2.0543711185455322,
+    "image_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 1677.091213464737
+  },
+  "total_elapsed_s": 1677.1149671077728,
+  "completed": true
+}

@@ -1,0 +1,20 @@
+{
+  "job_id": "pctf_dok_b_fft16_real_screen_s0",
+  "task": "fftmnist",
+  "cell": "real_screen",
+  "seed": 0,
+  "task_params": {
+    "t": 16
+  },
+  "n_params": 1771762,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.5006385445594788,
+    "eval_loss": 0.312706857919693,
+    "test_acc": 0.9375,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 538.0375669002533
+  },
+  "total_elapsed_s": 538.1354598999023,
+  "completed": true
+}

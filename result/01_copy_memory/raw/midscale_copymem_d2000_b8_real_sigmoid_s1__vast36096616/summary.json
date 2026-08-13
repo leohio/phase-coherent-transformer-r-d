@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d2000_b8_real_sigmoid_s1",
+  "task": "copymem",
+  "cell": "real_sigmoid",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 4735762,
+  "final_metric": {
+    "step": 8000,
+    "train_loss": 2.301966667175293,
+    "eval_loss": 2.3065273761749268,
+    "copy_acc": 0.05000000074505806,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 835.1463227272034
+  },
+  "total_elapsed_s": 835.2162461280823,
+  "completed": true
+}

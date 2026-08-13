@@ -1,0 +1,20 @@
+{
+  "job_id": "pctf_dok_b_fft16_real_sigmoid_s2",
+  "task": "fftmnist",
+  "cell": "real_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "t": 16
+  },
+  "n_params": 1632646,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 1.3317716121673584,
+    "eval_loss": 1.0977857112884521,
+    "test_acc": 0.5625,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 397.92393231391907
+  },
+  "total_elapsed_s": 398.0093376636505,
+  "completed": true
+}

@@ -1,0 +1,20 @@
+{
+  "job_id": "sb_csg_text_s2",
+  "task": "lra_text",
+  "task_params": {},
+  "cell": "complex_sigmoid",
+  "seed": 2,
+  "n_params": 889097,
+  "final_metric": {
+    "step": 9000,
+    "train_loss": 0.5891701094806194,
+    "eval_loss": 0.7216550707817078,
+    "text_acc": 0.5,
+    "lr": 0.00018874332801995257,
+    "elapsed_s": 34193.400010347366
+  },
+  "total_elapsed_s": 34193.4,
+  "completed": false,
+  "early_stopped": false,
+  "snapshot_note": "in-flight snapshot at step 9000 (training continues on cvnn6); will be overwritten when watcher triggers acc\u22650.95 OR run reaches step 15000"
+}

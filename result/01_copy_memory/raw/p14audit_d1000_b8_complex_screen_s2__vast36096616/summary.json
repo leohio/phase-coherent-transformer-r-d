@@ -1,0 +1,21 @@
+{
+  "job_id": "p14audit_d1000_b8_complex_screen_s2",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 5139784,
+  "final_metric": {
+    "step": 5000,
+    "train_loss": 2.3016302585601807,
+    "eval_loss": 2.2996954917907715,
+    "copy_acc": 0.10000000149011612,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 418.7528030872345
+  },
+  "total_elapsed_s": 418.89297676086426,
+  "completed": true
+}

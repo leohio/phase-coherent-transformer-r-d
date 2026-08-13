@@ -1,0 +1,21 @@
+{
+  "job_id": "pctf_dok_copy1k_complex_softmax_s0",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 794768,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 4.762882963404991e-05,
+    "eval_loss": 4.7346504288725555e-05,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 876.3733825683594
+  },
+  "total_elapsed_s": 876.4219872951508,
+  "completed": true
+}

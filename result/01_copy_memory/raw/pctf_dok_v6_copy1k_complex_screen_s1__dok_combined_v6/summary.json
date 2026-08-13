@@ -1,0 +1,21 @@
+{
+  "job_id": "pctf_dok_v6_copy1k_complex_screen_s1",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 862884,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.00011121456191176549,
+    "eval_loss": 0.00011070499749621376,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 1301.296108007431
+  },
+  "total_elapsed_s": 1301.3708713054657,
+  "completed": true
+}

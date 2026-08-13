@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_screen_nosm_d200_complex_screen_lr1e-02_s1",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 28596,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.1439741998910904,
+    "eval_loss": 0.14211317896842957,
+    "copy_acc": 0.896484375,
+    "lr": 0.001,
+    "elapsed_s": 380.08221077919006
+  },
+  "total_elapsed_s": 380.09539103507996,
+  "completed": true
+}

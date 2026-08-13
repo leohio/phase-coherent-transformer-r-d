@@ -1,0 +1,20 @@
+{
+  "job_id": "lra_listops_cs_d128L2_b32_lr1e3_s30k_s0",
+  "task": "lra_listops",
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "task_params": {
+    "max_seq_len": 1024
+  },
+  "n_params": 402070,
+  "final_metric": {
+    "step": 30000,
+    "train_loss": 1.0392353534698486,
+    "eval_loss": 1.0209589004516602,
+    "listops_acc": 0.59375,
+    "lr": 0.0001,
+    "elapsed_s": 2379.4347064495087
+  },
+  "total_elapsed_s": 2379.469979763031,
+  "completed": true
+}

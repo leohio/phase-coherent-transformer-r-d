@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_image_complex_softmax_s1",
+  "task": "lra_image",
+  "cell": "complex_softmax",
+  "seed": 1,
+  "task_params": {},
+  "n_params": 888708,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.10156512260437,
+    "eval_loss": 2.1017184257507324,
+    "image_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 1039.3917744159698
+  },
+  "total_elapsed_s": 1039.4657847881317,
+  "completed": true
+}

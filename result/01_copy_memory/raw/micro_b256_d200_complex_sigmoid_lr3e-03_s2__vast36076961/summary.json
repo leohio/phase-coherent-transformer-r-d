@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_b256_d200_complex_sigmoid_lr3e-03_s2",
+  "task": "copymem",
+  "cell": "complex_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 26224,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.006319042295217514,
+    "eval_loss": 0.006310270167887211,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 161.48470258712769
+  },
+  "total_elapsed_s": 161.4939284324646,
+  "completed": true
+}

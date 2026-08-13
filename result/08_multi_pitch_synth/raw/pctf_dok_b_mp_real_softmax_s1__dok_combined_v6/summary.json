@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_b_mp_real_softmax_s1",
+  "task": "multi_pitch",
+  "cell": "real_softmax",
+  "seed": 1,
+  "task_params": {
+    "n_samples": 128,
+    "n_pitches": 16,
+    "n_active": 3
+  },
+  "n_params": 1633752,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.4019136130809784,
+    "eval_loss": 0.398296594619751,
+    "multi_pitch_acc": 0.830078125,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 405.80709743499756
+  },
+  "total_elapsed_s": 405.89301800727844,
+  "completed": true
+}

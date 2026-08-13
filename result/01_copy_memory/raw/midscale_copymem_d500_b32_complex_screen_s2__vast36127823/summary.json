@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d500_b32_complex_screen_s2",
+  "task": "copymem",
+  "cell": "complex_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 500
+  },
+  "n_params": 5139784,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 1.6828924417495728,
+    "eval_loss": 1.625244379043579,
+    "copy_acc": 0.31562501192092896,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 1230.9411237239838
+  },
+  "total_elapsed_s": 1231.0648379325867,
+  "completed": true
+}

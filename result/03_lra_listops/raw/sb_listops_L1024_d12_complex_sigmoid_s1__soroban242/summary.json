@@ -1,0 +1,22 @@
+{
+  "job_id": "sb_listops_L1024_d12_complex_sigmoid_s1",
+  "task": "lra_listops",
+  "cell": "complex_sigmoid",
+  "seed": 1,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 2377130,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.15301713347434998,
+    "eval_loss": 0.2682543098926544,
+    "listops_acc": 0.84375,
+    "lr": 0.0002,
+    "elapsed_s": 5944.309930086136
+  },
+  "total_elapsed_s": 5944.4124002456665,
+  "completed": true
+}

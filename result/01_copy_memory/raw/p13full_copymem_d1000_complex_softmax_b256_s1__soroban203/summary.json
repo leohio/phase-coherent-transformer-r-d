@@ -1,0 +1,21 @@
+{
+  "job_id": "p13full_copymem_d1000_complex_softmax_b256_s1",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 101582,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 0.012688961811363697,
+    "eval_loss": 0.012652626261115074,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 6370.094849586487
+  },
+  "total_elapsed_s": 6370.105420351028,
+  "completed": true
+}

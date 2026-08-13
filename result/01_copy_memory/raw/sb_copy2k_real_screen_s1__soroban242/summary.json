@@ -1,0 +1,21 @@
+{
+  "job_id": "sb_copy2k_real_screen_s1",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 1,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 1773972,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.00013649040192831308,
+    "eval_loss": 0.00013491818390320987,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 4126.499319314957
+  },
+  "total_elapsed_s": 4126.53853392601,
+  "completed": true
+}

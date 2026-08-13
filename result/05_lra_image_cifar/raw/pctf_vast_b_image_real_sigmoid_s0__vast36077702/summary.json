@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_vast_b_image_real_sigmoid_s0",
+  "task": "lra_image",
+  "cell": "real_sigmoid",
+  "seed": 0,
+  "task_params": {},
+  "n_params": 1724892,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.2368831634521484,
+    "eval_loss": 2.0685677528381348,
+    "image_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 1183.875678062439
+  },
+  "total_elapsed_s": 1183.9018459320068,
+  "completed": true
+}

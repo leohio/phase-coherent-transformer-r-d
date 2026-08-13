@@ -1,0 +1,21 @@
+{
+  "job_id": "c2iso_orch_copymem_d1000_relu_s0",
+  "task": "copymem",
+  "cell": "complex_relu",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 794772,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 2.3038625717163086,
+    "eval_loss": 2.3032784461975098,
+    "copy_acc": 0.10625000298023224,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 528.7850258350372
+  },
+  "total_elapsed_s": 528.8116097450256,
+  "completed": true
+}

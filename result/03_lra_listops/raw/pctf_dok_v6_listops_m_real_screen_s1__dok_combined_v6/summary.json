@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_v6_listops_m_real_screen_s1",
+  "task": "lra_listops",
+  "cell": "real_screen",
+  "seed": 1,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 2660866,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 0.9633827209472656,
+    "eval_loss": 1.074395775794983,
+    "listops_acc": 0.59375,
+    "lr": 4e-05,
+    "elapsed_s": 1320.5078222751617
+  },
+  "total_elapsed_s": 1320.588284254074,
+  "completed": true
+}

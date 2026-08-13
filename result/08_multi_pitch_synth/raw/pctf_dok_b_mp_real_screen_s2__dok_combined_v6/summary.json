@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_b_mp_real_screen_s2",
+  "task": "multi_pitch",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {
+    "n_samples": 128,
+    "n_pitches": 16,
+    "n_active": 3
+  },
+  "n_params": 1772872,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.1461765170097351,
+    "eval_loss": 0.13855008780956268,
+    "multi_pitch_acc": 0.94140625,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 554.4836041927338
+  },
+  "total_elapsed_s": 554.5796086788177,
+  "completed": true
+}

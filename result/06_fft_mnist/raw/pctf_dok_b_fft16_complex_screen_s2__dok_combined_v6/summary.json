@@ -1,0 +1,20 @@
+{
+  "job_id": "pctf_dok_b_fft16_complex_screen_s2",
+  "task": "fftmnist",
+  "cell": "complex_screen",
+  "seed": 2,
+  "task_params": {
+    "t": 16
+  },
+  "n_params": 860962,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 0.2268189787864685,
+    "eval_loss": 0.12711435556411743,
+    "test_acc": 0.96875,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 649.0944571495056
+  },
+  "total_elapsed_s": 649.1890776157379,
+  "completed": true
+}

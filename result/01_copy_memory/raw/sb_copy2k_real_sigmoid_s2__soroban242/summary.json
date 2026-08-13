@@ -1,0 +1,21 @@
+{
+  "job_id": "sb_copy2k_real_sigmoid_s2",
+  "task": "copymem",
+  "cell": "real_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 2000
+  },
+  "n_params": 1634856,
+  "final_metric": {
+    "step": 10000,
+    "train_loss": 1.5219899415969849,
+    "eval_loss": 1.5336236953735352,
+    "copy_acc": 0.26875001192092896,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 3166.3156819343567
+  },
+  "total_elapsed_s": 3166.3497836589813,
+  "completed": true
+}

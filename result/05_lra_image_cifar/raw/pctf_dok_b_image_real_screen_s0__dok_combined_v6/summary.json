@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_image_real_screen_s0",
+  "task": "lra_image",
+  "cell": "real_screen",
+  "seed": 0,
+  "task_params": {},
+  "n_params": 1864008,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.7888950109481812,
+    "eval_loss": 1.6702477931976318,
+    "image_acc": 0.34375,
+    "lr": 4e-05,
+    "elapsed_s": 1000.8520545959473
+  },
+  "total_elapsed_s": 1000.9332005977631,
+  "completed": true
+}

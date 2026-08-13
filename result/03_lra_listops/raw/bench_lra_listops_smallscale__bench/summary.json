@@ -1,0 +1,126 @@
+{
+  "elapsed_total_s": 3571.1445071697235,
+  "results": [
+    {
+      "diff": "A",
+      "cell": "real_softmax",
+      "best_acc": 0.98828125,
+      "final_acc": 0.98828125,
+      "elapsed_s": 41.99194002151489,
+      "n_params": 101586
+    },
+    {
+      "diff": "A",
+      "cell": "real_sigmoid",
+      "best_acc": 0.890625,
+      "final_acc": 0.88671875,
+      "elapsed_s": 41.45913290977478,
+      "n_params": 101588
+    },
+    {
+      "diff": "A",
+      "cell": "real_screen",
+      "best_acc": 0.93359375,
+      "final_acc": 0.90234375,
+      "elapsed_s": 57.3547739982605,
+      "n_params": 110426
+    },
+    {
+      "diff": "A",
+      "cell": "complex_softmax",
+      "best_acc": 1.0,
+      "final_acc": 1.0,
+      "elapsed_s": 162.56531190872192,
+      "n_params": 102740
+    },
+    {
+      "diff": "A",
+      "cell": "complex_sigmoid",
+      "best_acc": 1.0,
+      "final_acc": 0.984375,
+      "elapsed_s": 251.43337988853455,
+      "n_params": 102742
+    },
+    {
+      "diff": "A",
+      "cell": "complex_screen",
+      "best_acc": 1.0,
+      "final_acc": 1.0,
+      "elapsed_s": 239.91069221496582,
+      "n_params": 111582
+    },
+    {
+      "diff": "B",
+      "cell": "real_softmax",
+      "best_acc": 0.625,
+      "final_acc": 0.625,
+      "elapsed_s": 129.0739130973816,
+      "n_params": 101586
+    },
+    {
+      "diff": "B",
+      "cell": "real_sigmoid",
+      "best_acc": 0.59375,
+      "final_acc": 0.59375,
+      "elapsed_s": 109.17721700668335,
+      "n_params": 101588
+    },
+    {
+      "diff": "B",
+      "cell": "real_screen",
+      "best_acc": 0.6875,
+      "final_acc": 0.6875,
+      "elapsed_s": 154.08116507530212,
+      "n_params": 110426
+    },
+    {
+      "diff": "B",
+      "cell": "complex_softmax",
+      "best_acc": 0.63671875,
+      "final_acc": 0.63671875,
+      "elapsed_s": 416.34741616249084,
+      "n_params": 102740
+    },
+    {
+      "diff": "B",
+      "cell": "complex_sigmoid",
+      "best_acc": 0.71875,
+      "final_acc": 0.71875,
+      "elapsed_s": 1038.982843875885,
+      "n_params": 102742
+    },
+    {
+      "diff": "B",
+      "cell": "complex_screen",
+      "best_acc": 0.71484375,
+      "final_acc": 0.71484375,
+      "elapsed_s": 928.423003911972,
+      "n_params": 111582
+    }
+  ],
+  "difficulties": {
+    "A": {
+      "max_depth": 1,
+      "max_args": 2,
+      "max_seq_len": 64,
+      "chunk_size": 16,
+      "steps": 2000,
+      "eval_every": 100
+    },
+    "B": {
+      "max_depth": 2,
+      "max_args": 3,
+      "max_seq_len": 128,
+      "chunk_size": 32,
+      "steps": 3000,
+      "eval_every": 150
+    }
+  },
+  "arch": {
+    "dim": 64,
+    "depth": 2,
+    "heads": 4,
+    "dim_head": 16,
+    "ff_mult": 4
+  }
+}

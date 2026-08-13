@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_b256_d200_complex_softmax_lr3e-03_s0",
+  "task": "copymem",
+  "cell": "complex_softmax",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 26222,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.003161361441016197,
+    "eval_loss": 0.0031855397392064333,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 130.30913949012756
+  },
+  "total_elapsed_s": 130.3161952495575,
+  "completed": true
+}

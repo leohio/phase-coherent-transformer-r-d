@@ -1,0 +1,21 @@
+{
+  "job_id": "p13full_copymem_d1000_real_screen_b32_s2",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 1000
+  },
+  "n_params": 109652,
+  "final_metric": {
+    "step": 8000,
+    "train_loss": 0.0003375488449819386,
+    "eval_loss": 0.00033696898026391864,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 1781.498034477234
+  },
+  "total_elapsed_s": 1781.5084493160248,
+  "completed": true
+}

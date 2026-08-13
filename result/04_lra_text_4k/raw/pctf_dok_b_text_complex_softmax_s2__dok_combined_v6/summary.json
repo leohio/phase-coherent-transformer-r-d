@@ -1,0 +1,18 @@
+{
+  "job_id": "pctf_dok_b_text_complex_softmax_s2",
+  "task": "lra_text",
+  "cell": "complex_softmax",
+  "seed": 2,
+  "task_params": {},
+  "n_params": 889093,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 0.6241105794906616,
+    "eval_loss": 0.6791764497756958,
+    "text_acc": 0.5625,
+    "lr": 4e-05,
+    "elapsed_s": 7768.803297519684
+  },
+  "total_elapsed_s": 7768.854779958725,
+  "completed": true
+}

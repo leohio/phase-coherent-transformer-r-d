@@ -1,0 +1,21 @@
+{
+  "job_id": "micro_screen_nosm_d200_real_screen_lr1e-02_s0",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 0,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 28208,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.0017909752205014229,
+    "eval_loss": 0.0017807865515351295,
+    "copy_acc": 1.0,
+    "lr": 0.001,
+    "elapsed_s": 62.22401475906372
+  },
+  "total_elapsed_s": 62.22760605812073,
+  "completed": true
+}

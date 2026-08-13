@@ -1,0 +1,21 @@
+{
+  "job_id": "p13full_copymem_d500_real_sigmoid_b256_s2",
+  "task": "copymem",
+  "cell": "real_sigmoid",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 500
+  },
+  "n_params": 100814,
+  "final_metric": {
+    "step": 2000,
+    "train_loss": 0.014926130883395672,
+    "eval_loss": 0.014950193464756012,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 167.36161541938782
+  },
+  "total_elapsed_s": 167.36692261695862,
+  "completed": true
+}

@@ -1,0 +1,21 @@
+{
+  "job_id": "p14audit_d200_b8_real_screen_s2",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 200
+  },
+  "n_params": 5136700,
+  "final_metric": {
+    "step": 5000,
+    "train_loss": 0.11469799280166626,
+    "eval_loss": 0.11483925580978394,
+    "copy_acc": 0.887499988079071,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 388.45650458335876
+  },
+  "total_elapsed_s": 388.5171196460724,
+  "completed": true
+}

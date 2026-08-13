@@ -1,0 +1,21 @@
+{
+  "job_id": "midscale_copymem_d500_b256_real_screen_s2",
+  "task": "copymem",
+  "cell": "real_screen",
+  "seed": 2,
+  "task_params": {
+    "K": 10,
+    "delay": 500
+  },
+  "n_params": 5136700,
+  "final_metric": {
+    "step": 3000,
+    "train_loss": 0.005867753177881241,
+    "eval_loss": 0.0059326933696866035,
+    "copy_acc": 1.0,
+    "lr": 0.00030000000000000003,
+    "elapsed_s": 62.89285492897034
+  },
+  "total_elapsed_s": 62.97397756576538,
+  "completed": true
+}

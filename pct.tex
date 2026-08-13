@@ -608,7 +608,7 @@ Second, \texttt{best\_eval\_loss} is weakly monotone with a non-monotonic dip (d
 \textbf{Summary}. PCT operates without depth-related accuracy collapse across all depths we tested. We do not fit a quantitative scaling law; the empirical claim is qualitative and conservative: PCT does not exhibit a depth-collapse failure mode at any depth we tested.
 
 \subsection{Real-domain validation}
-To check that the synthetic and algorithmic dominance pattern carries over to physical complex-domain data, we benchmark all six cells on the public RML2016 mirror of RadioML and on a 10-piece test split of MusicNet. Both are small-scale runs at \texttt{dim=64, depth=3} with N=3 seeds per cell.
+To check that the synthetic and algorithmic dominance pattern carries over to physical complex-domain data, we benchmark all six cells on the public RML2016 mirror of RadioML and on a 10-piece test split of MusicNet. Both are small-scale runs at \texttt{dim=64, depth=3} with N=2 seeds per cell (below the project's preferred N=3; noted as a limitation).
 
 \textbf{Real RadioML}. This is the only physical-complex domain in our suite (11-class modulation classification on raw I/Q signals, random=0.091).
 
@@ -1165,7 +1165,7 @@ The companion appendix contains the full quantitative statements; the Lean repos
 \medskip
 
 \section*{Appendix 0. List of tests conducted}
-The following tests support the headline matrix and the per-hypothesis evidence in \S{}4 / \S{}5. Each cell $\times$ task combination listed below has at least one trained checkpoint and a per-seed metrics record in the public data archive.
+The following tests support the headline matrix and the per-hypothesis evidence in \S{}4 / \S{}5. Per-run raw records (per-step \texttt{metrics.jsonl}, \texttt{summary.json}, and \texttt{config.json} where retained) are published in the public data archive under \texttt{result/<family>/raw*/}; trained checkpoints are included where they were retained (depth-scaling sweep finals, Path-X best seed) -- checkpoints for most mid-scale sweep runs were not retained by the compute providers.
 
 \textbf{Headline 6-cell comparison}:
 
@@ -1194,14 +1194,14 @@ The following tests support the headline matrix and the per-hypothesis evidence 
   \item Batch sweep on long-range Copy at b $\in$ {8, 32, 256}
 \end{itemize}
 
-\textbf{Depth scaling sweep} -- \texttt{complex\_sigmoid} on LRA-ListOps L=1024 at depth $\in$ {2, 4, 6, 10, 14, 20}; H100, batch=32, lr=1e-3 cosine over 30K steps, N=3 seeds. Detailed in \S{}4.7 / \S{}5.5.
+\textbf{Depth scaling sweep} -- \texttt{complex\_sigmoid} on LRA-ListOps L=1024 at depth $\in$ {2, 4, 6, 10, 14, 20}; H100, batch=32, lr=1e-3 cosine over 30K steps, single seed (N=1; an N=3 replication with an n=2048 deterministic final eval is in progress). Detailed in \S{}4.7 / \S{}5.5.
 
 \textbf{Substrate ablations on PCT} -- A1 (native complex linear vs \texttt{(Re, Im)} two real linears), A2, A3, A4. Detailed in Appendix F via the public data archive.
 
 \medskip
 
 \section*{Appendix 1. Data location}
-All raw results -- per-seed metrics, configuration files, training logs, and aggregation scripts -- for every test listed in Appendix 0 are available at:
+The public data archive contains, per experiment family, a summary write-up plus per-run raw artifacts (\texttt{metrics.jsonl}, \texttt{summary.json}, \texttt{config.json} and container logs where retained; see each family's \texttt{raw*/README.md} for provenance, including compute-provider task ids):
 
 \url{https://github.com/leohio/phase-coherent-transformer-r-d/tree/main/result}
 
@@ -1258,7 +1258,7 @@ The table below lists the architecture and training settings used in each number
 \hline
 4.1 & Copy d=500 / d=2000 (mid) & 6 cells (PCT-fair) & dim=256, L=6 & 32 & 3e-4 & 1000 & 30\,000 & 3 \\
 \hline
-4.1 & NIAH L=2048 (mid) & 6 cells, complex chunked & dim=256, L=6, chunk=256 & 32 (mb=16, ga=2) & 3e-4 & 1000 & 30\,000 & 3 \\
+4.1 & NIAH L=2048 (mid) & 6 cells, complex chunked & dim=256, L=6, chunk=256 & 32 (mb=16, ga=2) & 3e-4 & 1000 & 30\,000 & 3 (\texttt{PCT}) / 1 (others) \\
 \hline
 4.1 & LRA-ListOps L=1024 dep=2 & 6 cells (PCT-fair) & dim=128, L=4 & 32 & 1e-3 & 1000 & 30\,000 & 3 \\
 \hline
@@ -1272,7 +1272,7 @@ The table below lists the architecture and training settings used in each number
 \hline
 \multicolumn{9}{|l|}{\textbf{R2 -- NIAH dominance (\S 4.2)}} \\
 \hline
-4.2 & NIAH L=2048 & 6 cells, complex chunked & dim=256, L=6 & 32 (mb=16, ga=2) & 3e-4 & 1000 & 30\,000 (or 60\,000 at b=16) & 3 \\
+4.2 & NIAH L=2048 & 6 cells, complex chunked & dim=256, L=6 & 32 (mb=16, ga=2) & 3e-4 & 1000 & 30\,000 (or 60\,000 at b=16) & 3 (\texttt{PCT}) / 1 (others) \\
 \hline
 \multicolumn{9}{|l|}{\textbf{R3 -- LR / batch robustness (\S 4.3)}} \\
 \hline
@@ -1324,17 +1324,17 @@ The table below lists the architecture and training settings used in each number
   \item \textbf{Primary GPU}: NVIDIA H100 80\,GB (Sakura DOK).
   \item \textbf{Secondary GPUs}: A100 80\,GB (Soroban) and consumer-grade RTX 3090 / 4090 (Vast.ai), used for parallel sweeps where reliability $\ge$ 0.99.
   \item \textbf{Wall-clock per representative run}: small-scale ($<$\,1\,M params, $\le$\,10\,K steps): 5--40\,min; mid-scale (1--6\,M params, 30\,K steps): 1--5\,h; depth scaling (depth=20, $\sim$\,4\,M params, 30\,K steps): $\sim$\,4\,h on a single H100.
-  \item \textbf{Seed convention}: all multi-seed claims use seeds $s \in \{0, 1, 2\}$; "stuck-seed" extension to $N$=10 (\S 3.6) uses $s \in \{0, 1, \ldots, 9\}$.
-  \item \textbf{Reproduction artefacts}: the public data archive (Appendix~1) contains, per run, the exact \texttt{config.json}, the per-step \texttt{metrics.jsonl}, and a \texttt{summary.json} with the final metric and elapsed wall-clock.
+  \item \textbf{Seed convention}: multi-seed runs use seeds $s \in \{0, 1, 2\}$; "stuck-seed" extension to $N$=10 (\S 3.6) uses $s \in \{0, 1, \ldots, 9\}$. Actual seed counts vary by experiment and are stated per row in the Appendix-3 table (several older runs are N=1 or N=2; replications in progress are marked).
+  \item \textbf{Reproduction artefacts}: the public data archive (Appendix~1) publishes, per run where retained, the per-step \texttt{metrics.jsonl}, a \texttt{summary.json} with the final metric and elapsed wall-clock, and the \texttt{config.json}; provenance (compute-provider task ids) is documented in each family's \texttt{raw*/README.md}.
 \end{itemize}
 
 \medskip
 
 \section*{Appendix 3. Contents of \texttt{result/summary.md}}
-This appendix reproduces the orientation document \texttt{result/summary.md} from the public data archive linked in Appendix 1. The full file is also available at \url{https://github.com/leohio/phase-coherent-transformer-r-d/blob/main/result/summary.md}.
+This appendix is adapted from the orientation document \texttt{result/summary.md} in the public data archive linked in Appendix 1, with per-row seed counts corrected to the actual collected N (2026-08 audit). The archive file is available at \url{https://github.com/leohio/phase-coherent-transformer-r-d/blob/main/result/summary.md}.
 
 \subsection*{Cross-task headline matrix}
-The headline finding for each task, with the best-performing cell shown. "PCT-fair" means $real\_dim = complex\_dim \times 1.41$, screening cells with softmask=OFF, batch=32, N=3 seeds.
+The headline finding for each task, with the best-performing cell shown. "PCT-fair" means $real\_dim = complex\_dim \times 1.41$, screening cells with softmask=OFF, batch=32; seed counts are stated per row.
 
 \begin{table}[H]
 \centering
@@ -1353,15 +1353,15 @@ Copy Memory \texttt{d=2000} (mid) & dim=256, N=3, \texttt{PCT}-fair & \texttt{re
 \hline
 Copy Memory \texttt{d=2000-5000} & dim=256, batch=8, $\geq$17 seeds & \textbf{\texttt{complex\_sigmoid} uniquely} & 1.000 \\
 \hline
-NIAH \texttt{L=2048} (mid) & dim=256/L6, chunked attention, N=3 & \texttt{complex\_sigmoid} (\texttt{PCT}) & \textbf{1.000} \\
+NIAH \texttt{L=2048} (mid) & dim=256/L6, chunked attention; \texttt{PCT} N=3, other cells N=1 & \texttt{complex\_sigmoid} (\texttt{PCT}) & \textbf{1.000} \\
 \hline
-LRA-ListOps medium (small) & dim=64, N=3 & \texttt{complex\_sigmoid} & 0.7188 \\
+LRA-ListOps medium (small) & dim=64, N=1 & \texttt{complex\_sigmoid} & 0.7188 \\
 \hline
 LRA-ListOps \texttt{L=1024} & dim=128, N=3 & \texttt{complex\_sigmoid} & 0.854 \\
 \hline
-LRA-Text 4K & dim=128, N=3, \texttt{PCT}-fair & \texttt{complex\_sigmoid} + \texttt{complex\_screen} (dual) & 1.000 / 1.000 (others $\leq$ 0.64) \\
+LRA-Text 4K & dim=128, \texttt{PCT}-fair; N=2 (\texttt{complex\_sigmoid}) / N=3 (\texttt{complex\_screen}) & \texttt{complex\_sigmoid} + \texttt{complex\_screen} (dual) & 1.000 / 1.000 (others $\leq$ 0.64; held-out test-split re-measurement in progress) \\
 \hline
-LRA-Image CIFAR & dim=128, N=6, \texttt{PCT}-fair & \texttt{complex\_sigmoid} & 0.458 \\
+LRA-Image CIFAR & dim=128, N=3 (an earlier N=6 count double-counted duplicated runs), \texttt{PCT}-fair & \texttt{complex\_sigmoid} & 0.458 \\
 \hline
 FFT-MNIST t=16 & dim=128, N=3, \texttt{PCT}-fair & \texttt{complex\_screen} + \texttt{complex\_sigmoid} (dual) & 0.938 / 0.927 \\
 \hline
@@ -1369,17 +1369,17 @@ Phase Memory & dim=64, N=3 & \texttt{real\_screen} + \texttt{complex\_sigmoid} +
 \hline
 Multi-Pitch synth & dim=128, N=3 & \texttt{complex\_screen} + \texttt{complex\_sigmoid} & 1.000 / 0.997 \\
 \hline
-MusicNet real (small) & dim=64, N=3 & \texttt{complex\_screen} (marginal) & 0.218 \\
+MusicNet real (small) & dim=64, N=2 & \texttt{complex\_screen} (marginal) & 0.218 \\
 \hline
-RadioML synth L1 / L2 & dim=64, N=3 & \texttt{complex\_sigmoid} (L1) / \texttt{complex\_screen} (L2) & 0.598 / 0.637 \\
+RadioML synth L1 / L2 & dim=64, N=2 & \texttt{complex\_sigmoid} (L1) / \texttt{complex\_screen} (L2) & 0.598 / 0.637 \\
 \hline
-RadioML real L1 / L2 & dim=64, N=3 & \texttt{real\_screen} & 0.363 / 0.389 \\
+RadioML real L1 / L2 & dim=64, N=2 & \texttt{real\_screen} & 0.363 / 0.389 \\
 \hline
 Two-axis (C2 $\times$ C3) isolation & dim=128, N=3 & sigmoid 1.000 / softplus 1.000 / cubic 0.200 / clamped\_relu 0.103 / ReLU 0.107 & 0.893 absolute gap (sigmoid $\to$ ReLU) \\
 \hline
-Depth scaling & dim=128, batch=32, N=3, d $\in$ {2, 4, 6, 10, 14, 20} & \texttt{complex\_sigmoid} trains at all depths & \textbf{no depth-related accuracy collapse} \\
+Depth scaling & dim=128, batch=32, N=1 (N=3 replication in progress), d $\in$ {2, 4, 6, 10, 14, 20} & \texttt{complex\_sigmoid} trains at all depths & no depth-related accuracy collapse (single-seed observation) \\
 \hline
-Path-X & not yet run &  & -- \\
+Path-X & complex screening + PCR hybrid (\S{}6), N=3, held-out n=20\,000 & screen + phase-coherent recurrence & 92.71 $\pm$ 0.89 (best 93.50) \\
 \hline
 \end{tabularx}
 \end{table}

@@ -1,0 +1,22 @@
+{
+  "job_id": "pctf_dok_listops_m_complex_screen_s2",
+  "task": "lra_listops",
+  "cell": "complex_screen",
+  "seed": 2,
+  "task_params": {
+    "max_seq_len": 1024,
+    "max_depth": 2,
+    "max_args": 3
+  },
+  "n_params": 1294268,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.295574426651001,
+    "eval_loss": 2.2840585708618164,
+    "listops_acc": 0.1875,
+    "lr": 4e-05,
+    "elapsed_s": 2754.0499715805054
+  },
+  "total_elapsed_s": 2754.1721255779266,
+  "completed": true
+}
