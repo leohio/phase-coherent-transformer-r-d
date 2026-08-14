@@ -1,0 +1,24 @@
+{
+  "job_id": "heldout_lra_image_real_screen_s1",
+  "task": "lra_image",
+  "cell": "real_screen",
+  "seed": 1,
+  "task_params": {},
+  "n_params": 1864008,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.709965705871582,
+    "eval_loss": 1.7582778930664062,
+    "image_acc": 0.28125,
+    "lr": 4e-05,
+    "elapsed_s": 2765.8752744197845
+  },
+  "final_eval": {
+    "split": "test",
+    "n": 2048,
+    "image_acc": 0.3134765625,
+    "best_inloop_acc": 0.5
+  },
+  "total_elapsed_s": 2769.745969057083,
+  "completed": true
+}

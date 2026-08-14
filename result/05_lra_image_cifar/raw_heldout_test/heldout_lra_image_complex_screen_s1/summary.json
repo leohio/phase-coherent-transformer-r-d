@@ -1,0 +1,24 @@
+{
+  "job_id": "heldout_lra_image_complex_screen_s1",
+  "task": "lra_image",
+  "cell": "complex_screen",
+  "seed": 1,
+  "task_params": {},
+  "n_params": 956824,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.6847583055496216,
+    "eval_loss": 1.7740577459335327,
+    "image_acc": 0.3125,
+    "lr": 4e-05,
+    "elapsed_s": 4310.770034790039
+  },
+  "final_eval": {
+    "split": "test",
+    "n": 2048,
+    "image_acc": 0.326171875,
+    "best_inloop_acc": 0.53125
+  },
+  "total_elapsed_s": 4316.352085113525,
+  "completed": true
+}

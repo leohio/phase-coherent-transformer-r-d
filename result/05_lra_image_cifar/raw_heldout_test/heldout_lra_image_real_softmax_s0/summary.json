@@ -1,0 +1,24 @@
+{
+  "job_id": "heldout_lra_image_real_softmax_s0",
+  "task": "lra_image",
+  "cell": "real_softmax",
+  "seed": 0,
+  "task_params": {},
+  "n_params": 1724888,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 2.199343204498291,
+    "eval_loss": 2.133810043334961,
+    "image_acc": 0.3125,
+    "lr": 4e-05,
+    "elapsed_s": 1989.72607588768
+  },
+  "final_eval": {
+    "split": "test",
+    "n": 2048,
+    "image_acc": 0.22412109375,
+    "best_inloop_acc": 0.3125
+  },
+  "total_elapsed_s": 1993.2046914100647,
+  "completed": true
+}

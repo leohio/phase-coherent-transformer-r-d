@@ -1,0 +1,24 @@
+{
+  "job_id": "heldout_lra_image_complex_sigmoid_s0",
+  "task": "lra_image",
+  "cell": "complex_sigmoid",
+  "seed": 0,
+  "task_params": {},
+  "n_params": 888712,
+  "final_metric": {
+    "step": 15000,
+    "train_loss": 1.6383521556854248,
+    "eval_loss": 1.9120548963546753,
+    "image_acc": 0.28125,
+    "lr": 4e-05,
+    "elapsed_s": 4212.574617385864
+  },
+  "final_eval": {
+    "split": "test",
+    "n": 2048,
+    "image_acc": 0.3798828125,
+    "best_inloop_acc": 0.4375
+  },
+  "total_elapsed_s": 4218.803946733475,
+  "completed": true
+}
